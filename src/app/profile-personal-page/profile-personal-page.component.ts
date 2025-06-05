@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavbarComponentComponent } from '../navbar-component/navbar-component.component';
 import { PersonalInformationComponent } from '../personal-information/personal-information.component';
+import { CourseEnrolledComponent } from "../course-enrolled/course-enrolled.component";
 
 export interface Course {
   id: string;
@@ -12,7 +13,7 @@ export interface Course {
 
 @Component({
   selector: 'app-profile-personal-page',
-  imports: [NavbarComponentComponent, PersonalInformationComponent],
+  imports: [NavbarComponentComponent, PersonalInformationComponent, CourseEnrolledComponent],
   templateUrl: './profile-personal-page.component.html',
   styleUrl: './profile-personal-page.component.css'
 })
@@ -25,6 +26,45 @@ export class ProfilePersonalPageComponent implements OnInit{
   countryRegion: string = 'Chennai, India';
 
   activeSection: 'Personal Information' | 'Courses Enrolled' | 'Courses Created' | 'Profile Settings' = 'Personal Information';
+
+  enrolledCourses: Course[] = [
+    // ... (your dummy data for enrolled courses) ...
+    {
+      id: 'c1',
+      title: 'Introduction to Web Development with HTML & CSS',
+      description: 'Learn the foundational languages of the web to build structured and styled pages.',
+      imageUrl: 'https://via.placeholder.com/400x200?text=Web+Dev',
+      instructor: 'John Doe',
+    },
+    {
+      id: 'c2',
+      title: 'Mastering JavaScript for Beginners',
+      description: 'Understand the core concepts of JavaScript, the language of the web.',
+      imageUrl: 'https://via.placeholder.com/400x200?text=JavaScript',
+      instructor: 'Jane Smith',
+    },
+    {
+      id: 'c3',
+      title: 'Responsive Design with Tailwind CSS',
+      description: 'Build modern, responsive layouts quickly using Tailwind CSS utility classes.',
+      imageUrl: 'https://via.placeholder.com/400x200?text=Tailwind+CSS',
+      instructor: 'Alice Johnson',
+    },
+    {
+      id: 'c4',
+      title: 'Angular Fundamentals: Build Your First App',
+      description: 'Get started with Angular and build a single-page application from scratch.',
+      imageUrl: 'https://via.placeholder.com/400x200?text=Angular+Basics',
+      instructor: 'Bob Brown',
+    },
+    {
+      id: 'c5',
+      title: 'Python for Data Analysis',
+      description: 'An introduction to Python for data manipulation, analysis, and visualization.',
+      imageUrl: 'https://via.placeholder.com/400x200?text=Python+Data',
+      instructor: 'Charlie Green',
+    }
+  ];
 
   courses: Course[] = [
     {

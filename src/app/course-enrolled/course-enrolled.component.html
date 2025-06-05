@@ -1,15 +1,21 @@
-<div class="courses-enrolled-section mt-8">
-    <h2 class="text-2xl font-semibold text-gray-800 mb-0.5">Courses Enrolled</h2>
-    <p class="text-gray-600 text-sm mb-6">The courses you enrolled in</p>
+<div class="flex-1 p-5 bg-white rounded-lg shadow-lg relative">
+    <h2 class="text-4xl font-semibold text-gray-800 mb-5 pb-4 border-b-2 border-gray-600  ">Courses Enrolled</h2>
+    <!-- <p class="text-gray-600 text-sm mb-6 border-b-2 border-gray-600">The courses you enrolled in</p> -->
 
     <!-- Grid to display course cards, responsive layout -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       <!-- Loop through each course and render a CourseCardComponent -->
-      <app-course-card *ngFor="let course of courses" [course]="course"></app-course-card>
+       @for (course of courses; track course.id) {
+
+         <app-course-card  [course]="course"></app-course-card>
+       }
     </div>
 
     <!-- Message if no courses are enrolled -->
-    <div *ngIf="courses.length === 0" class="text-center text-gray-500 p-8">
-      <p>You haven't enrolled in any courses yet.</p>
-    </div>
+     @if (courses.length === 0) {
+      <div class="text-center text-gray-500 p-8">
+        <p>You haven't enrolled in any courses yet.</p>
+      </div>
+     }
+
   </div>
