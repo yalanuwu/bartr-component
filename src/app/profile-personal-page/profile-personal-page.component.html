@@ -1,0 +1,72 @@
+<div class="min-h-screen flex flex-col bg-gray-100 font-variable">
+  <app-navbar-component></app-navbar-component>
+
+    <div class="flex flex-1">
+      <div class="w-64 bg-white p-5 border-r border-gray-200 shadow-md flex-shrink-0">
+        <div class="text-center mb-8">
+          <div class="profile-icon">
+            <img src="assets/dummy-avatar/avataaars.png" alt="Profile Icon">
+          </div>
+          <div class="text-xl font-bold text-gray-800">{{ userName }}</div>
+          <div class="text-sm text-gray-600">{{ userEmail }}</div>
+          <!-- <div class="size-2 text-red-800">hello</div> -->
+        </div>
+
+        <ul class="list-none p-0">
+          <li class="py-3 px-4 mb-2 cursor-pointer rounded-md transition-colors duration-200 hover:bg-gray-200 font-bold text-[#4CAF50] bg-gray-200">
+            Personal Information
+          </li>
+          <li class="py-3 px-4 mb-2 text-gray-700 cursor-pointer rounded-md transition-colors duration-200 hover:bg-gray-200">
+            Courses Enrolled
+          </li>
+          <li class="py-3 px-4 mb-2 text-gray-700 cursor-pointer rounded-md transition-colors duration-200 hover:bg-gray-200">
+            Courses Created
+          </li>
+          <li class="py-3 px-4 mb-2 text-gray-700 cursor-pointer rounded-md transition-colors duration-200 hover:bg-gray-200">
+            Profile Settings
+          </li>
+        </ul>
+      </div>
+
+      <!-- <div class="flex-1 p-5 bg-white rounded-lg shadow-lg m-5 relative"> -->
+        <!-- <h1 class="text-4xl font-semibold text-gray-800 mb-5 pb-4 border-b-2 border-gray-600 border-">Account</h1>
+        <button class="absolute top-6 right-5 bg-[#4CAF50] hover:bg-green-700 text-white py-2 px-4 rounded-full text-sm transition-colors duration-200" (click)="signOut()">Sign out</button>
+
+        <div class="personal-information-section">
+          <h2 class="text-2xl font-semibold text-gray-800 mt-8 mb-0.5">Personal Information</h2>
+          <p class="text-gray-600 text-sm mb-6">Manage your personal Information</p>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div class="bg-gray-50 border border-gray-200 rounded-lg p-5 relative shadow-sm">
+              <div class="text-gray-600 text-base mb-2">Name</div>
+              <div class="text-xl font-bold text-gray-800">{{ profileName }}</div>
+              <img src="assets/icons/mingcute--user-4-line.svg" alt="Profile Icon" class="card-icon">
+            </div>
+
+            <div class="bg-gray-50 border border-gray-200 rounded-lg p-5 relative shadow-sm">
+              <div class="text-gray-600 text-base mb-2">Contact</div>
+              <div class="text-xl font-bold text-gray-800">{{ contactNumber }}</div>
+              <img src="assets/icons/ic--baseline-phone.svg" alt="Phone Icon" class="card-icon">
+            </div>
+
+            <div class="bg-gray-50 border border-gray-200 rounded-lg p-5 relative shadow-sm">
+              <div class="text-gray-600 text-base mb-2">XP</div>
+              <div class="text-xl font-bold text-gray-800">{{ xp }}</div>
+              <img src="assets/icons/iconoir--coins.svg" alt="XP Icon" class="card-icon">
+            </div>
+
+            <div class="bg-gray-50 border border-gray-200 rounded-lg p-5 relative shadow-sm">
+              <div class="text-gray-600 text-base mb-2">Country Region</div>
+              <div class="text-xl font-bold text-gray-800">{{ countryRegion }}</div>
+              <img src="assets/icons/tabler--world.svg" alt="Globe Icon" class="card-icon">
+            </div>
+          </div>
+        </div> -->
+      <!-- </div> -->
+       <div class="flex-1 m-5">
+
+         <app-personal-information></app-personal-information>
+       </div>
+    </div>
+
+</div>
