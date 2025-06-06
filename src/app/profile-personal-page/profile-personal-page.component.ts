@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavbarComponentComponent } from '../navbar-component/navbar-component.component';
 import { PersonalInformationComponent } from '../personal-information/personal-information.component';
 import { CourseEnrolledComponent } from "../course-enrolled/course-enrolled.component";
+import { CourseCreatedComponent } from "../course-created/course-created.component";
 
 export interface Course {
   id: string;
@@ -13,7 +14,7 @@ export interface Course {
 
 @Component({
   selector: 'app-profile-personal-page',
-  imports: [NavbarComponentComponent, PersonalInformationComponent, CourseEnrolledComponent],
+  imports: [NavbarComponentComponent, PersonalInformationComponent, CourseEnrolledComponent, CourseCreatedComponent],
   templateUrl: './profile-personal-page.component.html',
   styleUrl: './profile-personal-page.component.css'
 })
@@ -33,40 +34,40 @@ export class ProfilePersonalPageComponent implements OnInit{
       id: 'c1',
       title: 'Introduction to Web Development with HTML & CSS',
       description: 'Learn the foundational languages of the web to build structured and styled pages.',
-      imageUrl: 'https://via.placeholder.com/400x200?text=Web+Dev',
+      imageUrl: 'https://placehold.co/400x250/A0A0A0/FFFFFF?text=Web+Dev',
       instructor: 'John Doe',
     },
     {
       id: 'c2',
       title: 'Mastering JavaScript for Beginners',
       description: 'Understand the core concepts of JavaScript, the language of the web.',
-      imageUrl: 'https://via.placeholder.com/400x200?text=JavaScript',
+      imageUrl: 'https://placehold.co/400x250/A0A0A0/FFFFFF?text=JavaScript',
       instructor: 'Jane Smith',
     },
     {
       id: 'c3',
       title: 'Responsive Design with Tailwind CSS',
       description: 'Build modern, responsive layouts quickly using Tailwind CSS utility classes.',
-      imageUrl: 'https://via.placeholder.com/400x200?text=Tailwind+CSS',
+      imageUrl: 'https://placehold.co/400x250/A0A0A0/FFFFFF?text=Tailwind+CSS',
       instructor: 'Alice Johnson',
     },
     {
       id: 'c4',
       title: 'Angular Fundamentals: Build Your First App',
       description: 'Get started with Angular and build a single-page application from scratch.',
-      imageUrl: 'https://via.placeholder.com/400x200?text=Angular+Basics',
+      imageUrl: 'https://placehold.co/400x250/A0A0A0/FFFFFF?text=Angular+Fundamentals',
       instructor: 'Bob Brown',
     },
     {
       id: 'c5',
       title: 'Python for Data Analysis',
       description: 'An introduction to Python for data manipulation, analysis, and visualization.',
-      imageUrl: 'https://via.placeholder.com/400x200?text=Python+Data',
+      imageUrl: 'https://placehold.co/400x250/A0A0A0/FFFFFF?text=Python+Data',
       instructor: 'Charlie Green',
     }
   ];
 
-  courses: Course[] = [
+  coursesCreated: Course[] = [
     {
       id: 'course-1',
       title: 'Modern Website Creation',
