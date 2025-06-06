@@ -11,4 +11,10 @@ import { Component, Input } from '@angular/core';
 export class CourseCreatedComponent {
   @Input() courses: Course[] = [];
 
+
+  createCourse = () => {
+    //TODO : Add course creation logic
+    console.log("Course Created Component load");
+
+  }
 }

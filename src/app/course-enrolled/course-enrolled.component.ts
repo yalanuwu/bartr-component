@@ -11,5 +11,10 @@ import { Course } from '../profile-personal-page/profile-personal-page.component
 export class CourseEnrolledComponent {
     @Input() courses: Course[] = [];
 
+    explore = () => {
+      console.log("Explore Courses Component load");
+      //TODO : Add course exploration logic
+    }
+
     constructor() {}
 }
