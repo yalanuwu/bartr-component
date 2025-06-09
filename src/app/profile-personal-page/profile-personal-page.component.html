@@ -1,8 +1,8 @@
 <div class="min-h-screen flex flex-col bg-gray-100 font-variable">
-  <app-navbar-component></app-navbar-component>
+  <app-navbar-component class="fixed top-0 left-0 right-0 z-30"></app-navbar-component>
 
-    <div class="flex flex-1">
-      <div class="w-64 bg-white p-5 border-r border-gray-200 shadow-md flex-shrink-0">
+    <div class="flex flex-1 pt-16">
+      <div class="w-64 bg-white p-5 border-r border-gray-200 shadow-md flex-shrink-0 fixed top-16 left-0 bottom-0 z-20 overflow-y-auto">
         <div class="text-center mb-8">
           <div class="profile-icon">
             <img src="assets/dummy-avatar/avataaars.png" alt="Profile Icon">
@@ -13,27 +13,56 @@
         </div>
 
         <ul class="list-none p-0">
-          <li class="py-3 px-4 mb-2 cursor-pointer rounded-md transition-colors duration-200 hover:bg-gray-200 font-bold text-[#4CAF50] bg-gray-200">
+          <li class="py-3 px-4 mb-2 text-gray-700 cursor-pointer rounded-md transition-colors duration-200 hover:bg-gray-200"
+          [class.font-bold]="activeTab === 'Personal Information'"
+          [class.text-green-600]="activeTab === 'Personal Information'"
+          [class.bg-gray-200]="activeTab === 'Personal Information'"
+          (click)="setActiveTab('Personal Information')">
             Personal Information
           </li>
-          <li class="py-3 px-4 mb-2 text-gray-700 cursor-pointer rounded-md transition-colors duration-200 hover:bg-gray-200">
+          <li class="py-3 px-4 mb-2 text-gray-700 cursor-pointer rounded-md transition-colors duration-200 hover:bg-gray-200"
+          [class.font-bold]="activeTab === 'Courses Enrolled'"
+          [class.text-green-600]="activeTab === 'Courses Enrolled'"
+          [class.bg-gray-200]="activeTab === 'Courses Enrolled'"
+          (click)="setActiveTab('Courses Enrolled')">
             Courses Enrolled
           </li>
-          <li class="py-3 px-4 mb-2 text-gray-700 cursor-pointer rounded-md transition-colors duration-200 hover:bg-gray-200">
+          <li class="py-3 px-4 mb-2 text-gray-700 cursor-pointer rounded-md transition-colors duration-200 hover:bg-gray-200"
+          [class.font-bold]="activeTab === 'Courses Created'"
+          [class.text-green-600]="activeTab === 'Courses Created'"
+          [class.bg-gray-200]="activeTab === 'Courses Created'"
+          (click)="setActiveTab('Courses Created')">
             Courses Created
           </li>
-          <li class="py-3 px-4 mb-2 text-gray-700 cursor-pointer rounded-md transition-colors duration-200 hover:bg-gray-200">
+          <li class="py-3 px-4 mb-2 text-gray-700 cursor-pointer rounded-md transition-colors duration-200 hover:bg-gray-200"
+          [class.font-bold]="activeTab === 'Profile Settings'"
+          [class.text-green-600]="activeTab === 'Profile Settings'"
+          [class.bg-gray-200]="activeTab === 'Profile Settings'"
+          (click)="setActiveTab('Profile Settings')">
             Profile Settings
           </li>
         </ul>
       </div>
 
 
-       <div class="flex-1 m-5">
+       <div class="flex-1 p-5 ml-64 bg-gray-100">
 
-         <!-- <app-personal-information></app-personal-information> -->
-          <!-- <app-course-enrolled [courses]="enrolledCourses"></app-course-enrolled> -->
-          <app-course-created [courses]="coursesCreated"></app-course-created>
+        @if(activeTab === 'Personal Information'){
+          <app-personal-information ></app-personal-information>
+        }
+
+        @if (activeTab === 'Courses Enrolled') {
+          <app-course-enrolled [courses]="enrolledCourses" ></app-course-enrolled>
+        }
+
+        @if (activeTab === 'Courses Created') {
+          <app-course-created [courses]="coursesCreated" ></app-course-created>
+        }
+
+        @if (activeTab === 'Profile Settings') {
+          <app-profile-settings-section ></app-profile-settings-section>
+        }
+
        </div>
     </div>
 

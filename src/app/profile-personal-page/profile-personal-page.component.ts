@@ -3,6 +3,7 @@ import { NavbarComponentComponent } from '../navbar-component/navbar-component.c
 import { PersonalInformationComponent } from '../personal-information/personal-information.component';
 import { CourseEnrolledComponent } from "../course-enrolled/course-enrolled.component";
 import { CourseCreatedComponent } from "../course-created/course-created.component";
+import { ProfileSettingsSectionComponent } from '../profile-settings-section/profile-settings-section.component';
 
 export interface Course {
   id: string;
@@ -14,7 +15,7 @@ export interface Course {
 
 @Component({
   selector: 'app-profile-personal-page',
-  imports: [NavbarComponentComponent, PersonalInformationComponent, CourseEnrolledComponent, CourseCreatedComponent],
+  imports: [NavbarComponentComponent, PersonalInformationComponent, CourseEnrolledComponent, CourseCreatedComponent, ProfileSettingsSectionComponent],
   templateUrl: './profile-personal-page.component.html',
   styleUrl: './profile-personal-page.component.css'
 })
@@ -26,7 +27,7 @@ export class ProfilePersonalPageComponent implements OnInit{
   xp: number = 300;
   countryRegion: string = 'Chennai, India';
 
-  activeSection: 'Personal Information' | 'Courses Enrolled' | 'Courses Created' | 'Profile Settings' = 'Personal Information';
+  activeTab: 'Personal Information' | 'Courses Enrolled' | 'Courses Created' | 'Profile Settings' = 'Personal Information';
 
   enrolledCourses: Course[] = [
     // ... (your dummy data for enrolled courses) ...
@@ -101,13 +102,12 @@ export class ProfilePersonalPageComponent implements OnInit{
   constructor() { }
 
   ngOnInit(): void {
-    // You can fetch this data from a service here if needed
-    this.activeSection = 'Personal Information';
+
   }
 
-  selectSection(section: 'Personal Information' | 'Courses Enrolled' | 'Courses Created' | 'Profile Settings'): void {
-    this.activeSection = section;
-    console.log(`Navigating to: ${this.activeSection}`);
+  setActiveTab(tab: 'Personal Information' | 'Courses Enrolled' | 'Courses Created' | 'Profile Settings'): void {
+    this.activeTab = tab;
+    console.log(`Navigating to: ${this.activeTab}`);
   }
 
   signOut(): void {

@@ -14,6 +14,7 @@ export class PersonalInformationComponent {
   contactNumber: string = '123456789';
   xp: number = 300;
   countryRegion: string = 'Chennai, India';
+  // countryRegion: string = '--';
 
   signOut(): void {
     console.log('User signed out!');
