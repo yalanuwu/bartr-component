@@ -1,5 +1,38 @@
-<nav class="bg-[#333] text-white p-2 flex items-center ">
+<nav class="bg-[#333] text-white p-2 flex items-center justify-between shadow-md">
+  <div class="flex items-center">
+    <img src="assets/bartr/image.png" alt="Bartr" class="h-[60px] mr-2">
 
-    <img src="assets/bartr/image.png" alt="Bartr" class="h-[60px]">
+  </div> 
 
+
+  <div class="flex items-center space-x-4 md:space-x-6">
+    @if(showHomeButtons) {
+      <ng-container>
+        <button (click)="onCreateCourse()"
+                class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 md:px-6 rounded-full shadow-lg transition-colors duration-300">
+          Create a Course
+        </button>
+        <button (click)="onLogin()"
+                class="text-white hover:text-gray-300 font-semibold py-2 px-4 rounded-md transition-colors duration-300">
+          Log In
+        </button>
+        <button (click)="onSignUp()"
+                class="border-slate-100 border-2 text-white font-semibold py-2 px-4 md:px-6 rounded-md transition-colors duration-300 hover:border-green-600">
+          Sign Up
+        </button>
+      </ng-container>
+    }
+
+    <!-- @if(!showHomeButtons) {
+      <ng-container>
+        <button (click)="onSignOut()"
+                class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-md text-sm transition-colors duration-200">
+          Sign out
+        </button>
+      </ng-container>
+    } -->
+
+
+
+  </div>
 </nav>
