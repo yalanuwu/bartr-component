@@ -4,10 +4,11 @@ import { RegisterComponent } from './register/register.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { ProfilePersonalPageComponent } from './profile-personal-page/profile-personal-page.component';
 import { HomePageComponent } from "./home-page/home-page.component";
+import { SearchResultPageComponent } from "./search-result-page/search-result-page.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RegisterComponent, SignInComponent, ProfilePersonalPageComponent, HomePageComponent],
+  imports: [RegisterComponent, SignInComponent, ProfilePersonalPageComponent, HomePageComponent, SearchResultPageComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

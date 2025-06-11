@@ -1,0 +1,69 @@
+<div class="min-h-screen flex flex-col bg-gray-100 font-sans text-gray-800">
+  <!-- Navbar (Fixed to top as per previous discussion) -->
+  <!-- Assuming app-navbar-component is designed to be fixed from your main app-component.html -->
+  <app-navbar-component [showHomeButtons]="true" class="fixed top-0 left-0 right-0 z-30"></app-navbar-component>
+
+  <!-- Main content area, with padding for the fixed navbar -->
+  <main class="flex-grow pt-20 pb-12 px-4 md:px-8 max-w-7xl mx-auto w-full">
+    <!-- Results Header -->
+    <div class="mb-8">
+      <h1 class="font-konkhmer text-4xl mb-4 mt-4">Results for "{{searchParam}}"</h1>
+
+      <!-- Filter and Sort Bar -->
+      <div class="sticky top-16 z-20 bg-gray-100 flex flex-wrap items-center justify-between gap-4 py-6 border-b border-gray-200 -mx-4 md:-mx-8 px-4 md:px-8">
+        <div class="flex flex-wrap items-center gap-4">
+          <button class="flex items-center px-4 py-2 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300 hover:ring-gray-800 hover:ring-1 transition-colors text-lg">
+            Filter 1 <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </button>
+          <button class="flex items-center px-4 py-2 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300 hover:ring-gray-800 hover:ring-1 transition-colors text-lg">
+            Filter 2 <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </button>
+          <button class="flex items-center px-4 py-2 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300 hover:ring-gray-800 hover:ring-1 transition-colors text-lg">
+            Filter 3 <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </button>
+          <button class="flex items-center px-4 py-2 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300 hover:ring-gray-800 hover:ring-1 transition-colors text-lg">
+            Filter 4 <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </button>
+          <button class="flex items-center px-4 py-2 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300 hover:ring-gray-800 hover:ring-1 transition-colors text-lg">
+            Filter 5 <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </button>
+          <!-- <div class="flex items-center ml-4">
+            <input type="checkbox" id="proServices" class="form-checkbox h-5 w-5 text-green-600 rounded">
+            <label for="proServices" class="ml-2 text-sm text-gray-700 font-semibold">Pro services</label>
+          </div> -->
+        </div>
+        <!-- <div class="text-sm text-gray-600">
+          Sort by: <button class="font-semibold text-gray-700 hover:underline">Relevance</button> <svg class="inline w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+        </div> -->
+      </div>
+    </div>
+
+    <!-- Result Count -->
+    <!-- <p class="text-sm text-gray-600 mb-6">22,000+ results</p> -->
+
+    <!-- Top Freelancers Banner -->
+    <!-- <div class="bg-gradient-to-r from-gray-100 to-white border border-gray-200 rounded-lg p-6 mb-8 flex flex-col md:flex-row items-start md:items-center justify-between shadow-sm">
+      <div class="flex items-center mb-4 md:mb-0 md:mr-6">
+        <svg class="w-8 h-8 text-green-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944c-1.233 0-2.456.284-3.577.828M12 14v7m-4-4h8m-4-8a5 5 0 01-5 5H7a5 5 0 01-5-5m10-4a5 5 0 015 5h-2a5 5 0 01-5-5m0-8a5 5 0 015 5h-2a5 5 0 01-5-5"></path></svg>
+        <div>
+          <h2 class="text-lg font-semibold text-gray-800">Top freelancers for your first order</h2>
+          <p class="text-sm text-gray-600">Discover sellers with a great track record in guiding new buyers.</p>
+        </div>
+      </div>
+      <button class="px-6 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors duration-300 text-sm font-semibold whitespace-nowrap">
+        Discover
+      </button>
+    </div> -->
+
+    <!-- Services Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <!-- Loop through your service listings here -->
+      <app-course-card-general *ngFor="let course of courses" [course]="course"></app-course-card-general>
+    </div>
+  </main>
+
+
+
+    <app-footer></app-footer>
+  
+</div>

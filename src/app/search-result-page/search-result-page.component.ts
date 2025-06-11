@@ -1,47 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { NavbarComponentComponent } from '../navbar-component/navbar-component.component';
+import { Component } from '@angular/core';
+import { NavbarComponentComponent } from "../navbar-component/navbar-component.component";
 import { CourseCardGeneralComponent } from "../course-card-general/course-card-general.component";
 import { NgFor } from '@angular/common';
 import { FooterComponent } from "../footer/footer.component";
 
 @Component({
-  selector: 'app-home-page',
+  selector: 'app-search-result-page',
   imports: [NavbarComponentComponent, CourseCardGeneralComponent, NgFor, FooterComponent],
-  templateUrl: './home-page.component.html',
-  styleUrl: './home-page.component.css'
+  templateUrl: './search-result-page.component.html',
+  styleUrl: './search-result-page.component.css'
 })
-export class HomePageComponent implements OnInit {
-  constructor() { }
+export class SearchResultPageComponent {
 
-  ngOnInit(): void {
-
-  }
-
-  // Placeholder methods for button clicks (you'd link these to Angular Router for navigation)
-  onCreateCourse(): void {
-    console.log('Create a Course clicked!');
-    // Example: this.router.navigate(['/create-course']);
-  }
-
-  onLogin(): void {
-    console.log('Log In clicked!');
-    // Example: this.router.navigate(['/login']);
-  }
-
-  onSignUp(): void {
-    console.log('Sign Up clicked!');
-    // Example: this.router.navigate(['/signup']);
-  }
-
-  onSearch(): void {
-    console.log('Search clicked!');
-    // Example: this.router.navigate(['/search'], { queryParams: { q: 'search term' } });
-  }
-
-  onCategoryClick(category: string): void {
-    console.log('Category clicked:', category);
-    // Example: this.router.navigate(['/category', category]);
-  }
+  searchParam : String = 'web application';
 
   courses = [
     {
@@ -119,5 +90,4 @@ export class HomePageComponent implements OnInit {
 
     // Add more course objects here as needed
   ];
-
 }
