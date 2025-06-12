@@ -1,0 +1,96 @@
+<div class="min-h-screen flex flex-col bg-gray-100 font-sans text-gray-800">
+  <app-navbar-component [showHomeButtons]="false"></app-navbar-component>
+
+  <div class="text-white py-16 px-4 md:px-8 relative overflow-hidden"
+    [ngClass]="'bg-gradient-to-r ' + randomBannerGradient"
+  >
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center md:items-start space-y-4 md:space-y-0 md:space-x-8">
+      <img [src]="user.avatarUrl" alt="{{ user.name }} Avatar" class="w-28 h-28 rounded-full border-4 border-white shadow-lg flex-shrink-0">
+      <div class="text-center md:text-left">
+        <h1 class="text-4xl font-extrabold">{{ user.name }}</h1>
+        <p class="text-lg opacity-90 mb-2">{{ user.tagline }}</p>
+        <div class="flex items-center justify-center md:justify-start text-sm opacity-80">
+          <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path></svg>
+          <span>{{ user.location }}</span>
+          <span class="mx-3">|</span>
+          <span>Member since {{ user.memberSince }}</span>
+        </div>
+
+        <!-- Add social Links later -->
+
+        <!-- <div class="flex justify-center md:justify-start space-x-4 mt-3 text-lg">
+          <a [href]="user.socialLinks.twitter" target="_blank" class="hover:text-gray-200 transition-colors" aria-label="Twitter">
+            <img src="assets/icons/twitter-x.svg" alt="Twitter Icon" class="w-4 h-4">
+          </a>
+          <a [href]="user.socialLinks.linkedin" target="_blank" class="hover:text-gray-200 transition-colors" aria-label="LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+          <a [href]="user.socialLinks.github" target="_blank" class="hover:text-gray-200 transition-colors" aria-label="GitHub">
+            <i class="fab fa-github"></i>
+          </a>
+        </div> -->
+      </div>
+    </div>
+  </div>
+
+  <main class="flex-grow py-12 px-4 md:px-8 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+    <div class="lg:col-span-2 space-y-8">
+      <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+        <h2 class="text-2xl font-bold mb-4 border-b pb-2">About Me</h2>
+        <p class="text-gray-700 leading-relaxed">{{ user.description }}</p>
+      </div>
+
+      <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+        <h2 class="text-2xl font-bold mb-4 border-b pb-2">Skills</h2>
+        <div class="flex flex-wrap gap-2">
+          @if(user.skills && user.skills.length > 0) {
+            <span *ngFor="let skill of user.skills" class="px-3 py-1 bg-green-100 text-green-700 text-sm font-medium rounded-full">
+              {{ skill }}
+            </span>
+          }
+          @else {
+            <p class="text-gray-600">This user has not added any skills yet</p>
+          }
+
+        </div>
+      </div>
+
+      <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+        <h2 class="text-2xl font-bold mb-4 border-b pb-2">Courses Created</h2>
+        <div *ngIf="coursesCreated.length > 0; else noCourses" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-6">
+          <app-course-card-general *ngFor="let course of coursesCreated" [course]="course"></app-course-card-general>
+        </div>
+        <ng-template #noCourses>
+          <p class="text-gray-600">This user has not created any courses yet.</p>
+        </ng-template>
+      </div>
+
+    </div>
+
+    <div class="lg:col-span-1">
+      <div class="sticky top-4 bg-white rounded-lg shadow-xl border border-gray-200 overflow-hidden z-20 p-6">
+        <h2 class="text-2xl font-bold mb-4 border-b pb-2">Contact & Stats</h2>
+        <div class="space-y-4">
+          <div>
+            <p class="text-sm font-semibold text-gray-600">Average Response Time</p>
+            <p class="text-lg font-bold">{{ user.responseTime }}</p>
+          </div>
+          <div>
+            <p class="text-sm font-semibold text-gray-600">Email</p>
+            <p class="text-lg font-bold">{{ user.email }}</p>
+          </div>
+          <div>
+            <p class="text-sm font-semibold text-gray-600">Phone</p>
+            <p class="text-lg font-bold">{{ user.phone }}</p>
+          </div>
+          <!-- <button class="w-full px-6 py-3 bg-green-600 text-white font-bold rounded-md hover:bg-green-700 transition-colors shadow-md">
+            Message {{ user.name }}
+          </button> -->
+        </div>
+      </div>
+    </div>
+
+  </main>
+  <app-footer></app-footer>
+</div>
