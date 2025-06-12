@@ -6,10 +6,11 @@ import { ProfilePersonalPageComponent } from './profile-personal-page/profile-pe
 import { HomePageComponent } from "./home-page/home-page.component";
 import { SearchResultPageComponent } from "./search-result-page/search-result-page.component";
 import { CourseDetailPageComponent } from "./course-page/course-page.component";
+import { CreateCoursePageComponent } from "./create-course-page/create-course-page.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RegisterComponent, SignInComponent, ProfilePersonalPageComponent, HomePageComponent, SearchResultPageComponent, CourseDetailPageComponent],
+  imports: [RegisterComponent, SignInComponent, ProfilePersonalPageComponent, HomePageComponent, SearchResultPageComponent, CourseDetailPageComponent, CreateCoursePageComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
