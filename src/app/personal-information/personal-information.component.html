@@ -1,10 +1,18 @@
 <div class="flex-1 p-5 bg-white rounded-lg shadow-lg relative">
-    <h1 class="text-4xl font-semibold text-gray-800 mb-5 pb-4 border-b-2 border-gray-600 border-">Account</h1>
-    <button class="absolute top-6 right-5 bg-[#4CAF50] hover:bg-green-700 text-white py-2 px-4 rounded-full text-sm transition-colors duration-200" (click)="signOut()">Sign out</button>
+    <h1 class="text-4xl font-semibold mb-1 text-gray-800  border-">Personal Information</h1>
+    <p class="text-gray-600 text-sm mb-8 pb-2 border-b-2 border-gray-600">Manage your personal Information</p>
+    <button class="font-variable flex justify-center gap-2 items-center mx-auto text-sm text-gray-50 bg-[#4CAF50] backdrop-blur-md lg:font-variable isolation-auto before:absolute before:w-full before:transition-all before:duration-700 before:hover:w-full before:-left-full before:hover:left-0 before:rounded-full before:bg-[#FFFFFF] hover:text-black before:-z-10 before:aspect-square before:hover:scale-200 before:hover:duration-500 px-4 py-1 overflow-hidden border border-gray-900 rounded-full group absolute top-6 right-5" (click)="onEdit()">
+
+      Edit
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor"
+      class="w-8 h-8 justify-end bg-gray-50 group-hover:bg-gray-50 text-gray-50   ease-linear duration-300 rounded-full border border-gray-700 group-hover:border-gray-700 p-2">
+        <path class="fill-gray-800 group-hover:fill-gray-800" d="M3 21v-3.75L16.81 3.44a1.5 1.5 0 0 1 2.12 0l1.63 1.63a1.5 1.5 0 0 1 0 2.12L6.75 21H3zm3.75-1.5H5.5v-1.25L15.06 7.69l1.25 1.25L6.75 19.5zM18.06 5.94l-1.25-1.25 1.06-1.06 1.25 1.25-1.06 1.06z"/>
+      </svg>
+    </button>
 
     <div class="personal-information-section">
-      <h2 class="text-2xl font-semibold text-gray-800 mt-8 mb-0.5">Personal Information</h2>
-      <p class="text-gray-600 text-sm mb-6">Manage your personal Information</p>
+      <!-- <h2 class="text-2xl font-semibold text-gray-800 mt-8 mb-0.5">Personal Information</h2>
+      <p class="text-gray-600 text-sm mb-6">Manage your personal Information</p> -->
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
         <div class="bg-gray-50 border border-gray-200 rounded-lg p-5 relative shadow-sm">
@@ -14,22 +22,45 @@
         </div>
 
         <div class="bg-gray-50 border border-gray-200 rounded-lg p-5 relative shadow-sm">
-          <div class="text-gray-600 text-base mb-2">Contact</div>
-          <div class="text-xl font-bold text-gray-800">{{ contactNumber }}</div>
-          <img src="assets/icons/ic--baseline-phone.svg" alt="Phone Icon" class="card-icon">
-        </div>
-
-        <div class="bg-gray-50 border border-gray-200 rounded-lg p-5 relative shadow-sm">
           <div class="text-gray-600 text-base mb-2">XP</div>
           <div class="text-xl font-bold text-gray-800">{{ xp }}</div>
           <img src="assets/icons/iconoir--coins.svg" alt="XP Icon" class="card-icon">
         </div>
 
         <div class="bg-gray-50 border border-gray-200 rounded-lg p-5 relative shadow-sm">
+          <div class="text-gray-600 text-base mb-2">Contact</div>
+          <div class="text-xl font-bold text-gray-800">{{ contactNumber }}</div>
+          <img src="assets/icons/ic--baseline-phone.svg" alt="Phone Icon" class="card-icon">
+        </div>
+
+
+        <div class="bg-gray-50 border border-gray-200 rounded-lg p-5 relative shadow-sm">
           <div class="text-gray-600 text-base mb-2">Country Region</div>
           <div class="text-xl font-bold text-gray-800">{{ countryRegion }}</div>
           <img src="assets/icons/tabler--world.svg" alt="Globe Icon" class="card-icon">
         </div>
+
+        <div class="bg-gray-50 col-span-2 border border-gray-200 rounded-lg p-5 relative shadow-sm">
+          <div class="text-gray-800 text-xl font-bold mb-2">About me</div>
+          <div class="text-base font-bold text-gray-600">{{ bio }}</div>
+          <!-- <img src="assets/icons/tabler--world.svg" alt="Globe Icon" class="card-icon"> -->
+        </div>
+
+        <div class="bg-gray-50 col-span-2 border border-gray-200 rounded-lg p-5 relative shadow-sm">
+          <div class="text-gray-800 text-xl font-bold mb-2">Skills</div>
+          <div class="flex flex-wrap gap-2">
+            @if(skills && skills.length > 0) {
+              <span *ngFor="let skill of skills" class="px-3 py-1 bg-green-100 text-green-700 text-sm font-medium rounded-full">
+                {{ skill }}
+              </span>
+            }
+            @else {
+              <div class="text-base font-bold text-gray-600">This user has not added any skills yet</div>
+            }
+          </div>
+        </div>
+
+
       </div>
     </div>
   </div>

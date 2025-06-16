@@ -1,26 +1,78 @@
-<nav class="bg-[#333] text-white p-2 flex items-center justify-between shadow-md">
+<nav
+  class="  text-white p-2 flex items-center justify-between shadow-lg border border-white/20 rounded-b-xl z-30"
+  [ngClass]="{'bg-[#333]/80 ': !dynamicScroll || isScrolledDown,
+    'bg-green-100/20 backdrop-blur-lg': dynamicScroll && !isScrolledDown
+  }"
+
+  [ngStyle]="{
+    'backdrop-filter': 'blur(16px)',
+    '-webkit-backdrop-filter': 'blur(16px)'
+  }"
+
+>
+
+<!-- bg-[#333] shadow-md -->
   <div class="flex items-center">
-    <img src="assets/bartr/image.png" alt="Bartr" class="h-[60px] mr-2">
+    <img src="assets/bartr/image.png" alt="Bartr" class="h-[62px] mr-2" />
+  </div>
 
-  </div> 
-
-
-  <div class="flex items-center space-x-4 md:space-x-6">
+  <div class="flex items-center space-x-4 md:space-x-6 mr-2">
     @if(showHomeButtons) {
-      <ng-container>
-        <button (click)="onCreateCourse()"
-                class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 md:px-6 rounded-full shadow-lg transition-colors duration-300">
+    <ng-container>
+      <!-- <button (click)="onCreateCourse()"
+                class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 md:px-6 rounded-full transition-colors duration-300">
           Create a Course
-        </button>
-        <button (click)="onLogin()"
-                class="text-white hover:text-gray-300 font-semibold py-2 px-4 rounded-md transition-colors duration-300">
-          Log In
-        </button>
-        <button (click)="onSignUp()"
-                class="border-slate-100 border-2 text-white font-semibold py-2 px-4 md:px-6 rounded-md transition-colors duration-300 hover:border-green-600">
-          Sign Up
-        </button>
-      </ng-container>
+        </button> -->
+      <button
+        class="cursor-pointer group relative bg-green-600 hover:bg-green-700 text-white font-semibold text-sm px-4 py-3 rounded-full transition-all duration-200 ease-in-out w-30 h-11"
+        [routerLink]="['/create-course']"
+      >
+        <div class="relative flex items-center justify-center gap-2">
+          <span class="relative inline-block overflow-hidden">
+            <span
+              class="block transition-transform duration-300 group-hover:-translate-y-full"
+            >
+              Create a Course
+            </span>
+            <span
+              class="absolute inset-0 transition-transform duration-300 translate-y-full group-hover:translate-y-0"
+            >
+              Right Now
+            </span>
+          </span>
+
+          <!-- <svg
+            class="w-5 h-5 transition-transform duration-200 group-hover:rotate-45"
+            viewBox="0 0 24 24"
+          >
+            <circle fill="currentColor" r="11" cy="12" cx="12"></circle>
+            <path
+              stroke-linejoin="round"
+              stroke-linecap="round"
+              stroke-width="2"
+              stroke="black"
+              d="M7.5 16.5L16.5 7.5M16.5 7.5H10.5M16.5 7.5V13.5"
+            ></path>
+          </svg> -->
+        </div>
+      </button>
+
+      <button
+        (click)="onLogin()"
+        class="text-white hover:text-gray-300 font-semibold py-2 px-4 rounded-md transition-colors duration-300"
+        [routerLink] = "['/login']"
+      >
+        Log In
+      </button>
+      <button
+        (click)="onSignUp()"
+        class="border-slate-100 border-2 text-white font-semibold py-2 px-4 md:px-6 rounded-md transition-colors duration-300 hover:border-green-600"
+        [routerLink]="['/signup']"
+      >
+        Sign Up
+      </button>
+
+    </ng-container>
     }
 
     <!-- @if(!showHomeButtons) {
@@ -31,8 +83,5 @@
         </button>
       </ng-container>
     } -->
-
-
-
   </div>
 </nav>

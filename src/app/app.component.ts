@@ -8,10 +8,11 @@ import { SearchResultPageComponent } from "./search-result-page/search-result-pa
 import { CourseDetailPageComponent } from "./course-page/course-page.component";
 import { CreateCoursePageComponent } from "./create-course-page/create-course-page.component";
 import { PublicProfilePageComponent } from "./public-profile-page/public-profile-page.component";
+import { DebugComponentComponent } from "./debug-component/debug-component.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RegisterComponent, SignInComponent, ProfilePersonalPageComponent, HomePageComponent, SearchResultPageComponent, CourseDetailPageComponent, CreateCoursePageComponent, PublicProfilePageComponent],
+  imports: [RegisterComponent, SignInComponent, ProfilePersonalPageComponent, HomePageComponent, SearchResultPageComponent, CourseDetailPageComponent, CreateCoursePageComponent, PublicProfilePageComponent, RouterOutlet, DebugComponentComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

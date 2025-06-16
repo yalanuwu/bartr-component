@@ -13,9 +13,12 @@
 
       <p class="text-sm text-gray-700 line-clamp-2 flex-grow mb-4">{{ course.description }}</p>
 
-      <div class="mt-auto border-t border-gray-200 pt-2 flex items-center justify-between text-sm text-gray-500">
+      @if(showXP === true){
+        <div class="mt-auto border-t border-gray-200 pt-2 flex items-center justify-between text-sm text-gray-500">
           <span>ONLY AT</span>
           <span class="font-bold text-gray-800">{{ course.xp }} XP</span>
-      </div>
+        </div>
+      }
+
   </div>
 </div>

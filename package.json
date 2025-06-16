@@ -23,6 +23,8 @@
     "@fontsource/konkhmer-sleokchher": "^5.2.5",
     "@tailwindcss/postcss": "^4.1.8",
     "express": "^4.18.2",
+    "gsap": "^3.13.0",
+    "intersection-observer": "^0.12.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"

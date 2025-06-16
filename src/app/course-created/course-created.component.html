@@ -1,14 +1,40 @@
 <div class="flex-1 p-5 bg-white rounded-lg shadow-lg relative">
-  <h2 class="text-4xl font-semibold text-gray-800 mb-5 pb-4 border-b-2 border-gray-600  ">Courses Created</h2>
-  <button class="absolute top-6 right-5 bg-[#4CAF50] hover:bg-green-700 text-white py-2 px-4 rounded-full text-sm transition-colors duration-200" (click)="createCourse()">Create New</button>
-  <!-- <p class="text-gray-600 text-sm mb-6 border-b-2 border-gray-600">The courses you enrolled in</p> -->
+  <h2 class="text-4xl font-semibold mb-1 text-gray-800  border-">Courses Created</h2>
+  <!-- <button class="absolute top-6 right-5 bg-[#4CAF50] hover:bg-green-700 text-white py-2 px-4 rounded-full text-sm transition-colors duration-200" (click)="createCourse()">Create New</button> -->
+  <p class="text-gray-600 text-sm mb-8 pb-2 border-b-2 border-gray-600">The courses you created</p>
+
+  <button
+      class="font-variable flex justify-center gap-2 items-center mx-auto text-sm text-gray-50 bg-[#4CAF50] backdrop-blur-md lg:font-variable isolation-auto before:absolute before:w-full before:transition-all before:duration-700 before:hover:w-full before:-left-full before:hover:left-0 before:rounded-full before:bg-[#FFFFFF] hover:text-black before:-z-10 before:aspect-square before:hover:scale-200 before:hover:duration-500 px-4 py-1 overflow-hidden border border-gray-900 rounded-full group absolute top-6 right-5"
+
+      (click)="createCourse()"
+    >
+      Create
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 16 19"
+      width="30px" height="30px"
+      class="w-8 h-8 stroke-gray-800 fill-none group-hover:fill-gray-800 duration-300 p-2 justify-end bg-gray-50 rounded-full group-hover:rotate-180 ease-linear border border-gray-700"
+    >
+    <path d="M2 9.5H14" stroke-width="2"></path>
+    <path d="M8 3V16" stroke-width="2"></path>
+      </svg>
+
+
+      <!-- d="
+        M 1 8 h 14 v 3 h -15 Z
+        M 6.5 1 v 17 h 3 v -17 Z
+      " -->
+
+  </button>
+
+
 
   <!-- Grid to display course cards, responsive layout -->
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
     <!-- Loop through each course and render a CourseCardComponent -->
      @for (course of courses; track course.id) {
 
-       <app-course-card  [course]="course"></app-course-card>
+       <app-course-card-general  [course]="course" [showXP]="false"></app-course-card-general>
      }
   </div>
 

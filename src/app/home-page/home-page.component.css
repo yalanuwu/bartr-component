@@ -1,12 +1,72 @@
-/* home-page.component.css or styles.css */
+/* src/app/homepage/homepage.component.css */
 
-/* Hide scrollbar for Chrome, Safari and Opera */
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
+/* 1. Define the Keyframes for the Initial Slide-in Animation */
+/* This animation will control the initial appearance and duration (0.8s) */
+@keyframes slideInFromRight {
+  0% {
+    opacity: 0;
+    transform: translateX(100px) scale(1);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
 }
 
-/* Hide scrollbar for IE, Edge and Firefox */
-.scrollbar-hide {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+/* 2. Base styles for the animated card */
+.animated-card {
+  /* Initial hidden state BEFORE the slide-in animation plays. */
+  opacity: 0;
+  transform: translateX(100px) scale(1);
+
+  /* Define transitions for properties that change due to hover.
+     This transition applies when properties change *from* this base state
+     (e.g., when un-hovering) and also when properties change *to* this base state.
+     This ensures both hover-in and hover-out are fast for transform and box-shadow. */
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+
+  /* If you want a specific z-index for the non-hovered state (matching original z-0) */
+  z-index: 0; /* Keep this if you want z-index transition from hover */
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, z-index 0.2s step-end;
+  /* Use step-end for z-index to change instantly after transition, or step-start if needed */
+  /* Remove z-index transition if you prefer it to snap */
+}
+
+
+/* 3. State when the card becomes visible and slides in */
+/* This class is added by your Intersection Observer logic */
+.animated-card.animate-slide-in-right {
+  /* Apply the animation here.
+     `forwards` ensures the element stays in its final animated state (opacity: 1, transform: translateX(0) scale(1)). */
+  animation: slideInFromRight 0.8s ease-out forwards;
+}
+
+/* 4. Staggered delays for the initial slide-in animation */
+/* We use `animation-delay` for animations */
+.animated-card:nth-child(1).animate-slide-in-right { animation-delay: 0s; }
+.animated-card:nth-child(2).animate-slide-in-right { animation-delay: 0.15s; }
+.animated-card:nth-child(3).animate-slide-in-right { animation-delay: 0.30s; }
+.animated-card:nth-child(4).animate-slide-in-right { animation-delay: 0.45s; }
+
+
+/* 5. Hover state */
+.animated-card:hover {
+  /* This is the desired state on hover.
+     The `transform` value here (translateX(0) scale(1.05)) will override the final
+     animation state (translateX(0) scale(1)).
+     The `transition` property from the base `.animated-card` will apply for
+     both entering and leaving this hover state. */
+  transform: translateX(0) scale(1.05);
+
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+              0 4px 6px -2px rgba(0, 0, 0, 0.05),
+              0 0 20px 5px rgba(6, 185, 129, 0.6);
+
+  /* Ensure the hover state is above others, if that was the original intent */
+  z-index: 10; /* Matching original hover:z-10 */
+
+  /* IMPORTANT: Remove the 'transition' property from here!
+     If you define 'transition' on :hover, it only applies when entering hover.
+     When leaving hover, the base element's transition takes over. By removing it here,
+     the base '.animated-card' transition property will apply consistently for both directions. */
 }

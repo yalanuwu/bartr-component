@@ -5,6 +5,7 @@ import { CourseEnrolledComponent } from "../course-enrolled/course-enrolled.comp
 import { CourseCreatedComponent } from "../course-created/course-created.component";
 import { ProfileSettingsSectionComponent } from '../profile-settings-section/profile-settings-section.component';
 
+
 export interface Course {
   id: string;
   title: string;
@@ -29,74 +30,158 @@ export class ProfilePersonalPageComponent implements OnInit{
 
   activeTab: 'Personal Information' | 'Courses Enrolled' | 'Courses Created' | 'Profile Settings' = 'Personal Information';
 
-  enrolledCourses: Course[] = [
-    // ... (your dummy data for enrolled courses) ...
-    {
-      id: 'c1',
-      title: 'Introduction to Web Development with HTML & CSS',
-      description: 'Learn the foundational languages of the web to build structured and styled pages.',
-      imageUrl: 'https://placehold.co/400x250/A0A0A0/FFFFFF?text=Web+Dev',
-      instructor: 'John Doe',
-    },
-    {
-      id: 'c2',
-      title: 'Mastering JavaScript for Beginners',
-      description: 'Understand the core concepts of JavaScript, the language of the web.',
-      imageUrl: 'https://placehold.co/400x250/A0A0A0/FFFFFF?text=JavaScript',
-      instructor: 'Jane Smith',
-    },
-    {
-      id: 'c3',
-      title: 'Responsive Design with Tailwind CSS',
-      description: 'Build modern, responsive layouts quickly using Tailwind CSS utility classes.',
-      imageUrl: 'https://placehold.co/400x250/A0A0A0/FFFFFF?text=Tailwind+CSS',
-      instructor: 'Alice Johnson',
-    },
-    {
-      id: 'c4',
-      title: 'Angular Fundamentals: Build Your First App',
-      description: 'Get started with Angular and build a single-page application from scratch.',
-      imageUrl: 'https://placehold.co/400x250/A0A0A0/FFFFFF?text=Angular+Fundamentals',
-      instructor: 'Bob Brown',
-    },
-    {
-      id: 'c5',
-      title: 'Python for Data Analysis',
-      description: 'An introduction to Python for data manipulation, analysis, and visualization.',
-      imageUrl: 'https://placehold.co/400x250/A0A0A0/FFFFFF?text=Python+Data',
-      instructor: 'Charlie Green',
-    }
+  enrolledCourses =  [
+
+      {
+        imageUrl: 'assets/course_images/modern_website.png',
+        imageBackgroundGradient: 'from-purple-500 to-pink-500',
+        authorAvatarUrl: 'assets/avatars/avatar1.png',
+        authorName: 'alixdesign',
+        title: 'Modern Website Creation',
+        description: 'Learn to create modern web pages using popular frameworks',
+        xp: 50
+      },
+      {
+        imageUrl: 'assets/course_images/responsive_ui.png',
+        imageBackgroundGradient: 'from-red-500 to-orange-500',
+        authorAvatarUrl: 'assets/avatars/avatar2.png',
+        authorName: 'kashiftaj',
+        title: 'Create Responsive UI / UX mobile designs',
+        description: 'Create responsive UI / UX mobile designs',
+        xp: 50
+      },
+      {
+        imageUrl: 'assets/course_images/app_promo.png',
+        imageBackgroundGradient: 'from-blue-500 to-green-500',
+        authorAvatarUrl: 'assets/avatars/avatar3.png',
+        authorName: 'airb123',
+        title: 'Learn to create an amazing website or app promo video',
+        description: 'Learn to create an amazing website or app promo video',
+        xp: 40
+      },
+      {
+        imageUrl: 'assets/course_images/social_media.png',
+        imageBackgroundGradient: 'from-yellow-500 to-orange-500',
+        authorAvatarUrl: 'assets/avatars/avatar4.png',
+        authorName: 'almomen980',
+        title: 'Learn to design social media post, Instagram post, Facebook post ads',
+        description: 'Learn to design social media post, Instagram post, Facebook post ads',
+        xp: 30
+      },
+      {
+        imageUrl: 'assets/course_images/modern_website.png',
+        imageBackgroundGradient: 'from-purple-500 to-pink-500',
+        authorAvatarUrl: 'assets/avatars/avatar1.png',
+        authorName: 'alixdesign',
+        title: 'Modern Website Creation',
+        description: 'Learn to create modern web pages using popular frameworks',
+        xp: 50
+      },
+      {
+        imageUrl: 'assets/course_images/responsive_ui.png',
+        imageBackgroundGradient: 'from-red-500 to-orange-500',
+        authorAvatarUrl: 'assets/avatars/avatar2.png',
+        authorName: 'kashiftaj',
+        title: 'Create Responsive UI / UX mobile designs',
+        description: 'Create responsive UI / UX mobile designs',
+        xp: 50
+      },
+      {
+        imageUrl: 'assets/course_images/app_promo.png',
+        imageBackgroundGradient: 'from-blue-500 to-green-500',
+        authorAvatarUrl: 'assets/avatars/avatar3.png',
+        authorName: 'airb123',
+        title: 'Learn to create an amazing website or app promo video',
+        description: 'Learn to create an amazing website or app promo video',
+        xp: 40
+      },
+      {
+        imageUrl: 'assets/course_images/social_media.png',
+        imageBackgroundGradient: 'from-yellow-500 to-orange-500',
+        authorAvatarUrl: 'assets/avatars/avatar4.png',
+        authorName: 'almomen980',
+        title: 'Learn to design social media post, Instagram post, Facebook post ads',
+        description: 'Learn to design social media post, Instagram post, Facebook post ads',
+        xp: 30
+      },
+
+      // Add more course objects here as needed
+
   ];
 
-  coursesCreated: Course[] = [
+  coursesCreated = [
     {
-      id: 'course-1',
+      imageUrl: 'assets/course_images/modern_website.png',
+      imageBackgroundGradient: 'from-purple-500 to-pink-500',
+      authorAvatarUrl: 'assets/avatars/avatar1.png',
+      authorName: 'alixdesign',
       title: 'Modern Website Creation',
-      instructor: 'alivdesign',
       description: 'Learn to create modern web pages using popular frameworks',
-      imageUrl: 'https://placehold.co/400x250/A0A0A0/FFFFFF?text=Web+Dev' // Placeholder image
+      xp: 50
     },
     {
-      id: 'course-2',
-      title: 'User Interface & User Experience Designing',
-      instructor: 'kaashifhaj',
-      description: 'Create Responsive UI / UX mobile designs',
-      imageUrl: 'https://placehold.co/400x250/808080/FFFFFF?text=UI/UX' // Placeholder image
+      imageUrl: 'assets/course_images/responsive_ui.png',
+      imageBackgroundGradient: 'from-red-500 to-orange-500',
+      authorAvatarUrl: 'assets/avatars/avatar2.png',
+      authorName: 'kashiftaj',
+      title: 'Create Responsive UI / UX mobile designs',
+      description: 'Create responsive UI / UX mobile designs',
+      xp: 50
     },
     {
-      id: 'course-3',
-      title: 'Amazing Website or App Promo Video',
-      instructor: 'airb123',
+      imageUrl: 'assets/course_images/app_promo.png',
+      imageBackgroundGradient: 'from-blue-500 to-green-500',
+      authorAvatarUrl: 'assets/avatars/avatar3.png',
+      authorName: 'airb123',
+      title: 'Learn to create an amazing website or app promo video',
       description: 'Learn to create an amazing website or app promo video',
-      imageUrl: 'https://placehold.co/400x250/606060/FFFFFF?text=Video+Promo' // Placeholder image
+      xp: 40
     },
     {
-      id: 'course-4',
-      title: 'Advanced Data Structures',
-      instructor: 'prof.smith',
-      description: 'Deep dive into complex data structures and algorithms',
-      imageUrl: 'https://placehold.co/400x250/404040/FFFFFF?text=Data+Structures' // Placeholder image
-    }
+      imageUrl: 'assets/course_images/social_media.png',
+      imageBackgroundGradient: 'from-yellow-500 to-orange-500',
+      authorAvatarUrl: 'assets/avatars/avatar4.png',
+      authorName: 'almomen980',
+      title: 'Learn to design social media post, Instagram post, Facebook post ads',
+      description: 'Learn to design social media post, Instagram post, Facebook post ads',
+      xp: 30
+    },
+    {
+      imageUrl: 'assets/course_images/modern_website.png',
+      imageBackgroundGradient: 'from-purple-500 to-pink-500',
+      authorAvatarUrl: 'assets/avatars/avatar1.png',
+      authorName: 'alixdesign',
+      title: 'Modern Website Creation',
+      description: 'Learn to create modern web pages using popular frameworks',
+      xp: 50
+    },
+    {
+      imageUrl: 'assets/course_images/responsive_ui.png',
+      imageBackgroundGradient: 'from-red-500 to-orange-500',
+      authorAvatarUrl: 'assets/avatars/avatar2.png',
+      authorName: 'kashiftaj',
+      title: 'Create Responsive UI / UX mobile designs',
+      description: 'Create responsive UI / UX mobile designs',
+      xp: 50
+    },
+    {
+      imageUrl: 'assets/course_images/app_promo.png',
+      imageBackgroundGradient: 'from-blue-500 to-green-500',
+      authorAvatarUrl: 'assets/avatars/avatar3.png',
+      authorName: 'airb123',
+      title: 'Learn to create an amazing website or app promo video',
+      description: 'Learn to create an amazing website or app promo video',
+      xp: 40
+    },
+    {
+      imageUrl: 'assets/course_images/social_media.png',
+      imageBackgroundGradient: 'from-yellow-500 to-orange-500',
+      authorAvatarUrl: 'assets/avatars/avatar4.png',
+      authorName: 'almomen980',
+      title: 'Learn to design social media post, Instagram post, Facebook post ads',
+      description: 'Learn to design social media post, Instagram post, Facebook post ads',
+      xp: 30
+    },
   ];
 
   constructor() { }

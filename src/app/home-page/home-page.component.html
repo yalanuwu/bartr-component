@@ -1,153 +1,256 @@
-<div class="relative min-h-screen bg-gray-900 font-sans text-white overflow-x-hidden">
-  <div class="absolute inset-0 z-0">
-    <img src="assets/homePage/image.png" alt="Person at computer working" class="scale-150 opacity-50">
-  </div>
+<div
+  class="relative bg-gray-900 font-sans text-white card-container overflow-hidden"
+>
+  <app-navbar-component
+    [showHomeButtons]="true"
+    [dynamicScroll]="true"
+    class="fixed top-0 left-0 right-0 z-30"
+  ></app-navbar-component>
 
-  <app-navbar-component [showHomeButtons]="true" class="relative z-20"></app-navbar-component>
-
-  <main class="relative z-10 flex flex-col items-center justify-center h-full text-center px-4 md:px-8 py-20 min-h-[calc(100vh-80px)]">
-    <div class="max-w-4xl mx-auto">
-      <h1 class="text-5xl md:text-6xl font-konkhmer leading-tight mb-4 tracking-tight">
-        Unlock Knowledge.
-        <br>Trade Skills.
-        Grow Together.
-      </h1>
-
-      <div class="mt-10 mb-8 flex items-center w-full max-w-xl mx-auto bg-white rounded-full shadow-xl overflow-hidden">
-        <input type="text" placeholder="Search for a course, or a creator, or a category"
-               class="flex-grow py-3 px-6 text-lg text-gray-800 placeholder-gray-500 focus:outline-none  rounded-l-full">
-        <button type="submit" class="bg-green-500 hover:bg-green-600 text-white p-4 rounded-r-full focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
-          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path>
-          </svg>
-        </button>
-      </div>
-
-      <div class="flex flex-wrap justify-center gap-4 mt-8 text-lg">
-        <button class="flex items-center border-slate-100 border-2 hover:border-green-600 text-white py-2 px-4 rounded-full transition-colors duration-300">
-          Information Technology
-          <span class="ml-2">&rarr;</span>
-        </button>
-        <button class="flex items-center border-slate-100 border-2 hover:border-green-600 text-white py-2 px-4 rounded-full transition-colors duration-300">
-          Music
-          <span class="ml-2">&rarr;</span>
-        </button>
-        <button class="flex items-center border-slate-100 border-2 hover:border-green-600 text-white py-2 px-4 rounded-full transition-colors duration-300">
-          Language
-          <span class="ml-2">&rarr;</span>
-        </button>
-        </div>
+  <!-- Main tag -->
+  <div
+    id="main-pinned-section"
+    class="h-screen py-20 relative z-10 min-h-[calc(100vh-80px)]"
+  >
+    <div class="absolute inset-0 z-0">
+      <img
+        src="assets/homePage/image.png"
+        alt="Person at computer working"
+        class="scale-150 opacity-40"
+      />
     </div>
-  </main>
 
-  <section class="bg-white text-gray-800 py-16 px-4 md:px-8 relative z-10">
-    <div class="max-w-7xl mx-auto">
-      <h2 class="text-3xl md:text-4xl font-bold mb-8">Categories</h2>
+    <div
+      class="flex flex-col items-center justify-center h-full w-full text-center px-4 md:px-8 relative z-10"
+    >
+      <div class="max-w-4xl mx-auto">
+        <h1
+          class="text-5xl md:text-6xl font-konkhmer leading-tight mb-4 tracking-tight"
+        >
+          Unlock
+          <div class="inline text-green-500">Knowledge.</div>
+          <br />Trade
+          <div class="inline text-green-500">Skills.</div>
+          Grow
+          <div class="inline text-green-500">Together.</div>
+        </h1>
 
-
-      <div class="flex overflow-x-auto snap-x snap-mandatory pb-6 space-x-6 scrollbar-hide">
-      <div class="flex-none snap-center w-64 rounded-lg shadow-lg overflow-hidden border-t-4 border-transparent transition-transform duration-300 ease-in-out hover:scale-105">
-        <div class="bg-green-700 text-white p-4 font-semibold text-center rounded-t-lg">
-          Information Technology
-        </div>
-        <div class="p-4 bg-[#ECF7EF] h-40 flex items-center justify-center rounded-b-lg">
-          <img src="assets/category_images/it.png" alt="Information Technology" class="w-full h-full object-cover rounded-md shadow-sm">
-        </div>
-      </div>
-
-      <div class="flex-none snap-center w-64 rounded-lg shadow-lg overflow-hidden border-t-4 border-transparent transition-transform duration-300 ease-in-out hover:scale-105">
-        <div class="bg-green-700 text-white p-4 font-semibold text-center rounded-t-lg">
-          Music
-        </div>
-        <div class="p-4 bg-[#FEEBED] h-40 flex items-center justify-center rounded-b-lg">
-          <img src="assets/category_images/music2.png" alt="Video Editing Preview" class="h-full w-full object-cover rounded-md shadow-sm">
-        </div>
-      </div>
-
-      <div class="flex-none snap-center w-64 rounded-lg shadow-lg overflow-hidden border-t-4 border-transparent transition-transform duration-300 ease-in-out hover:scale-105">
-        <div class="bg-green-700 text-white p-4 font-semibold text-center rounded-t-lg">
-          Language
-        </div>
-        <div class="p-4 bg-[#FDF0E1] h-40 flex items-center justify-center rounded-b-lg">
-          <img src="assets/category_images/language2.png" alt="Software Development Preview" class="h-full w-full object-cover rounded-md shadow-sm">
-        </div>
-      </div>
-
-      <div class="flex-none snap-center w-64 rounded-lg shadow-lg overflow-hidden border-t-4 border-transparent transition-transform duration-300 ease-in-out hover:scale-105">
-        <div class="bg-green-700 text-white p-4 font-semibold text-center rounded-t-lg">
-          Art
-        </div>
-        <div class="p-4 bg-[#E7F7F0] h-40 flex items-center justify-center rounded-b-lg">
-          <img src="assets/category_images/art.png" alt="SEO Preview" class="h-full w-full object-cover rounded-md shadow-sm">
-        </div>
-      </div>
-
-      <!-- <div class="flex-none snap-center w-64 rounded-lg shadow-lg overflow-hidden border-t-4 border-transparent transition-transform duration-300 ease-in-out hover:scale-105">
-        <div class="bg-green-700 text-white p-4 font-semibold text-center rounded-t-lg">
-          Architecture & Interior Design
-        </div>
-        <div class="p-4 bg-[#FBEFF2] h-40 flex items-center justify-center rounded-b-lg">
-          <img src="assets/service_images/architecture_design.png" alt="Architecture & Interior Design Preview" class="max-h-full max-w-full object-contain rounded-md shadow-sm">
-        </div>
-      </div> -->
-
-      <!-- <div class="flex-none snap-center w-64 rounded-lg shadow-lg overflow-hidden border-t-4 border-transparent transition-transform duration-300 ease-in-out hover:scale-105">
-          <div class="bg-green-700 text-white p-4 font-semibold text-center rounded-t-lg">
-            Book Cover Design
-          </div>
-          <div class="p-4 bg-[#F2F3FE] h-40 flex items-center justify-center rounded-b-lg">
-            <img src="assets/service_images/book_cover.png" alt="Book Cover Design Preview" class="max-h-full max-w-full object-contain rounded-md shadow-sm">
-          </div>
-        </div> -->
-
-        <div class="flex-none flex items-center justify-center pl-4 pr-2">
-          <button class="text-gray-600 hover:text-gray-900 focus:outline-none">
-            <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+        <div
+          class="mt-10 mb-7 flex items-center w-full max-w-3xl mx-auto bg-white rounded-full shadow-xl overflow-hidden"
+        >
+          <input
+            type="text"
+            placeholder="Search for a course, or a creator, or a category"
+            class="flex-grow py-3 px-6 text-lg text-gray-800 placeholder-gray-500 focus:outline-none rounded-l-full"
+          />
+          <button
+            type="submit"
+            class="bg-green-500 hover:bg-green-600 text-white p-4 rounded-r-full focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+          >
+            <svg
+              class="w-6 h-6"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                clip-rule="evenodd"
+              ></path>
             </svg>
           </button>
         </div>
+
+        <div class="flex flex-wrap justify-center gap-4 mt-4 text-base">
+          <button
+            class="flex items-center border-slate-100 border-2 hover:border-green-600 text-white py-2 px-4 rounded-full transition-transform duration-300 hover:scale-110"
+          >
+            Information Technology
+            <span class="ml-2">&rarr;</span>
+          </button>
+          <button
+            class="flex items-center border-slate-100 border-2 hover:border-green-600 text-white py-2 px-4 rounded-full transition-transform duration-300 hover:scale-110"
+          >
+            Music
+            <span class="ml-2">&rarr;</span>
+          </button>
+          <button
+            class="flex items-center border-slate-100 border-2 hover:border-green-600 text-white py-2 px-4 rounded-full transition-transform duration-300 hover:scale-110"
+          >
+            Language
+            <span class="ml-2">&rarr;</span>
+          </button>
+          <button
+            class="flex items-center border-slate-100 border-2 hover:border-green-600 text-white py-2 px-4 rounded-full transition-transform duration-300 hover:scale-110"
+          >
+            Art
+            <span class="ml-2">&rarr;</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- section for categories and advertisement -->
+
+  <div
+    id="categories-section"
+    class="bg-white text-gray-800 py-12 px-6 md:px-8 relative z-10 overflow-hidden sections"
+  >
+    <div
+      class="absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-green-400/20 via-green-200/20 to-slate-200/60 backdrop-blur-xl"
+    ></div>
+    <div class="max-w-full mx-auto relative z-10">
+      <div class="text-4xl md:text-4xl font-konkhmer mb-8">Categories</div>
+
+      <!-- Added grid layout categories section to avoid clipping issues for overflow-x-auto class -->
+      <div
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-4 md:px-0"
+      >
+        <div
+          #categoryCardElement
+          [ngClass]="{ 'animate-slide-in-right': cardsVisible[0] }"
+          class="animated-card rounded-lg shadow-lg overflow-hidden transition-transform duration-300 ease-in-out hover:scale-105 relative will-change-transform z-0 hover:z-10 hover:shadow-green-600"
+        >
+          <div
+            class="bg-green-700 text-white p-4 font-semibold text-center rounded-t-lg"
+          >
+            Information Technology
+          </div>
+          <div
+            class="p-4 bg-[#ECF7EF] h-40 flex items-center justify-center rounded-b-lg"
+          >
+            <img
+              src="assets/category_images/it.png"
+              alt="Information Technology"
+              class="w-full h-full object-cover rounded-md shadow-sm"
+            />
+          </div>
+        </div>
+
+        <div
+          #categoryCardElement
+          [ngClass]="{ 'animate-slide-in-right': cardsVisible[1] }"
+          class="animated-card rounded-lg shadow-lg overflow-hidden transition-transform duration-300 ease-in-out hover:scale-105 relative will-change-transform z-0 hover:z-10 hover:shadow-green-600"
+        >
+          <div
+            class="bg-green-700 text-white p-4 font-semibold text-center rounded-t-lg"
+          >
+            Music
+          </div>
+          <div
+            class="p-4 bg-[#FEEBED] h-40 flex items-center justify-center rounded-b-lg"
+          >
+            <img
+              src="assets/category_images/music2.png"
+              alt="Music"
+              class="h-full w-full object-cover rounded-md shadow-sm"
+            />
+          </div>
+        </div>
+
+        <div
+          #categoryCardElement
+          [ngClass]="{ 'animate-slide-in-right': cardsVisible[2] }"
+          class="animated-card rounded-lg shadow-lg overflow-hidden transition-transform duration-300 ease-in-out hover:scale-105 relative will-change-transform z-0 hover:z-10 hover:shadow-green-600"
+        >
+          <div
+            class="bg-green-700 text-white p-4 font-semibold text-center rounded-t-lg"
+          >
+            Language
+          </div>
+          <div
+            class="p-4 bg-[#FDF0E1] h-40 flex items-center justify-center rounded-b-lg"
+          >
+            <img
+              src="assets/category_images/language2.png"
+              alt="Language"
+              class="h-full w-full object-cover rounded-md shadow-sm"
+            />
+          </div>
+        </div>
+
+        <div
+          #categoryCardElement
+          [ngClass]="{ 'animate-slide-in-right': cardsVisible[3] }"
+          class="animated-card rounded-lg shadow-lg overflow-hidden relative z-0 hover:z-10"
+        >
+          <div
+            class="bg-green-700 text-white p-4 font-semibold text-center rounded-t-lg"
+          >
+            Art
+          </div>
+          <div
+            class="p-4 bg-[#E7F7F0] h-40 flex items-center justify-center rounded-b-lg"
+          >
+            <img
+              src="assets/category_images/art.png"
+              alt="Art"
+              class="h-full w-full object-cover rounded-md shadow-sm"
+            />
+          </div>
+        </div>
       </div>
 
-      <div class="mt-16 relative rounded-lg p-4 md:p-12 text-white shadow-xl overflow-hidden h-80">
-        <img src="assets/homePage/gradient/gradient.png" alt="Bartr platform background" class="absolute inset-0 w-full h-full object-cover rounded-lg">
+      <div
+        class="mt-16 relative rounded-lg p-4 md:p-12 text-white shadow-xl overflow-hidden h-80"
+      >
+        <img
+          src="assets/homePage/gradient/gradient.png"
+          alt="Bartr platform background"
+          class="absolute inset-0 w-full h-full object-cover rounded-lg"
+        />
 
-        <img src="assets/bartr/Bartr._cropped.png" alt="Bartr Logo" class="scale-75 mb-2 absolute left-0  top-55">
-        <div class="relative z-0 flex flex-col md:flex-row justify-between items-start md:items-end h-full">
-
+        <img
+          src="assets/bartr/Bartr._cropped.png"
+          alt="Bartr Logo"
+          class="scale-75 mb-2 absolute left-0 top-55"
+        />
+        <div
+          class="relative z-0 flex flex-col md:flex-row justify-between items-start md:items-end h-full"
+        >
           <div class="mb-4 md:mb-0 md:mr-8 text-left flex flex-col">
-             <p class="text-xl md:text-2xl font-semibold opacity-90 ml-4 mb-16">India's First Skill Barter Platform</p>
+            <p class="text-xl md:text-2xl font-semibold opacity-90 ml-4 mb-16">
+              India's First Skill Barter Platform
+            </p>
           </div>
 
           <div class="text-right flex flex-col justify-end">
-            <p class="text-2xl md:text-3xl font-bold mb-2">Level up your Life.</p>
+            <p class="text-2xl md:text-3xl font-bold mb-2">
+              Level up your Life.
+            </p>
             <p class="text-xl md:text-2xl">Start your quest here</p>
           </div>
         </div>
 
-        <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2 z-10">
+        <div
+          class="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2 z-10"
+        >
           <div class="w-3 h-3 bg-gray-300 rounded-full opacity-60"></div>
           <div class="w-3 h-3 bg-gray-500 rounded-full opacity-80"></div>
           <div class="w-3 h-3 bg-gray-300 rounded-full opacity-60"></div>
         </div>
       </div>
+    </div>
+  </div>
+
+  <section class="py-14 bg-white text-gray-800">
+    <div class="max-w-7xl mx-auto px-4 md:px-8">
+      <h2 class="text-3xl md:text-4xl font-konkhmer mb-8">
+        Courses you may like
+      </h2>
+      <div
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+      >
+        <app-course-card-general
+          *ngFor="let course of courses"
+          [course]="course"
+        ></app-course-card-general>
       </div>
-      </section>
+    </div>
+  </section>
 
-      <section class="py-14 bg-white text-gray-800">
-        <div class="max-w-7xl mx-auto px-4 md:px-8">
-          <h2 class="text-3xl md:text-4xl font-konkhmer mb-8">Courses you may like</h2>
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-
-            <app-course-card-general *ngFor="let course of courses" [course]="course"></app-course-card-general>
-
-            </div>
-
-            </div>
-
-
-      </section>
-
-      <app-footer></app-footer>
+  <app-footer></app-footer>
 
 </div>

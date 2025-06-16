@@ -32,11 +32,12 @@ export class PublicProfilePageComponent implements OnInit {
   // Array of predefined Tailwind gradient classes
   gradientOptions: string[] = [
     'from-green-600 to-blue-600',
-    'from-purple-600 to-pink-600',
+    'from-blue-500 via-purple-500 to-pink-500',
     'from-red-600 to-yellow-600',
     'from-teal-600 to-emerald-600',
     'from-indigo-600 to-purple-600',
     'from-orange-600 to-red-600',
+    // 'from-slate-200 via-teal-100 to-gray-400',
     // 'from-sky-600 to-blue-600'
   ];
 

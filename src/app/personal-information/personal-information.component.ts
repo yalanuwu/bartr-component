@@ -1,8 +1,9 @@
+import { NgFor } from '@angular/common';
 import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-personal-information',
-  imports: [],
+  imports: [NgFor],
   templateUrl: './personal-information.component.html',
   styleUrl: './personal-information.component.css'
 })
@@ -14,11 +15,14 @@ export class PersonalInformationComponent {
   contactNumber: string = '123456789';
   xp: number = 300;
   countryRegion: string = 'Chennai, India';
-  // countryRegion: string = '--';
+  bio: string = 'This is a sample bio.';
+  skills: string[] = ['Angular', 'TypeScript', 'JavaScript'];
+  // skills: string[] = [];
 
-  signOut(): void {
+  onEdit(): void {
     console.log('User signed out!');
     // Implement your sign-out logic here (e.g., clear session, redirect to login)
     // Example: this.router.navigate(['/login']);
   }
+
 }
