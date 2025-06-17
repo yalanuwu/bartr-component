@@ -1,0 +1,37 @@
+<app-navbar-component [dynamicScroll]="false" class="fixed left-0 right-0 z-10"></app-navbar-component>
+<div class="h-auto bg-gradient-to-t
+from-green-400
+via-green-200
+to-slate-100
+relative top-20
+">
+
+
+
+  <div
+    class="font-konkhmer text-7xl text-center pt-10 text-slate-800 tracking-wide fade-in-top-normal"
+  >
+    Categories
+  </div>
+  <div class="font-variable text-center mt-2 tracking-widest text-slate-600 fade-in-top-normal">Browse all Categories</div>
+
+  <div
+    class="bg-white/80 bg-opacity-90 border border-gray-200 px-10 mt-12 mx-6 py-10 relative rounded-lg shadow-2xl fade-in-bottom-normal"
+  >
+  <div
+    class="absolute inset-0 bg-white bg-[radial-gradient(#e5e7eb_1.1px,transparent_1px)] [background-size:16px_16px] rounded-lg z-0 opacity-50"
+  ></div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-4 md:px-0">
+      <!-- Loop through the input categories and render CategoryCardComponent for each -->
+      <app-category-card
+        *ngFor="let categoryItem of categoriesData; let i = index"
+        [category]="categoryItem"
+        (cardClick)="onCategoryCardClick($event)"
+      ></app-category-card>
+
+    </div>
+  </div>
+
+</div>
+

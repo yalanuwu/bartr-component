@@ -6,17 +6,27 @@ import { FooterComponent } from "../footer/footer.component";
 
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { Category, CategoryCardComponent } from "../category-card/category-card.component";
+import { RouterLink } from '@angular/router';
 
 gsap.registerPlugin(ScrollTrigger);
 
 @Component({
   selector: 'app-home-page',
   standalone: true,
-  imports: [NavbarComponentComponent, CourseCardGeneralComponent, NgFor, FooterComponent, NgClass],
+  imports: [NavbarComponentComponent, CourseCardGeneralComponent, NgFor, FooterComponent, NgClass, RouterLink],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css'
 })
 export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
+
+  // New array to manage visibility for Course Cards
+  courseCardsVisible: boolean[] = [];
+
+  // @ViewChildren to get references to all CourseCardGeneralComponent instances
+  @ViewChildren(CourseCardGeneralComponent) courseCardComponents!: QueryList<CourseCardGeneralComponent>;
+
+  private courseObserver: IntersectionObserver | undefined; // Observer for course cards
 
   @ViewChildren('categoryCardElement') categoryCardElements!: QueryList<ElementRef>;
 
@@ -115,6 +125,33 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
       //   );
       // }
 
+      // --- NEW: IntersectionObserver for Course Cards ---
+      const coursesSection = document.getElementById('top-courses-section'); // Get the section containing courses
+
+      if (coursesSection && this.courseCardComponents && this.courseCardComponents.length > 0) {
+        this.courseObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                // If the section is visible, start the staggered animation for its cards
+                this.courseCardComponents.forEach((component, index) => {
+                  setTimeout(() => {
+                    this.courseCardsVisible[index] = true;
+                    this.cdr.detectChanges(); // Update the view for each card
+                  }, index * 120); // Stagger delay (e.g., 120ms per card)
+                });
+                this.courseObserver?.unobserve(entry.target); // Unobserve once animation is triggered
+              }
+            });
+          },
+          {
+            root: null, // relative to the viewport
+            rootMargin: '0px',
+            threshold: 0.1 // Trigger when 10% of the section is visible
+          }
+        );
+        this.courseObserver.observe(coursesSection); // Observe the courses section
+      }
 
     } // End of isPlatformBrowser check
   } // End of ngAfterViewInit
@@ -122,6 +159,9 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     if (isPlatformBrowser(this.platformId)) {
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+      if (this.courseObserver) {
+        this.courseObserver.disconnect(); // Disconnect the new observer
+      }
     }
   }
 
@@ -131,6 +171,9 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   onSignUp(): void { console.log('Sign Up clicked!'); }
   onSearch(): void { console.log('Search clicked!'); }
   onCategoryClick(category: string): void { console.log('Category clicked:', category); }
+  allCategories(): void { console.log("Explore Clicked"); }
+
+
 
   courses = [
     // ... your courses data ...

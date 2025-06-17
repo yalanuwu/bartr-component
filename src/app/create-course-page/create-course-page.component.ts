@@ -7,7 +7,7 @@ interface Course {
   title: string;
   description: string;
   category: string;
-  xpPrice: number;
+  // xpPrice: number;
   courseImages: File[];
   level: string;
   features: string[]; // Array of strings for features
@@ -29,7 +29,7 @@ export class CreateCoursePageComponent {
     title: '',
     description: '',
     category: '', // Default empty
-    xpPrice: 0,
+    // xpPrice: 0,
     level: '',
     courseImages: [],
     features: [''], // Start with one empty field
@@ -54,12 +54,12 @@ export class CreateCoursePageComponent {
   trackByFeature(index: number, feature: string): number {
     return index; // Uniquely identifies each item by its index
   }
-  
+
   // === Step Navigation Methods ===
   goToNextStep(): void {
     // Validate current step before moving to the next
     if (this.currentStep === 1) {
-      if (!this.newCourse.title || !this.newCourse.description || !this.newCourse.category || this.newCourse.xpPrice <= 0) {
+      if (!this.newCourse.title || !this.newCourse.description || !this.newCourse.category ) {
         alert('Please fill in all required fields for basic details (Title, Description, Category, XP Price).');
         return;
       }
@@ -124,7 +124,7 @@ export class CreateCoursePageComponent {
   // Handle course submission
   onSubmit(): void {
     // Basic validation
-    if (!this.newCourse.title || !this.newCourse.description || !this.newCourse.category || this.newCourse.xpPrice <= 0) {
+    if (!this.newCourse.title || !this.newCourse.description || !this.newCourse.category) {
       alert('Please fill in all required fields (Title, Description, Category, XP Price).');
       return;
     }
@@ -140,7 +140,7 @@ export class CreateCoursePageComponent {
       description: '',
       category: '',
       level: '',
-      xpPrice: 0,
+      // xpPrice: 0,
       courseImages: [],
       features: [''],
       courseContent: '',

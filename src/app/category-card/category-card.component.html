@@ -1,0 +1,22 @@
+<div
+  class="animated-card rounded-lg shadow-lg overflow-hidden transition-transform duration-300 ease-in-out hover:scale-105 relative will-change-transform z-0 hover:z-10 hover:shadow-green-600 cursor-pointer"
+
+  [ngClass]="{ 'fade-in-bottom-normal' : isVisible }"
+>
+  <!-- Category Title Section -->
+  <div
+    class="bg-green-700 text-white p-4 font-semibold text-center rounded-t-lg"
+  >
+    {{ category?.name }}
+    <!-- Displays the category name from input -->
+  </div>
+
+  <!-- Category Image Section -->
+  <div
+    class="p-4 bg-[#ECF7EF] h-40 flex items-center justify-center rounded-b-lg"
+  >
+    <img [src]="category?.imageUrl"
+    [alt]="category?.altText || category?.name"
+    class="w-full h-full object-cover rounded-md shadow-sm" />
+  </div>
+</div>

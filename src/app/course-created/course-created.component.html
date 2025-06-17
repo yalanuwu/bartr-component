@@ -37,7 +37,7 @@
     <!-- Loop through each course and render a CourseCardComponent -->
      @for (course of courses; track course.id) {
 
-       <app-course-card-general  [course]="course" [showXP]="false" class="relative z-10 hover:shadow-lg"></app-course-card-general>
+       <app-course-card-general  [course]="course" [showXP]="false" [animation]="true" class="relative z-10 hover:shadow-lg"></app-course-card-general>
      }
   </div>
 

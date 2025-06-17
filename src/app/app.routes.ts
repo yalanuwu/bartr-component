@@ -7,6 +7,8 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { RegisterComponent } from './register/register.component';
 import { CreateCoursePageComponent } from './create-course-page/create-course-page.component';
 import { ProfilePersonalPageComponent } from './profile-personal-page/profile-personal-page.component';
+import { DebugComponentComponent } from './debug-component/debug-component.component';
+import { AllCategoriesComponent } from './all-categories/all-categories.component';
 
 export const routes: Routes = [
   // Your existing home page route
@@ -17,6 +19,8 @@ export const routes: Routes = [
   { path: 'signup', component: RegisterComponent },
   { path: 'create-course', component: CreateCoursePageComponent },
   { path: 'profile', component: ProfilePersonalPageComponent },
+  { path: 'debug', component: DebugComponentComponent},
+  { path: 'all-categories', component: AllCategoriesComponent},
 
   // Wildcard route to redirect to home for any undefined paths
   { path: '**', redirectTo: '' }

@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-course-card-general',
@@ -7,7 +7,17 @@ import { Component, Input } from '@angular/core';
   templateUrl: './course-card-general.component.html',
   styleUrl: './course-card-general.component.css'
 })
-export class CourseCardGeneralComponent {
+export class CourseCardGeneralComponent implements OnInit{
   @Input() course: any;
   @Input() showXP: boolean = true;
+  @Input() animation: boolean = false;
+
+  ngOnInit(): void {
+
+  }
+
+  constructor (public elementRef: ElementRef) {
+
+  }
+
 }

@@ -70,3 +70,10 @@
      When leaving hover, the base element's transition takes over. By removing it here,
      the base '.animated-card' transition property will apply consistently for both directions. */
 }
+
+
+@keyframes scale-up-hor-left {0% { transform: scaleX(0.4); transform-origin: 0% 0%; } 100% { transform: scaleX(1); transform-origin: 0% 0%;} }
+
+.scale-up-hor-left-normal {
+    animation: scale-up-hor-left-normal 1.5s ease 0s 1 normal both;
+}

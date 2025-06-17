@@ -8,7 +8,7 @@
 
     <button
       class="font-variable flex justify-center gap-2 items-center mx-auto text-sm text-gray-50 bg-[#4CAF50] backdrop-blur-md lg:font-variable isolation-auto before:absolute before:w-full before:transition-all before:duration-700 before:hover:w-full before:-left-full before:hover:left-0 before:rounded-full before:bg-[#FFFFFF] hover:text-black before:-z-10 before:aspect-square before:hover:scale-200 before:hover:duration-500 px-4 py-1 overflow-hidden border border-gray-900 rounded-full group absolute top-6 right-5 z-10"
-
+      [routerLink]="['/all-categories']"
       (click)="explore()"
     >
       Explore
@@ -30,7 +30,7 @@
       <!-- Loop through each course and render a CourseCardComponent -->
        @for (course of courses; track course.id) {
 
-         <app-course-card-general  [course]="course" [showXP]="false" class="relative z-10 hover:shadow-lg"></app-course-card-general>
+         <app-course-card-general  [course]="course" [showXP]="false" class="relative z-10 hover:shadow-lg" [animation]="true"></app-course-card-general>
        }
     </div>
 
