@@ -1,11 +1,14 @@
 <div class="flex-1 p-5 bg-white rounded-lg shadow-lg relative">
-  <h2 class="text-4xl font-semibold mb-1 text-gray-800  border-">Courses Created</h2>
+  <div
+      class="absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-green-400/20 via-green-200/20 to-slate-200/60 backdrop-blur-xl"
+    ></div>
+  <h2 class="text-4xl font-semibold mb-1 text-gray-800 relative z-10">Courses Created</h2>
   <!-- <button class="absolute top-6 right-5 bg-[#4CAF50] hover:bg-green-700 text-white py-2 px-4 rounded-full text-sm transition-colors duration-200" (click)="createCourse()">Create New</button> -->
-  <p class="text-gray-600 text-sm mb-8 pb-2 border-b-2 border-gray-600">The courses you created</p>
+  <p class="text-gray-600 text-sm mb-8 pb-2 border-b-2 border-gray-600 relative z-10">The courses you created</p>
 
   <button
-      class="font-variable flex justify-center gap-2 items-center mx-auto text-sm text-gray-50 bg-[#4CAF50] backdrop-blur-md lg:font-variable isolation-auto before:absolute before:w-full before:transition-all before:duration-700 before:hover:w-full before:-left-full before:hover:left-0 before:rounded-full before:bg-[#FFFFFF] hover:text-black before:-z-10 before:aspect-square before:hover:scale-200 before:hover:duration-500 px-4 py-1 overflow-hidden border border-gray-900 rounded-full group absolute top-6 right-5"
-
+      class="font-variable flex justify-center gap-2 items-center mx-auto text-sm text-gray-50 bg-[#4CAF50] backdrop-blur-md lg:font-variable isolation-auto before:absolute before:w-full before:transition-all before:duration-700 before:hover:w-full before:-left-full before:hover:left-0 before:rounded-full before:bg-[#FFFFFF] hover:text-black before:-z-10 before:aspect-square before:hover:scale-200 before:hover:duration-500 px-4 py-1 overflow-hidden border border-gray-900 rounded-full group absolute top-6 right-5 z-10"
+      [routerLink]="['/create-course']"
       (click)="createCourse()"
     >
       Create
@@ -34,13 +37,13 @@
     <!-- Loop through each course and render a CourseCardComponent -->
      @for (course of courses; track course.id) {
 
-       <app-course-card-general  [course]="course" [showXP]="false"></app-course-card-general>
+       <app-course-card-general  [course]="course" [showXP]="false" class="relative z-10 hover:shadow-lg"></app-course-card-general>
      }
   </div>
 
   <!-- Message if no courses are enrolled -->
    @if (courses.length === 0) {
-    <div class="text-center text-gray-500 p-8">
+    <div class="text-center text-gray-500 p-8 relative z-10">
       <p>You haven't enrolled in any courses yet.</p>
     </div>
    }

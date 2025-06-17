@@ -5,7 +5,7 @@ import { CourseCardGeneralComponent } from "../course-card-general/course-card-g
 
 @Component({
   selector: 'app-course-enrolled',
-  imports: [CourseCardComponent, CourseCardGeneralComponent],
+  imports: [ CourseCardGeneralComponent],
   templateUrl: './course-enrolled.component.html',
   styleUrl: './course-enrolled.component.css'
 })

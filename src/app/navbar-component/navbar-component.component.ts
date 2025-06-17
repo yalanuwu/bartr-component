@@ -1,6 +1,8 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common'; // Import isPlatformBrowser
-import { Component, EventEmitter, HostListener, Input, OnInit, Output, Inject, PLATFORM_ID } from '@angular/core'; // Import Inject and PLATFORM_ID
-import { RouterLink } from '@angular/router';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output, Inject, PLATFORM_ID, OnDestroy } from '@angular/core'; // Import Inject and PLATFORM_ID
+import { Router, RouterLink } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-navbar-component',
@@ -8,13 +10,22 @@ import { RouterLink } from '@angular/router';
   templateUrl: './navbar-component.component.html',
   styleUrl: './navbar-component.component.css'
 })
-export class NavbarComponentComponent implements OnInit {
-  @Input() showHomeButtons: boolean = false;
+export class NavbarComponentComponent implements OnInit, OnDestroy {
+  // @Input() showHomeButtons: boolean = false;
   @Input() dynamicScroll: boolean = false;
   isScrolledDown: boolean = false;
 
+  // New property to control conditional rendering based on login status
+  isLoggedIn: boolean = false;
+  private authSubscription!: Subscription; // To hold the subscription and prevent memory leaks
+
+  @Output() signOut = new EventEmitter<void>(); // Keep if parent needs to react to sign out
+
+
   // Inject PLATFORM_ID into the constructor
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) { }
+  constructor(@Inject(PLATFORM_ID) private platformId: Object,
+  private router: Router,
+  private authService: AuthService ) { }
 
   ngOnInit(): void {
     // Only execute window-dependent logic if running in a browser
@@ -30,6 +41,21 @@ export class NavbarComponentComponent implements OnInit {
       // For server-side rendering, default to true or appropriate non-scrolled state
       // This prevents styling issues on the initial server render
       this.isScrolledDown = false; // Or true, depending on desired SSR default appearance
+    }
+
+    // Subscribe to the login status from the AuthService
+    this.authSubscription = this.authService.isLoggedIn$.subscribe(loggedIn => {
+      this.isLoggedIn = loggedIn;
+      // console.log('Navbar: isLoggedIn updated to', this.isLoggedIn); // For debugging
+      // and let `isLoggedIn` fully control the display logic.
+    });
+  }
+
+  ngOnDestroy(): void {
+    // Unsubscribe from the observable when the component is destroyed
+    // to prevent memory leaks, especially with long-lived services.
+    if (this.authSubscription) {
+      this.authSubscription.unsubscribe();
     }
   }
 
@@ -49,7 +75,6 @@ export class NavbarComponentComponent implements OnInit {
     this.isScrolledDown = window.scrollY > scrollThreshold;
   }
 
-  @Output() signOut = new EventEmitter<void>();
 
   // Placeholder methods for navigation/actions
   onCreateCourse(): void {
@@ -60,16 +85,19 @@ export class NavbarComponentComponent implements OnInit {
   onLogin(): void {
     console.log('Log In clicked!');
     // Example: this.router.navigate(['/login']);
+    this.authService.login();
   }
 
   onSignUp(): void {
     console.log('Sign Up clicked!');
     // Example: this.router.navigate(['/signup']);
+
   }
 
   onSignOut(): void {
     console.log('Sign Out clicked!');
     this.signOut.emit();
+    this.authService.logout();
     // Example: this.router.navigate(['/']);
   }
 }

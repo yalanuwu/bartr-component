@@ -2,10 +2,11 @@ import { CourseCardComponent } from '../course-card/course-card.component';
 import { Course } from '../profile-personal-page/profile-personal-page.component';
 import { Component, Input } from '@angular/core';
 import { CourseCardGeneralComponent } from "../course-card-general/course-card-general.component";
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-course-created',
-  imports: [CourseCardComponent, CourseCardGeneralComponent],
+  imports: [ CourseCardGeneralComponent, RouterLink],
   templateUrl: './course-created.component.html',
   styleUrl: './course-created.component.css'
 })
