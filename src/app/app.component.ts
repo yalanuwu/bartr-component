@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { RegisterComponent } from './register/register.component';
+import { SignUpModalComponent } from './register/register.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { ProfilePersonalPageComponent } from './profile-personal-page/profile-personal-page.component';
 import { HomePageComponent } from "./home-page/home-page.component";
@@ -12,7 +12,7 @@ import { DebugComponentComponent } from "./debug-component/debug-component.compo
 
 @Component({
   selector: 'app-root',
-  imports: [RegisterComponent, SignInComponent, ProfilePersonalPageComponent, HomePageComponent, SearchResultPageComponent, CourseDetailPageComponent, CreateCoursePageComponent, PublicProfilePageComponent, RouterOutlet, DebugComponentComponent],
+  imports: [SignUpModalComponent, SignInComponent, ProfilePersonalPageComponent, HomePageComponent, SearchResultPageComponent, CourseDetailPageComponent, CreateCoursePageComponent, PublicProfilePageComponent, RouterOutlet, DebugComponentComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

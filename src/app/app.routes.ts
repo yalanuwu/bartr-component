@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { HomePageComponent } from './home-page/home-page.component';
 
 import { SignInComponent } from './sign-in/sign-in.component';
-import { RegisterComponent } from './register/register.component';
+import { SignUpModalComponent } from './register/register.component';
 import { CreateCoursePageComponent } from './create-course-page/create-course-page.component';
 import { ProfilePersonalPageComponent } from './profile-personal-page/profile-personal-page.component';
 import { DebugComponentComponent } from './debug-component/debug-component.component';
@@ -16,7 +16,7 @@ export const routes: Routes = [
 
   // New routes for your pages
   { path: 'login', component: SignInComponent },
-  { path: 'signup', component: RegisterComponent },
+  { path: 'signup', component: SignUpModalComponent },
   { path: 'create-course', component: CreateCoursePageComponent },
   { path: 'profile', component: ProfilePersonalPageComponent },
   { path: 'debug', component: DebugComponentComponent},
