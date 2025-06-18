@@ -10,6 +10,8 @@ import { ProfilePersonalPageComponent } from './profile-personal-page/profile-pe
 import { DebugComponentComponent } from './debug-component/debug-component.component';
 import { AllCategoriesComponent } from './all-categories/all-categories.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { AuthGuard } from './auth.guard';
+import { CourseDetailPageComponent } from './course-page/course-page.component';
 
 export const routes: Routes = [
   // Your existing home page route
@@ -18,10 +20,17 @@ export const routes: Routes = [
   // New routes for your pages
   { path: 'login', component: SignInComponent },
   { path: 'signup', component: SignUpModalComponent },
-  { path: 'create-course', component: CreateCoursePageComponent },
+  // { path: 'create-course', component: CreateCoursePageComponent },
   { path: 'profile', component: ProfilePersonalPageComponent },
   { path: 'debug', component: DebugComponentComponent},
   { path: 'all-categories', component: AllCategoriesComponent},
+  { path: 'course-page', component: CourseDetailPageComponent},
+
+  {
+    path: 'create-course',
+    component: CreateCoursePageComponent,
+    canActivate: [AuthGuard] // <--- This line applies the guard!
+  },
 
   // Wildcard route to redirect to home for any undefined paths
   { path: '**', component: NotFoundComponent }

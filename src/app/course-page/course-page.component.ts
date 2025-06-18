@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NavbarComponentComponent } from "../navbar-component/navbar-component.component";
 import { NgFor, NgIf } from '@angular/common';
 
@@ -28,6 +28,8 @@ interface Package {
 })
 
 export class CourseDetailPageComponent implements OnInit {
+
+  @Input() enrolled: boolean = false;
 
   courseTitle: string = 'Learn to build web application with react js, next js, PHP and node js';
 
