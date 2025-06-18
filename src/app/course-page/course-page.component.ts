@@ -1,6 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NavbarComponentComponent } from "../navbar-component/navbar-component.component";
 import { NgFor, NgIf } from '@angular/common';
+import { Router } from '@angular/router';
+import { NotEnoughXpModalComponent } from "../not-enough-xp-modal/not-enough-xp-modal.component";
+import { EnrollmentSuccessModalComponent } from "../enrollment-success-modal/enrollment-success-modal.component";
 
 interface Feature {
   text: string;
@@ -24,14 +27,23 @@ interface Package {
   selector: 'app-course-detail-page',
   templateUrl: './course-page.component.html',
   styleUrls: ['./course-page.component.css'],
-  imports: [NavbarComponentComponent, NgIf, NgFor]
+  imports: [NavbarComponentComponent, NgIf, NgFor, NotEnoughXpModalComponent, EnrollmentSuccessModalComponent]
 })
 
 export class CourseDetailPageComponent implements OnInit {
 
   @Input() enrolled: boolean = false;
 
+  // Mock user XP data (will be replaced by actual system later)
+  userCurrentXp: number = 50; // Simulate the user having 500 XP
+
+  // State variable to control the visibility of the XP modal
+  showNotEnoughXpModal: boolean = false;
+
+  showEnrollmentSuccessModal: boolean = false;
+
   courseTitle: string = 'Learn to build web application with react js, next js, PHP and node js';
+
 
   levelName: CourseLevel = {
     level: 'Advanced'
@@ -98,7 +110,7 @@ export class CourseDetailPageComponent implements OnInit {
   `;
 
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -118,5 +130,64 @@ export class CourseDetailPageComponent implements OnInit {
   prevImage(): void {
     this.currentImageIndex = (this.currentImageIndex - 1 + this.courseImages.length) % this.courseImages.length;
   }
+
+  onEnroll(): void {
+    if (this.userCurrentXp >= this.packages[0].price) {
+      // User has enough XP: Simulate enrollment
+      // alert(`You have successfully enrolled in "${this.courseTitle}"!`);
+      this.showEnrollmentSuccessModal = true;
+      // In a real application, you would:
+      // 1. Deduct XP from the user.
+      // 2. Call a service to enroll the user in the course.
+      // 3. Navigate to a confirmation page or the course content.
+      this.userCurrentXp -= this.packages[0].price; // Simulate XP deduction
+      console.log(`Enrolled in "${this.courseTitle}". Remaining XP: ${this.userCurrentXp}`);
+      this.enrolled = true;
+    } else {
+      // User does NOT have enough XP: Show the popup
+      this.showNotEnoughXpModal = true;
+      console.log(`Insufficient XP to enroll. Required: ${this.packages[0].price}, Available: ${this.userCurrentXp}`);
+    }
+  }
+
+  /**
+   * Handler for the 'close' event from the NotEnoughXpModalComponent.
+   * Hides the XP modal.
+   */
+  closeXpModal(): void {
+    console.log('Not Enough XP Modal closed.');
+    this.showNotEnoughXpModal = false;
+  }
+
+  /**
+   * Handler for the 'earnMoreXp' event from the NotEnoughXpModalComponent.
+   * Hides the XP modal and navigates the user to a relevant page.
+   */
+  earnMoreXpFromModal(): void {
+    console.log('User wants to earn more XP. Navigating to profile courses enrolled tab.');
+    this.showNotEnoughXpModal = false; // Always close the modal first
+
+    // Navigate to the user's profile page, specifically to the 'Courses Enrolled' tab.
+    // This is where they might find ways to earn more XP.
+    this.router.navigate(['/profile'], { queryParams: { tab: 'Courses Enrolled' } });
+  }
+
+  viewEnrolledCourse(): void {
+    console.log('User wants to view the enrolled course. Navigating to course content.');
+    this.showEnrollmentSuccessModal = false; // Close the modal
+
+    // Simulate navigation to the course content page
+    // In a real app, this would be: this.router.navigate(['/course-content', this.courseId]);
+    alert(`Simulating navigation to content for "${this.courseTitle}"!`);
+    this.router.navigate(['/profile'], { queryParams: { tab: 'My Courses' } }); // Example navigation
+  }
+
+  closeEnrollmentModal(): void {
+    console.log('Enrollment Success Modal closed. Navigating to home.');
+    this.showEnrollmentSuccessModal = false;
+    this.router.navigate(['/course-page']); // Or any other default page
+  }
+
+
 
 }

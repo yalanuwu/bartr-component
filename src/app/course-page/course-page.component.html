@@ -85,7 +85,7 @@
               </li>
             </ul>
 
-            <button *ngIf="!enrolled" class="w-full px-6 py-3 bg-green-500 text-white rounded-md font-bold text-lg hover:bg-green-600 transition-colors duration-300 flex items-center justify-center mb-4">
+            <button *ngIf="!enrolled" (click)="onEnroll()" class="w-full px-6 py-3 bg-green-500 text-white rounded-md font-bold text-lg hover:bg-green-600 transition-colors duration-300 flex items-center justify-center mb-4">
               Enroll
               <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
             </button>
@@ -105,3 +105,18 @@
     </div>
   </main>
 </div>
+
+<app-not-enough-xp-modal
+  *ngIf="showNotEnoughXpModal"
+  [requiredXp]="packages[0].price"
+  [availableXp]="userCurrentXp"
+  (close)="closeXpModal()"
+  (earnMoreXp)="earnMoreXpFromModal()"
+></app-not-enough-xp-modal>
+
+<app-enrollment-success-modal
+  *ngIf="showEnrollmentSuccessModal"
+  [courseTitle]="courseTitle"
+  (close)="closeEnrollmentModal()"
+  (viewCourse)="viewEnrolledCourse()"
+></app-enrollment-success-modal>

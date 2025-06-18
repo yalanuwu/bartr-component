@@ -1,0 +1,53 @@
+<div class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center p-4 z-50 backdrop-blur-md animate-fade-in-backdrop"
+     (click)="onBackdropClick($event)">
+
+  <div class="bg-white rounded-lg shadow-xl max-w-sm w-full p-6 relative transform scale-95 animate-fade-in"
+       (click)="$event.stopPropagation()">
+
+    <button (click)="onBackToHome()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+    </button>
+
+    <div class="text-center mb-6">
+      <svg class="mx-auto h-16 w-16 text-green-500 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+      </svg>
+      <h2 class="text-2xl font-bold text-gray-800 mb-2">Enrollment Successful!</h2>
+      <p class="text-gray-600">
+        You have successfully enrolled in <span class="font-bold text-green-600">{{ courseTitle }}</span>.
+      </p>
+    </div>
+
+    <div class="flex flex-col space-y-4 mt-6">
+      <button (click)="onViewCourse()"
+              class="w-full p-3 bg-green-600 text-white font-semibold rounded-full hover:bg-green-700 transition-colors duration-300">
+        View Course
+      </button>
+      <button (click)="onBackToHome()"
+              class="w-full p-3 border border-gray-300 text-gray-700 font-semibold rounded-full hover:bg-gray-100 transition-colors duration-300">
+        Back to Home
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<style>
+/* Fade in for the modal content */
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+/* Optional: subtle fade in for the backdrop itself */
+@keyframes fadeInBackdrop {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.animate-fade-in-backdrop {
+  animation: fadeInBackdrop 0.3s ease-out forwards;
+}
+</style>
