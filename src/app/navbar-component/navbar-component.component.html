@@ -41,16 +41,38 @@
           </div>
         </button>
 
-        <button class="relative w-9 h-9 rounded-full overflow-hidden hover:outline-none hover:ring-2 hover:ring-green-600"
-          [routerLink]="['/profile']"
-        >
-          <img class="w-full h-full object-cover" src="https://placehold.co/100x100/34D399/FFFFFF?text=AJ" alt="User Avatar">
-        </button>
+        <div class="relative">
+          <button (click)="toggleAvatarDropdown($event)"
+                  class="relative w-9 h-9 rounded-full overflow-hidden hover:outline-none hover:ring-2 hover:ring-green-600 focus:outline-none focus:ring-2 focus:ring-green-600">
+            <img class="w-full h-full object-cover" src="https://placehold.co/100x100/34D399/FFFFFF?text=AJ" alt="User Avatar">
+          </button>
 
-        <button (click)="onSignOut()"
-                class="text-white py-2 px-4 rounded-md text-sm sign-out-button">
-          Sign out
-        </button>
+          <div *ngIf="showAvatarDropdown"
+               class="absolute top-full right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-40 animate-fade-in-down">
+               <a (click)="onViewProfile()"
+               class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">
+               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 inline">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+              </svg>
+
+              Profile
+            </a>
+
+               <!-- <div (click)="onXpAvailable()"
+               class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">
+              XP Available
+            </div> -->
+
+            <a (click)="onSignOut()"
+               class="block px-4 py-2 text-sm text-red-600 hover:bg-red-50 cursor-pointer">
+               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 inline">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15" />
+              </svg>
+
+              Log Out
+            </a>
+          </div>
+        </div>
       </ng-container>
     }
     @else {

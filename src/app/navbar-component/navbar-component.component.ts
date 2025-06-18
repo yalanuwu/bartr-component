@@ -1,5 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common'; // Import isPlatformBrowser
-import { Component, EventEmitter, HostListener, Input, OnInit, Output, Inject, PLATFORM_ID, OnDestroy } from '@angular/core'; // Import Inject and PLATFORM_ID
+import { Component, EventEmitter, HostListener, Input, OnInit, Output, Inject, PLATFORM_ID, OnDestroy, ElementRef } from '@angular/core'; // Import Inject and PLATFORM_ID
 import { Router, RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../auth.service';
@@ -20,17 +20,23 @@ export class NavbarComponentComponent implements OnInit, OnDestroy {
   showSignInModal: boolean = false;
   showSignUpModal: boolean = false;
 
+  xp: number = 300;
+
   // New property to control conditional rendering based on login status
   isLoggedIn: boolean = false;
   private authSubscription!: Subscription; // To hold the subscription and prevent memory leaks
 
   @Output() signOut = new EventEmitter<void>(); // Keep if parent needs to react to sign out
 
+  showAvatarDropdown: boolean = false;
+
 
   // Inject PLATFORM_ID into the constructor
   constructor(@Inject(PLATFORM_ID) private platformId: Object,
   private router: Router,
-  private authService: AuthService ) { }
+  private authService: AuthService,
+  private elementRef: ElementRef
+  ) { }
 
   ngOnInit(): void {
     // Only execute window-dependent logic if running in a browser
@@ -61,6 +67,14 @@ export class NavbarComponentComponent implements OnInit, OnDestroy {
     // to prevent memory leaks, especially with long-lived services.
     if (this.authSubscription) {
       this.authSubscription.unsubscribe();
+    }
+  }
+
+  @HostListener('document:click', ['$event'])
+  clickOutside(event: Event) {
+    if (this.showAvatarDropdown && !this.elementRef.nativeElement.contains(event.target)) {
+      this.showAvatarDropdown = false;
+      console.log('NavbarComponent: Clicked outside avatar dropdown, closing.');
     }
   }
 
@@ -173,4 +187,25 @@ export class NavbarComponentComponent implements OnInit, OnDestroy {
     this.showSignUpModal = false; // Close sign-up modal
     this.showSignInModal = true;  // Open sign-in modal
   }
+
+  onXpAvailable(): void {
+    console.log('NavbarComponent: XP Available clicked!');
+    this.showAvatarDropdown = false; // Close dropdown
+    // You might want to navigate to an XP history page, or open a modal
+    // For now, it just logs to console.
+    // Example: this.router.navigate(['/xp-history']);
+  }
+
+  toggleAvatarDropdown(event: Event): void {
+    event.stopPropagation(); // Prevent document:click from immediately closing it
+    this.showAvatarDropdown = !this.showAvatarDropdown;
+    console.log('NavbarComponent: Avatar dropdown toggled to', this.showAvatarDropdown);
+  }
+
+  onViewProfile(): void {
+    console.log('NavbarComponent: View Profile clicked!');
+    this.showAvatarDropdown = false;
+    this.router.navigate(['/profile']);
+  }
+
 }
