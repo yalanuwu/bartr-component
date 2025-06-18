@@ -4,6 +4,7 @@ import { PersonalInformationComponent } from '../personal-information/personal-i
 import { CourseEnrolledComponent } from "../course-enrolled/course-enrolled.component";
 import { CourseCreatedComponent } from "../course-created/course-created.component";
 import { ProfileSettingsSectionComponent } from '../profile-settings-section/profile-settings-section.component';
+import { TransactionHistoryComponent } from "../transaction-history/transaction-history.component";
 
 
 export interface Course {
@@ -16,7 +17,7 @@ export interface Course {
 
 @Component({
   selector: 'app-profile-personal-page',
-  imports: [NavbarComponentComponent, PersonalInformationComponent, CourseEnrolledComponent, CourseCreatedComponent, ProfileSettingsSectionComponent],
+  imports: [NavbarComponentComponent, PersonalInformationComponent, CourseEnrolledComponent, CourseCreatedComponent, ProfileSettingsSectionComponent, TransactionHistoryComponent],
   templateUrl: './profile-personal-page.component.html',
   styleUrl: './profile-personal-page.component.css'
 })
@@ -28,7 +29,7 @@ export class ProfilePersonalPageComponent implements OnInit{
   xp: number = 300;
   countryRegion: string = 'Chennai, India';
 
-  activeTab: 'Personal Information' | 'Courses Enrolled' | 'Courses Created' | 'Profile Settings' = 'Personal Information';
+  activeTab: 'Personal Information' | 'Courses Enrolled' | 'Courses Created'| 'Transaction' | 'Profile Settings' = 'Personal Information';
 
   enrolledCourses =  [
 
@@ -190,7 +191,7 @@ export class ProfilePersonalPageComponent implements OnInit{
 
   }
 
-  setActiveTab(tab: 'Personal Information' | 'Courses Enrolled' | 'Courses Created' | 'Profile Settings'): void {
+  setActiveTab(tab: 'Personal Information' | 'Courses Enrolled' | 'Courses Created'| 'Transaction' | 'Profile Settings'): void {
     this.activeTab = tab;
     console.log(`Navigating to: ${this.activeTab}`);
   }

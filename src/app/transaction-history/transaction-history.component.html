@@ -1,0 +1,42 @@
+<!-- src/app/transaction-history/transaction-history.component.html -->
+
+<div class="flex-1 p-5 bg-white rounded-lg shadow-lg relative">
+  <div
+      class="absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-green-400/20 via-green-200/20 to-slate-200/60 backdrop-blur-xl"
+    ></div>
+  <h1 class="text-4xl font-semibold mb-1 text-gray-800 relative z-10">Transaction History</h1>
+  <p class="text-gray-600 text-sm mb-8 pb-2 border-b-2 border-gray-600 relative z-10">View your XP transaction details.</p>
+
+  <div class="overflow-x-auto relative z-10">
+    <table class="min-w-full bg-white/80 border border-gray-200 rounded-lg shadow-sm fade-in-bottom-normal">
+      <thead class="bg-gray-100 border-b border-gray-200">
+        <tr>
+          <th class="py-3 px-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider rounded-tl-lg">Sl No</th>
+          <th class="py-3 px-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Course Name</th>
+          <th class="py-3 px-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Type</th>
+          <th class="py-3 px-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">XP</th>
+          <th class="py-3 px-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider rounded-tr-lg">Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngIf="transactions.length > 0; else noTransactions">
+          <tr *ngFor="let transaction of transactions; let i = index"
+              class="border-b border-gray-200 hover:bg-gray-50 transition-colors duration-150">
+            <td class="py-3 px-4 text-sm text-gray-700">{{ transaction.slNo }}</td>
+            <td class="py-3 px-4 text-sm text-gray-800 font-medium">{{ transaction.courseName }}</td>
+            <td class="py-3 px-4 text-sm font-semibold" [ngClass]="getTypeColor(transaction.type)">
+              {{ transaction.type | titlecase }}
+            </td>
+            <td class="py-3 px-4 text-sm text-gray-700">{{ transaction.xp | number }}</td>
+            <td class="py-3 px-4 text-sm text-gray-700">{{ transaction.date | date:'mediumDate' }}</td>
+          </tr>
+        </ng-container>
+        <ng-template #noTransactions>
+          <tr>
+            <td colspan="5" class="py-8 text-center text-gray-500 text-lg">No transactions found.</td>
+          </tr>
+        </ng-template>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -17,17 +17,17 @@
 .animated-card {
   /* Initial hidden state BEFORE the slide-in animation plays. */
   opacity: 0;
-  transform: translateX(100px) scale(1);
+  /* transform: translateX(100px) scale(1); */
 
   /* Define transitions for properties that change due to hover.
      This transition applies when properties change *from* this base state
      (e.g., when un-hovering) and also when properties change *to* this base state.
      This ensures both hover-in and hover-out are fast for transform and box-shadow. */
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  /* transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; */
 
   /* If you want a specific z-index for the non-hovered state (matching original z-0) */
-  z-index: 0; /* Keep this if you want z-index transition from hover */
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, z-index 0.2s step-end;
+  /*z-index: 0; /* Keep this if you want z-index transition from hover */
+  /* transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, z-index 0.2s step-end; */
   /* Use step-end for z-index to change instantly after transition, or step-start if needed */
   /* Remove z-index transition if you prefer it to snap */
 }
@@ -63,7 +63,7 @@
               0 0 20px 5px rgba(6, 185, 129, 0.6);
 
   /* Ensure the hover state is above others, if that was the original intent */
-  z-index: 10; /* Matching original hover:z-10 */
+  /* z-index: 10; /* Matching original hover:z-10 */
 
   /* IMPORTANT: Remove the 'transition' property from here!
      If you define 'transition' on :hover, it only applies when entering hover.

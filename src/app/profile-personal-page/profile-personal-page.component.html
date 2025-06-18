@@ -35,6 +35,13 @@
             Courses Created
           </li>
           <li class="py-3 px-4 mb-2 text-gray-700 cursor-pointer rounded-md transition-colors duration-200 hover:bg-gray-200"
+          [class.font-bold]="activeTab === 'Transaction'"
+          [class.text-green-600]="activeTab === 'Transaction'"
+          [class.bg-gray-200]="activeTab === 'Transaction'"
+          (click)="setActiveTab('Transaction')">
+            Transactions
+          </li>
+          <li class="py-3 px-4 mb-2 text-gray-700 cursor-pointer rounded-md transition-colors duration-200 hover:bg-gray-200"
           [class.font-bold]="activeTab === 'Profile Settings'"
           [class.text-green-600]="activeTab === 'Profile Settings'"
           [class.bg-gray-200]="activeTab === 'Profile Settings'"
@@ -57,6 +64,10 @@
 
         @if (activeTab === 'Courses Created') {
           <app-course-created [courses]="coursesCreated" ></app-course-created>
+        }
+
+        @if (activeTab === 'Transaction') {
+          <app-transaction-history></app-transaction-history>
         }
 
         @if (activeTab === 'Profile Settings') {
