@@ -9,6 +9,7 @@ import { CreateCoursePageComponent } from './create-course-page/create-course-pa
 import { ProfilePersonalPageComponent } from './profile-personal-page/profile-personal-page.component';
 import { DebugComponentComponent } from './debug-component/debug-component.component';
 import { AllCategoriesComponent } from './all-categories/all-categories.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 export const routes: Routes = [
   // Your existing home page route
@@ -23,7 +24,7 @@ export const routes: Routes = [
   { path: 'all-categories', component: AllCategoriesComponent},
 
   // Wildcard route to redirect to home for any undefined paths
-  { path: '**', redirectTo: '' }
+  { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({
