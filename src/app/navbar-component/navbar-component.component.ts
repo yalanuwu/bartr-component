@@ -208,4 +208,9 @@ export class NavbarComponentComponent implements OnInit, OnDestroy {
     this.router.navigate(['/profile']);
   }
 
+  onPurchaseXP(): void {
+    console.log('NavbarComponent: Purchase XP clicked!');
+    this.router.navigate(['/purchase-xp']);
+  }
+
 }

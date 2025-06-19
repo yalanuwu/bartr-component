@@ -13,6 +13,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { AuthGuard } from './auth.guard';
 import { CourseDetailPageComponent } from './course-page/course-page.component';
 import { PublicProfilePageComponent } from './public-profile-page/public-profile-page.component';
+import { PurchaseXpComponent } from './purchase-xp/purchase-xp.component';
 
 export const routes: Routes = [
   // Your existing home page route
@@ -27,6 +28,7 @@ export const routes: Routes = [
   { path: 'all-categories', component: AllCategoriesComponent},
   { path: 'course-page', component: CourseDetailPageComponent},
   { path: 'public-profile', component: PublicProfilePageComponent},
+  { path: 'purchase-xp', component: PurchaseXpComponent},
 
   {
     path: 'create-course',
