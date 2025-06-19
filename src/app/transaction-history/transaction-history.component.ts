@@ -1,6 +1,7 @@
 // src/app/transaction-history/transaction-history.component.ts
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, NgFor, NgIf } from '@angular/common'; // For ngFor, ngIf, and date pipe
+import { Router } from '@angular/router';
 
 // Define an interface for the transaction data
 interface Transaction {
@@ -23,6 +24,8 @@ export class TransactionHistoryComponent implements OnInit {
   // Mock transaction data
   transactions: Transaction[] = [];
 
+  constructor (private router: Router) {}
+
   ngOnInit(): void {
     // Initialize with some mock data
     this.transactions = [
@@ -42,5 +45,9 @@ export class TransactionHistoryComponent implements OnInit {
   // Helper to determine text color based on transaction type
   getTypeColor(type: 'received' | 'spent'): string {
     return type === 'received' ? 'text-green-700' : 'text-red-600';
+  }
+
+  onPurchaseXP(): void {
+    this.router.navigate(['/purchase-xp']);
   }
 }
