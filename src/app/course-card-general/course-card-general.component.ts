@@ -12,6 +12,8 @@ export class CourseCardGeneralComponent implements OnInit{
   @Input() showXP: boolean = true;
   @Input() animation: boolean = false;
 
+  courseEnrolledNumber : number = 200;
+
   ngOnInit(): void {
 
   }
