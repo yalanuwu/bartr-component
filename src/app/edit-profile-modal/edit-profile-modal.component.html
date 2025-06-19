@@ -32,11 +32,11 @@
         </div>
 
         <div>
-          <label for="country" class="block text-gray-700 text-sm font-semibold mb-2">Country <span class="text-red-500">*</span></label>
-          <input type="text" id="country" name="country"
-                 [(ngModel)]="editedUser.country" required
-                 placeholder="e.g., India"
-                 class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+          <label for="region" class="block text-gray-700 text-sm font-bold mb-2">Region</label>
+          <select id="region" [(ngModel)]="editedUser.country" name="region"
+                  class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+            <option value="" disabled>Select your Region</option> <option *ngFor="let region of regions" [value]="region">{{ region }}</option>
+          </select>
         </div>
 
         <div>

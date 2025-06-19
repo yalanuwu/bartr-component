@@ -25,6 +25,15 @@ export class EditProfileModalComponent implements OnInit {
   @Output() save = new EventEmitter<UserProfileData>();
   @Output() cancel = new EventEmitter<void>();
 
+  regions : string[] = [
+    'Chennai, India',
+    'Kolkata, India',
+    'Bangalore, India',
+    'Delhi, India',
+    'Mumbai, India',
+    ''
+  ]
+
   // Internal model for the form, initialized with a copy of input user data
   editedUser: UserProfileData = {
     name: '',
