@@ -3,13 +3,13 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common'; // For standalone components
 
 @Component({
-  selector: 'app-purchase-success-modal',
+  selector: 'app-generic-success-modal',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './purchase-success-modal.component.html',
-  styleUrls: ['./purchase-success-modal.component.css']
+  templateUrl: './generic-success-modal.component.html',
+  styleUrls: ['./generic-success-modal.component.css']
 })
-export class PurchaseSuccessModalComponent {
+export class GenericSuccessModalComponent {
 
   @Input() title: string = 'Success!';
   @Input() message: string = 'Your action was completed successfully.';

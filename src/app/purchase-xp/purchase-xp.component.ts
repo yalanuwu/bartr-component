@@ -1,15 +1,16 @@
+
 // src/app/purchase-xp/purchase-xp.component.ts
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common'; // For NgIf, NgClass
 import { FormsModule } from '@angular/forms'; // For NgModel
 import { Router } from '@angular/router';
-import { PurchaseSuccessModalComponent } from "../purchase-success-modal/purchase-success-modal.component";
+import { GenericSuccessModalComponent } from "../generic-success-modal/generic-success-modal.component";
 import { NavbarComponentComponent } from "../navbar-component/navbar-component.component";
 
 @Component({
   selector: 'app-purchase-xp',
   standalone: true, // Mark as standalone
-  imports: [CommonModule, FormsModule, PurchaseSuccessModalComponent, NavbarComponentComponent], // Import necessary modules
+  imports: [CommonModule, FormsModule, GenericSuccessModalComponent, NavbarComponentComponent], // Import necessary modules
   templateUrl: './purchase-xp.component.html',
   styleUrls: ['./purchase-xp.component.css']
 })

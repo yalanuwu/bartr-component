@@ -52,14 +52,6 @@
             </select>
           </div>
 
-          <!-- <div>
-            <label for="xpPrice" class="block text-gray-700 text-sm font-semibold mb-2">XP Price <span class="text-red-500">*</span></label>
-            <input type="number" id="xpPrice" name="xpPrice"
-                   [(ngModel)]="newCourse.xpPrice" required min="0"
-                   placeholder="e.g., 50 XP"
-                   class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
-          </div> -->
-
           <div>
             <label for="courseImages" class="block text-gray-700 text-sm font-semibold mb-2">Course Images (Up to 4) <span class="text-red-500">*</span></label>
             <input type="file" id="courseImages" name="courseImages"
@@ -97,8 +89,8 @@
             <label class="block text-gray-700 text-sm font-semibold mb-2">Features <span class="text-red-500">*</span></label>
             <div *ngFor="let item of newCourse.features; let i = index; trackBy: trackByFeature" class="flex items-center space-x-2 mb-2">
               <input type="text" [(ngModel)]="newCourse.features[i]"
-                     name="featureItem_{{i}}" placeholder="e.g., Learn responsive web design"
-                     class="flex-grow p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                      name="featureItem_{{i}}" placeholder="e.g., Learn responsive web design"
+                      class="flex-grow p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
               <button *ngIf="newCourse.features.length > 1" (click)="removeFeatures(i)" type="button"
                       class="p-2 text-red-500 hover:text-red-700 rounded-full focus:outline-none">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
@@ -157,3 +149,13 @@
     </div>
   </main>
 </div>
+
+<app-generic-success-modal
+  *ngIf="showCourseCreationSuccessModal"
+  title="Course Created Successfully!"
+  [message]="'Your course &quot;' + createdCourseTitle + '&quot; has been successfully created. You can now manage its content and make it available to students.'"
+  primaryButtonText="View My Courses"
+  secondaryButtonText="Create Another Course"
+  (primaryAction)="onViewCreatedCourse()"
+  (close)="onCourseCreationModalClose()"
+></app-generic-success-modal>

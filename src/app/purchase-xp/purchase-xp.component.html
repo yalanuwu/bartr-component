@@ -93,7 +93,7 @@ to-slate-100 p-4">
   </div>
 </div>
 
-<app-purchase-success-modal
+<app-generic-success-modal
   *ngIf="showPurchaseSuccessModal"
   title="XP Purchase Successful!"
   [message]="'You have successfully purchased ' + xpAmount + ' XP for ₹' + (totalAmount | number:'1.2-2') + '.'"
@@ -101,4 +101,4 @@ to-slate-100 p-4">
   secondaryButtonText="Close"
   (primaryAction)="handlePrimaryPurchaseAction()"
   (close)="closePurchaseSuccessModal()"
-></app-purchase-success-modal>
+></app-generic-success-modal>
