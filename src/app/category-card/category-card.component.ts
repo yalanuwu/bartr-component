@@ -1,13 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, Output, ElementRef } from '@angular/core';
 import { EventEmitter } from '@angular/core';
+import { Category } from '../types';
 
-export interface Category {
-  name: string;
-  imageUrl: string;
-  altText: string; // Added for accessibility
-  // You can add more properties here if your categories have other data
-}
+
 
 @Component({
   selector: 'app-category-card',

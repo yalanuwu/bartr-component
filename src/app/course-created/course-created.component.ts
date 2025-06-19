@@ -1,8 +1,7 @@
-import { CourseCardComponent } from '../course-card/course-card.component';
-import { Course } from '../profile-personal-page/profile-personal-page.component';
 import { Component, Input } from '@angular/core';
 import { CourseCardGeneralComponent } from "../course-card-general/course-card-general.component";
 import { RouterLink } from '@angular/router';
+import { Courses } from '../types';
 
 @Component({
   selector: 'app-course-created',

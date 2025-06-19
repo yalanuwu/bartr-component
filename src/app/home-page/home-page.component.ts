@@ -6,7 +6,8 @@ import { FooterComponent } from "../footer/footer.component";
 
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Category, CategoryCardComponent } from "../category-card/category-card.component";
+import { CategoryCardComponent } from "../category-card/category-card.component";
+import { Category } from '../types';
 import { RouterLink } from '@angular/router';
 
 gsap.registerPlugin(ScrollTrigger);

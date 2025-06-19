@@ -14,6 +14,7 @@ import { AuthGuard } from './auth.guard';
 import { CourseDetailPageComponent } from './course-page/course-page.component';
 import { PublicProfilePageComponent } from './public-profile-page/public-profile-page.component';
 import { PurchaseXpComponent } from './purchase-xp/purchase-xp.component';
+import { CourseContentPageComponent } from './course-content-page/course-content-page.component';
 
 export const routes: Routes = [
   // Your existing home page route
@@ -29,6 +30,8 @@ export const routes: Routes = [
   { path: 'course-page', component: CourseDetailPageComponent},
   { path: 'public-profile', component: PublicProfilePageComponent},
   { path: 'purchase-xp', component: PurchaseXpComponent},
+
+  { path: 'course/:id', component: CourseContentPageComponent },  
 
   {
     path: 'create-course',

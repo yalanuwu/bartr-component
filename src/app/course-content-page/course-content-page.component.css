@@ -1,0 +1,30 @@
+/* src/app/course-content-page/course-content-page.component.css */
+
+/* Basic reset/base styles for better consistency */
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif; /* Example font, adjust if you have a custom one */
+}
+
+/* Ensure video player is responsive */
+video {
+  width: 100%;
+  height: auto;
+  display: block; /* Removes extra space below video tag */
+  background-color: black; /* Background for areas where video doesn't fill */
+}
+
+/* For pre-formatted text like course outline */
+.whitespace-pre-wrap {
+  white-space: pre-wrap;
+}
+
+/* Make the sidebar sticky for better user experience on scroll */
+/* Adjust 'top' value if your navbar height is different */
+@media (min-width: 1024px) { /* Apply sticky on larger screens */
+  .sticky {
+    position: sticky;
+    top: 2rem; /* Example offset from top. Adjust based on your navbar height */
+    align-self: flex-start; /* Ensure it sticks to the top of its flex container */
+  }
+}

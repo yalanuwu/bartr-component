@@ -1,5 +1,6 @@
 import { NgClass } from '@angular/common';
 import { Component, ElementRef, Input, OnInit } from '@angular/core';
+import { Courses } from '../types';
 
 @Component({
   selector: 'app-course-card-general',

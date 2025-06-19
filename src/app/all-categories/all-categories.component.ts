@@ -1,5 +1,6 @@
 import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output, PLATFORM_ID, QueryList, ViewChildren } from '@angular/core';
-import { Category, CategoryCardComponent } from "../category-card/category-card.component";
+import { CategoryCardComponent } from "../category-card/category-card.component";
+import { Category } from '../types';
 import { CommonModule, isPlatformBrowser, NgFor } from '@angular/common';
 import { NavbarComponentComponent } from "../navbar-component/navbar-component.component";
 
@@ -80,14 +81,14 @@ export class AllCategoriesComponent implements AfterViewInit, OnDestroy {
   }
 
   categoriesData: Category[] = [
-    { name: 'Information Technology', imageUrl: 'assets/category_images/it.png', altText: 'Information Technology icon' },
-    { name: 'Music', imageUrl: 'assets/category_images/music2.png', altText: 'Music icon' },
-    { name: 'Language', imageUrl: 'assets/category_images/language2.png', altText: 'Language icon' },
-    { name: 'Art', imageUrl: 'assets/category_images/art.png', altText: 'Art icon' },
-    { name: 'Art', imageUrl: 'assets/category_images/art.png', altText: 'Art icon' },
-    { name: 'Information Technology', imageUrl: 'assets/category_images/it.png', altText: 'Information Technology icon' },
-    { name: 'Music', imageUrl: 'assets/category_images/music2.png', altText: 'Music icon' },
-    { name: 'Language', imageUrl: 'assets/category_images/language2.png', altText: 'Language icon' },
+    { id: 0, name: 'Information Technology', imageUrl: 'assets/category_images/it.png', description: 'Information Technology icon' },
+    { id: 1, name: 'Music', imageUrl: 'assets/category_images/music2.png', description: 'Music icon' },
+    { id: 2, name: 'Language', imageUrl: 'assets/category_images/language2.png', description: 'Language icon' },
+    { id: 3, name: 'Art', imageUrl: 'assets/category_images/art.png', description: 'Art icon' },
+    { id: 4, name: 'Art', imageUrl: 'assets/category_images/art.png', description: 'Art icon' },
+    { id: 5, name: 'Information Technology', imageUrl: 'assets/category_images/it.png', description: 'Information Technology icon' },
+    { id: 6, name: 'Music', imageUrl: 'assets/category_images/music2.png', description: 'Music icon' },
+    { id: 7, name: 'Language', imageUrl: 'assets/category_images/language2.png', description: 'Language icon' },
     // Add more category objects here if needed
   ];
 }
