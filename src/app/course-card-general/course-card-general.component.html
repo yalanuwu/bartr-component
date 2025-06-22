@@ -2,26 +2,26 @@
   class="bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden flex flex-col h-full transition-transform duration-200 hover:scale-[1.02] cursor-pointer card"
   [ngClass]="{'fade-in-bottom-normal': animation}"
 >
-  <div class="relative" [ngClass]="course.imageBackgroundGradient ? 'bg-gradient-to-r ' + course.imageBackgroundGradient : 'bg-gray-200'">
+  <div class="relative" [ngClass]="course.imageUrl ? 'bg-gradient-to-r ' + 'from-blue-500 to-green-500' : 'bg-gray-800'">
       <img [src]="course.imageUrl" [alt]="course.title" class="w-full h-48 object-cover rounded-md">
   </div>
 
   <div class="p-4 flex flex-col flex-grow">
       <div class="flex items-center mb-2">
-          <img [src]="course.authorAvatarUrl" [alt]="course.authorName + ' Avatar'" class="w-8 h-8 rounded-full mr-2 border border-gray-200">
-          <span class="text-sm font-semibold text-gray-700">{{ course.authorName }}</span>
+          <img [src]="course.creator.avatarUrl" [alt]="course.creator.fullname" class="w-8 h-8 rounded-full mr-2 border border-gray-200">
+          <span class="text-sm font-semibold text-gray-700">{{ course.creator.fullname }}</span>
       </div>
 
       <h3 class="text-lg font-semibold text-gray-800 mb-1 line-clamp-2">{{ course.title }}</h3>
 
       <p class="text-sm text-gray-700 line-clamp-2 flex-grow mb-4">{{ course.description }}</p>
 
-      <p class="text-sm mb-2 text-end">{{courseEnrolledNumber}} users Enrolled</p>
+      <p class="text-sm mb-2 text-end">{{course.enrolledUser}} users Enrolled</p>
 
       @if(showXP === true){
         <div class="mt-auto border-t border-gray-200 pt-2 flex items-center justify-between text-sm text-gray-500">
           <span>ONLY AT</span>
-          <span class="font-bold text-gray-800">{{ course.xp }} XP</span>
+          <span class="font-bold text-gray-800">{{ course.price }} XP</span>
         </div>
       }
 

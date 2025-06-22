@@ -59,11 +59,11 @@
         }
 
         @if (activeTab === 'Courses Enrolled') {
-          <app-course-enrolled [courses]="enrolledCourses" ></app-course-enrolled>
+          <app-course-enrolled [courses]="allCourses" ></app-course-enrolled>
         }
 
         @if (activeTab === 'Courses Created') {
-          <app-course-created [courses]="coursesCreated" ></app-course-created>
+          <app-course-created [courses]="allCourses" ></app-course-created>
         }
 
         @if (activeTab === 'Transaction') {

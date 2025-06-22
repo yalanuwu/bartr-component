@@ -9,7 +9,7 @@ import { Courses } from '../types';
   styleUrl: './course-card-general.component.css'
 })
 export class CourseCardGeneralComponent implements OnInit{
-  @Input() course: any;
+  @Input() course!: Courses;
   @Input() showXP: boolean = true;
   @Input() animation: boolean = false;
 

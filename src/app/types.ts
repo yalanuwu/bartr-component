@@ -17,7 +17,7 @@ export interface Courses {
   features: string[],
   courseOutline: string,
   price: number,
-  photoUrl: string,
+  imageUrl: string,
   videoUrl: string,
   enrolledUser: number,
   category: Category,
@@ -42,7 +42,8 @@ export interface Transaction {
   course: Courses,
   type: string,
   amount: number,
-  transactedAt: string
+  transactedAt: string,
+
 }
 
 export interface User{
@@ -53,6 +54,7 @@ export interface User{
   phone: string,
   fullname: string,
   xp: number,
+  avatarUrl ?: string
 }
 
 export interface Enrollment{

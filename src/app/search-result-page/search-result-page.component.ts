@@ -39,7 +39,7 @@ export class SearchResultPageComponent implements OnInit {
       features: ['Responsive Design', 'HTML5', 'CSS3', 'JavaScript Basics'],
       courseOutline: 'Detailed course outline for modern web development.',
       price: 19.99, // Example price
-      photoUrl: 'assets/course_images/modern_website.png',
+      imageUrl: 'assets/course_images/modern_website.png',
       videoUrl: 'https://www.example.com/modern_website_video.mp4',
       enrolledUser: 120,
       category: { id: 1, name: 'Web Development', imageUrl: 'path/to/web_icon.png', description: 'Courses on web development.' },
@@ -54,7 +54,7 @@ export class SearchResultPageComponent implements OnInit {
       features: ['Figma', 'Sketch', 'User Research', 'Prototyping'],
       courseOutline: 'Comprehensive guide to responsive UI/UX.',
       price: 29.99, // Example price
-      photoUrl: 'assets/course_images/responsive_ui.png',
+      imageUrl: 'assets/course_images/responsive_ui.png',
       videoUrl: 'https://www.example.com/responsive_ui_video.mp4',
       enrolledUser: 90,
       category: { id: 2, name: 'UI/UX Design', imageUrl: 'path/to/uiux_icon.png', description: 'Courses on user interface and experience design.' },
@@ -69,7 +69,7 @@ export class SearchResultPageComponent implements OnInit {
       features: ['Adobe Premiere', 'Video Editing', 'Motion Graphics'],
       courseOutline: 'Learn video production for app promotion.',
       price: 24.99, // Example price
-      photoUrl: 'assets/course_images/app_promo.png',
+      imageUrl: 'assets/course_images/app_promo.png',
       videoUrl: 'https://www.example.com/app_promo_video.mp4',
       enrolledUser: 70,
       category: { id: 3, name: 'Video Production', imageUrl: 'path/to/video_icon.png', description: 'Courses on video creation.' },
@@ -84,7 +84,7 @@ export class SearchResultPageComponent implements OnInit {
       features: ['Photoshop', 'Illustrator', 'Social Media Marketing'],
       courseOutline: 'Master social media graphic design.',
       price: 34.99, // Example price
-      photoUrl: 'assets/course_images/social_media.png',
+      imageUrl: 'assets/course_images/social_media.png',
       videoUrl: 'https://www.example.com/social_media_video.mp4',
       enrolledUser: 150,
       category: { id: 4, name: 'Marketing', imageUrl: 'path/to/marketing_icon.png', description: 'Courses on digital marketing.' },
@@ -99,7 +99,7 @@ export class SearchResultPageComponent implements OnInit {
       features: ['Node.js', 'Express', 'MongoDB', 'REST APIs'],
       courseOutline: 'Advanced backend development concepts.',
       price: 49.99, // Example price
-      photoUrl: 'assets/course_images/backend_node.png',
+      imageUrl: 'assets/course_images/backend_node.png',
       videoUrl: 'https://www.example.com/backend_node_video.mp4',
       enrolledUser: 80,
       category: { id: 1, name: 'Web Development', imageUrl: 'path/to/web_icon.png', description: 'Courses on web development.' },
@@ -114,7 +114,7 @@ export class SearchResultPageComponent implements OnInit {
       features: ['Sketch', 'UI Grids', 'Design Systems', 'User Flows'],
       courseOutline: 'Master mobile app design with Sketch.',
       price: 39.99, // Example price
-      photoUrl: 'assets/course_images/mobile_sketch.png',
+      imageUrl: 'assets/course_images/mobile_sketch.png',
       videoUrl: 'https://www.example.com/mobile_sketch_video.mp4',
       enrolledUser: 60,
       category: { id: 2, name: 'UI/UX Design', imageUrl: 'path/to/uiux_icon.png', description: 'Courses on user interface and experience design.' },

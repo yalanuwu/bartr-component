@@ -86,7 +86,7 @@ export class CourseContentPageComponent implements OnInit{
             - Dynamic components
           `,
           price: 90,
-          photoUrl: 'https://via.placeholder.com/600x400/0000FF/FFFFFF?text=Angular+Course',
+          imageUrl: 'https://via.placeholder.com/600x400/0000FF/FFFFFF?text=Angular+Course',
           videoUrl: 'https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4', // Example MP4 video
           enrolledUser: 150,
           category: {
@@ -126,7 +126,7 @@ export class CourseContentPageComponent implements OnInit{
             Lesson 6: Simple Data Visualization
           `,
           price: 70,
-          photoUrl: 'https://via.placeholder.com/600x400/FF0000/FFFFFF?text=Python+Course',
+          imageUrl: 'https://via.placeholder.com/600x400/FF0000/FFFFFF?text=Python+Course',
           videoUrl: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4', // Another example video
           enrolledUser: 320,
           category: { id: 3, name: 'Data Science', imageUrl:'',  description: ''},

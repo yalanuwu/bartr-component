@@ -262,7 +262,7 @@
         class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
       >
         <app-course-card-general
-          *ngFor="let course of courses; let i = index"
+          *ngFor="let course of allCourses; let i = index"
           [course]="course"
           [animation]="courseCardsVisible[i]"
           class=""
