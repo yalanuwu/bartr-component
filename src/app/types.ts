@@ -49,7 +49,7 @@ export interface User{
   id: number,
   username: string,
   email: string,
-  password: string,
+  password?: string,
   phone: string,
   fullname: string,
   xp: number,
