@@ -3,6 +3,7 @@ import { CategoryCardComponent } from "../category-card/category-card.component"
 import { Category } from '../types';
 import { CommonModule, isPlatformBrowser, NgFor } from '@angular/common';
 import { NavbarComponentComponent } from "../navbar-component/navbar-component.component";
+import { CategoryService } from '../services/category.service';
 
 @Component({
   selector: 'app-all-categories',
@@ -25,6 +26,7 @@ export class AllCategoriesComponent implements AfterViewInit, OnDestroy {
 
   constructor(
     private cdr: ChangeDetectorRef,
+    private service:CategoryService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) { }
 
@@ -67,6 +69,9 @@ export class AllCategoriesComponent implements AfterViewInit, OnDestroy {
     }
   }
 
+  ngOnInit():void{
+    this.categoriesData=this.service.getAllCategories();
+  }
   ngOnDestroy(): void {
     // Disconnect the IntersectionObserver when the component is destroyed to prevent memory leaks
     if (this.intersectionObserver) {

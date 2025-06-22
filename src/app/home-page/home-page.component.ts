@@ -9,6 +9,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { CategoryCardComponent } from "../category-card/category-card.component";
 import { Category, Courses } from '../types';
 import { RouterLink } from '@angular/router';
+import { CourseService } from '../services/course.service';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -35,12 +36,13 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(
     private cdr: ChangeDetectorRef,
+    private service:CourseService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) { }
 
   ngOnInit(): void {
     // Your existing ngOnInit logic
-
+    this.allCourses=this.service.getAllCourses();
   }
 
   ngAfterViewInit(): void {
