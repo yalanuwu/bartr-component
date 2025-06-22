@@ -63,7 +63,7 @@ export class CourseContentPageComponent implements OnInit{
             'Building reusable components',
             'Performance optimization tips'
           ],
-          courseOutline: `
+          courseOutLine: `
             Module 1: Introduction to Angular Components
             - What are Components?
             - Component structure (TS, HTML, CSS)
@@ -117,7 +117,7 @@ export class CourseContentPageComponent implements OnInit{
             'Pandas for data manipulation',
             'Basic data visualization with Matplotlib'
           ],
-          courseOutline: `
+          courseOutLine: `
             Lesson 1: Python Setup and Basics
             Lesson 2: Data Types and Variables
             Lesson 3: Control Flow and Functions

@@ -37,7 +37,7 @@ export class SearchResultPageComponent implements OnInit {
       description: 'Learn to create modern web pages using popular frameworks',
       level: 'Beginner',
       features: ['Responsive Design', 'HTML5', 'CSS3', 'JavaScript Basics'],
-      courseOutline: 'Detailed course outline for modern web development.',
+      courseOutLine: 'Detailed course outline for modern web development.',
       price: 19.99, // Example price
       imageUrl: 'assets/course_images/modern_website.png',
       videoUrl: 'https://www.example.com/modern_website_video.mp4',
@@ -52,7 +52,7 @@ export class SearchResultPageComponent implements OnInit {
       description: 'Create responsive UI / UX mobile designs',
       level: 'Intermediate',
       features: ['Figma', 'Sketch', 'User Research', 'Prototyping'],
-      courseOutline: 'Comprehensive guide to responsive UI/UX.',
+      courseOutLine: 'Comprehensive guide to responsive UI/UX.',
       price: 29.99, // Example price
       imageUrl: 'assets/course_images/responsive_ui.png',
       videoUrl: 'https://www.example.com/responsive_ui_video.mp4',
@@ -67,7 +67,7 @@ export class SearchResultPageComponent implements OnInit {
       description: 'Learn to create an amazing website or app promo video',
       level: 'Beginner',
       features: ['Adobe Premiere', 'Video Editing', 'Motion Graphics'],
-      courseOutline: 'Learn video production for app promotion.',
+      courseOutLine: 'Learn video production for app promotion.',
       price: 24.99, // Example price
       imageUrl: 'assets/course_images/app_promo.png',
       videoUrl: 'https://www.example.com/app_promo_video.mp4',
@@ -82,7 +82,7 @@ export class SearchResultPageComponent implements OnInit {
       description: 'Learn to design social media post, Instagram post, Facebook post ads',
       level: 'Advanced',
       features: ['Photoshop', 'Illustrator', 'Social Media Marketing'],
-      courseOutline: 'Master social media graphic design.',
+      courseOutLine: 'Master social media graphic design.',
       price: 34.99, // Example price
       imageUrl: 'assets/course_images/social_media.png',
       videoUrl: 'https://www.example.com/social_media_video.mp4',
@@ -97,7 +97,7 @@ export class SearchResultPageComponent implements OnInit {
       description: 'Build robust backend systems using Node.js and Express',
       level: 'Advanced',
       features: ['Node.js', 'Express', 'MongoDB', 'REST APIs'],
-      courseOutline: 'Advanced backend development concepts.',
+      courseOutLine: 'Advanced backend development concepts.',
       price: 49.99, // Example price
       imageUrl: 'assets/course_images/backend_node.png',
       videoUrl: 'https://www.example.com/backend_node_video.mp4',
@@ -112,7 +112,7 @@ export class SearchResultPageComponent implements OnInit {
       description: 'Design intuitive and beautiful mobile applications',
       level: 'Intermediate',
       features: ['Sketch', 'UI Grids', 'Design Systems', 'User Flows'],
-      courseOutline: 'Master mobile app design with Sketch.',
+      courseOutLine: 'Master mobile app design with Sketch.',
       price: 39.99, // Example price
       imageUrl: 'assets/course_images/mobile_sketch.png',
       videoUrl: 'https://www.example.com/mobile_sketch_video.mp4',

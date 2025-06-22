@@ -15,7 +15,7 @@ export interface Courses {
   description: string,
   level: string,
   features: string[],
-  courseOutline: string,
+  courseOutLine: string,
   price: number,
   imageUrl: string,
   videoUrl: string,
