@@ -1,67 +1,73 @@
-<div class="min-h-screen flex flex-col bg-gray-100 font-sans text-gray-800">
+<div class="min-h-screen flex flex-col bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-green-400/20 via-green-200/20 to-slate-200/60 font-sans text-gray-800">
   <app-navbar-component class="fixed top-0 left-0 right-0 z-30"></app-navbar-component>
 
-  <main class="flex-grow pt-20 pb-12 px-4 md:px-8 max-w-7xl mx-auto w-full">
-    <div class="mb-8 mt-4">
-      <h1 class="font-konkhmer text-4xl mb-6 pb-2 inline-block pr-4">
-        Results for "<span class="text-green-700">{{searchParam}}</span>"
-      </h1>
+  <div class="mb-6 mt-4 bg-white pt-20">
+    <div class="">
 
-      <div class="sticky top-16 z-20 bg-white/90 backdrop-blur-md rounded-lg shadow-md flex flex-wrap items-center justify-between gap-4 py-4 px-6 mb-8 border border-gray-200">
-        <div class="flex flex-wrap items-center gap-4">
 
-          <div class="relative">
-            <select
-              [(ngModel)]="selectedCategory"
-              (change)="applyFilters()"
-              class="appearance-none px-4 py-2 rounded-lg bg-gray-100 text-gray-800 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors cursor-pointer text-base md:text-lg pr-8 shadow-sm"
-            >
-              <option *ngFor="let cat of categories" [value]="cat">{{cat}}</option>
-            </select>
-            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-            </div>
+    <h1 class="font-konkhmer text-4xl mb-4 pb-2 inline-block pr-4 px-6">
+      Results for "<span class="text-green-700">{{searchParam}}</span>"
+    </h1>
+
+    <div class="sticky top-16 z-20 bg-white/90 backdrop-blur-md rounded-lg shadow-md flex flex-wrap items-center justify-between gap-4 py-4 px-6 border border-gray-200">
+      <div class="flex flex-wrap items-center gap-4">
+
+        <div class="relative">
+          <select
+            [(ngModel)]="selectedCategory"
+            (change)="applyFilters()"
+            class="appearance-none px-4 py-2 rounded-lg bg-gray-100 text-gray-800 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors cursor-pointer text-base md:text-lg pr-8 shadow-sm"
+          >
+            <option *ngFor="let cat of categories" [value]="cat">{{cat}}</option>
+          </select>
+          <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
           </div>
-
-          <div class="flex items-center gap-2">
-            <input
-              type="number"
-              [(ngModel)]="minPrice"
-              (input)="applyFilters()"
-              placeholder="Min Price"
-              class="w-28 px-4 py-2 rounded-lg bg-gray-100 text-gray-800 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors text-base md:text-lg shadow-sm"
-            />
-            <span class="text-gray-600">-</span>
-            <input
-              type="number"
-              [(ngModel)]="maxPrice"
-              (input)="applyFilters()"
-              placeholder="Max Price"
-              class="w-28 px-4 py-2 rounded-lg bg-gray-100 text-gray-800 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors text-base md:text-lg shadow-sm"
-            />
-          </div>
-
-          <div class="relative">
-            <select
-              [(ngModel)]="selectedLevel"
-              (change)="applyFilters()"
-              class="appearance-none px-4 py-2 rounded-lg bg-gray-100 text-gray-800 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors cursor-pointer text-base md:text-lg pr-8 shadow-sm"
-            >
-              <option *ngFor="let lvl of levels" [value]="lvl">{{lvl === 'All' ? 'All Levels' : lvl}}</option>
-            </select>
-            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-            </div>
-          </div>
-
-          <button (click)="clearFilters()"
-                  class="px-5 py-2 rounded-full bg-red-600 text-white font-medium hover:bg-red-700 transition-colors text-base md:text-lg shadow-md">
-            Clear Filters
-          </button>
-
         </div>
+
+        <div class="flex items-center gap-2">
+          <input
+            type="number"
+            [(ngModel)]="minPrice"
+            (input)="applyFilters()"
+            placeholder="Min Price"
+            class="w-32 px-4 py-2 rounded-lg bg-gray-100 text-gray-800 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors text-base md:text-lg shadow-sm"
+          />
+          <span class="text-gray-600">-</span>
+          <input
+            type="number"
+            [(ngModel)]="maxPrice"
+            (input)="applyFilters()"
+            placeholder="Max Price"
+            class="w-32 px-4 py-2 rounded-lg bg-gray-100 text-gray-800 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors text-base md:text-lg shadow-sm"
+          />
+        </div>
+
+        <div class="relative">
+          <select
+            [(ngModel)]="selectedLevel"
+            (change)="applyFilters()"
+            class="appearance-none px-4 py-2 rounded-lg bg-gray-100 text-gray-800 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors cursor-pointer text-base md:text-lg pr-8 shadow-sm"
+          >
+            <option *ngFor="let lvl of levels" [value]="lvl">{{lvl === 'All' ? 'All Levels' : lvl}}</option>
+          </select>
+          <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </div>
+        </div>
+
+        <button (click)="clearFilters()"
+                class="px-5 py-2 rounded-full bg-red-600 text-white font-medium hover:bg-red-700 transition-colors text-base md:text-lg shadow-md">
+          Clear Filters
+        </button>
+
       </div>
     </div>
+    </div>
+  </div>
+
+  <main class="flex-grow pt-18 pb-12 px-4 md:px-8 max-w-7xl mx-auto w-full">
+
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
       <app-course-card-general *ngFor="let course of filteredCourses" [course]="course"></app-course-card-general>
