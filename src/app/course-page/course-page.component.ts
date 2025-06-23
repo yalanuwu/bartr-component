@@ -185,7 +185,7 @@ export class CourseDetailPageComponent implements OnInit {
     // Now uses the actual course price from the fetched data
     if (this.userCurrentXp >= this.course.price) {
       // Simulate enrollment
-      // this.enrollmentService.enroll((this.courseId||0),(this.user?.id||0));
+      this.enrollmentService.enroll((this.courseId||0),(this.user?.id||0));
       this.showEnrollmentSuccessModal = true;
       // In a real application, you would:
       // 1. Deduct XP from the user via an API call.

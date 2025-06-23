@@ -14,7 +14,7 @@ export class EnrollmentService {
   constructor(private http: HttpClient) { }
 
   enroll(courseId:number,userId:number):void{
-    axios.post(api.url+this.defUrl+`/insert/${userId}/${courseId}`,{headers:{Authorization:`Bearer ${localStorage.getItem('token')}`}}).then(function(response){"Enrolled successfully"});
+    axios.post(`${this.enrollmentsApiUrl}/insert/${userId}/${courseId}`,{},{headers:{Authorization:`Bearer ${localStorage.getItem('token')}`}}).then(function(response){"Enrolled successfully"});
   }
 
   getAllEnrollments():Enrollment[]{

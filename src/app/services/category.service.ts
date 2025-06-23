@@ -28,9 +28,10 @@ export class CategoryService {
 
   getCategoryNames():string[]{
     let names:string[]=[];
-    axios.get(api.url+this.defUrl+`/names`).then(function(response){names=response.data});
+    axios.get(api.url+this.defUrl+`/names`).then(function(response){for(let d of response.data) names.push(d);});
     return names;
   }
+ 
 
   createCategory(category:Category):void{
     axios.post(api.url+this.defUrl+`/insertCategory`,category).then(function(response){console.log("Category created successfully")});

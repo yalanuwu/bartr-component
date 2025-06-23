@@ -1,10 +1,10 @@
 <div class="min-h-screen flex flex-col bg-gray-100 font-variable text-gray-800">
   <app-navbar-component></app-navbar-component>
-
+ 
   <main class="flex-grow py-8 px-4 md:px-8 max-w-4xl mx-auto w-full">
     <div class="bg-white p-6 md:p-8 rounded-lg shadow-xl border border-gray-200">
       <h1 class="text-4xl font-konkhmer text-gray-800 mb-6 pb-4 border-b border-gray-200">Create New Course</h1>
-
+ 
       <div class="mb-8 mx-10 flex justify-center items-center space-x-4">
         <div class="flex flex-col items-center">
           <div [class.bg-green-500]="currentStep >= 1" [class.bg-gray-300]="currentStep < 1"
@@ -22,36 +22,36 @@
           <span class="text-sm mt-2 text-gray-600">Course Content</span>
         </div>
       </div>
-
+ 
       <form (ngSubmit)="onSubmit()" class="space-y-6">
-
+ 
         <div *ngIf="currentStep === 1" class="space-y-6">
           <div>
             <label for="courseTitle" class="block text-gray-700 text-sm font-semibold mb-2">Course Title <span class="text-red-500">*</span></label>
             <input type="text" id="courseTitle" name="courseTitle"
-                   [(ngModel)]="newCourse.title" required
+                   [(ngModel)]="course.title" required
                    placeholder="e.g., Mastering React Hooks"
                    class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
           </div>
-
+ 
           <div>
             <label for="courseDescription" class="block text-gray-700 text-sm font-semibold mb-2">Course Description <span class="text-red-500">*</span></label>
             <textarea id="courseDescription" name="courseDescription"
-                      [(ngModel)]="newCourse.description" required rows="4"
+                      [(ngModel)]="course.description" required rows="4"
                       placeholder="Provide a detailed description of what your course covers."
                       class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"></textarea>
           </div>
-
+ 
           <div>
             <label for="courseCategory" class="block text-gray-700 text-sm font-semibold mb-2">Category <span class="text-red-500">*</span></label>
             <select id="courseCategory" name="courseCategory"
-                    [(ngModel)]="newCourse.category" required
+                    [(ngModel)]="course.category.id" required
                     class="w-full p-3 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-green-500">
               <option value="" disabled>Select a category</option>
-              <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+              <option *ngFor="let cat of categories,let i=index" [value]="i+1">{{ cat }}</option>
             </select>
           </div>
-
+ 
           <div>
             <label for="courseImages" class="block text-gray-700 text-sm font-semibold mb-2">Course Images (Up to 4) <span class="text-red-500">*</span></label>
             <input type="file" id="courseImages" name="courseImages"
@@ -62,7 +62,7 @@
               {{ newCourse.courseImages.length }} of 4 images selected.
               <span *ngIf="newCourse.courseImages.length < 4"> (Select more or replace)</span>
             </p>
-
+ 
             <div *ngIf="newCourse.courseImages.length > 0" class="mt-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
               <div *ngFor="let img of newCourse.courseImages; let i = index" class="relative group">
                 <img [src]="img" alt="Course Image {{i+1}}" class="w-full h-32 object-cover rounded-md border border-gray-300">
@@ -74,21 +74,21 @@
               </div>
             </div>
           </div>
-
+ 
           <div>
             <label for="courseLevel" class="block text-gray-700 text-sm font-semibold mb-2">Level <span class="text-red-500">*</span></label>
             <select id="courseLevel" name="courseLevel"
-                    [(ngModel)]="newCourse.level" required
+                    [(ngModel)]="course.level" required
                     class="w-full p-3 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-green-500">
               <option value="" disabled>Select course level</option>
               <option *ngFor="let lvl of level" [value]="lvl">{{ lvl }}</option>
             </select>
           </div>
-
+ 
           <div>
             <label class="block text-gray-700 text-sm font-semibold mb-2">Features <span class="text-red-500">*</span></label>
             <div *ngFor="let item of newCourse.features; let i = index; trackBy: trackByFeature" class="flex items-center space-x-2 mb-2">
-              <input type="text" [(ngModel)]="newCourse.features[i]"
+              <input type="text" [(ngModel)]="course.features[i]"
                       name="featureItem_{{i}}" placeholder="e.g., Learn responsive web design"
                       class="flex-grow p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
               <button *ngIf="newCourse.features.length > 1" (click)="removeFeatures(i)" type="button"
@@ -102,15 +102,15 @@
               Add another
             </button>
           </div>
-
+ 
           <div>
             <label for="courseContent" class="block text-gray-700 text-sm font-semibold mb-2">Course Content Outline <span class="text-red-500">*</span></label>
             <textarea id="courseContent" name="courseContent"
-                      [(ngModel)]="newCourse.courseContent" rows="6" required
+                      [(ngModel)]="course.courseOutLine" rows="6" required
                       placeholder="Outline your course modules, topics, and lessons here. This is the textual overview of your course."
                       class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"></textarea>
           </div>
-
+ 
           <div class="pt-4 border-t border-gray-200 flex justify-end">
             <button type="button" (click)="goToNextStep()"
                     class="px-6 py-3 bg-green-600 text-white font-semibold rounded-md shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 flex items-center">
@@ -119,10 +119,10 @@
             </button>
           </div>
         </div>
-
+ 
         <div *ngIf="currentStep === 2" class="space-y-6">
           <h2 class="text-2xl font-bold text-gray-800 mb-4">Upload Course Video Content</h2>
-
+ 
           <div>
             <label for="courseVideo" class="block text-gray-700 text-sm font-semibold mb-2">Main Course Video <span class="text-red-500">*</span></label>
             <input type="file" id="courseVideo" name="courseVideo"
@@ -131,7 +131,7 @@
             <p *ngIf="newCourse.courseVideo" class="mt-2 text-sm text-gray-600">Selected: {{ newCourse.courseVideo.name }}</p>
             <p *ngIf="!newCourse.courseVideo" class="mt-2 text-sm text-gray-500">Please upload the primary video file for your course.</p>
           </div>
-
+ 
           <div class="pt-4 border-t border-gray-200 flex justify-between">
             <button type="button" (click)="goToPreviousStep()"
                     class="px-6 py-3 bg-gray-200 text-gray-700 font-semibold rounded-md shadow-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 flex items-center">
@@ -144,12 +144,12 @@
             </button>
           </div>
         </div>
-
+ 
       </form>
     </div>
   </main>
 </div>
-
+ 
 <app-generic-success-modal
   *ngIf="showCourseCreationSuccessModal"
   title="Course Created Successfully!"

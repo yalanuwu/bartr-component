@@ -5,7 +5,7 @@ import { Observable } from 'rxjs'; // Import Observable
 import { map } from 'rxjs/operators'; // Import map operator for transformations
 import { api } from '../api'; // Assuming 'api' is a constant with your base URL
 import { Courses } from '../types'; // Import Courses interface
-
+import axios from 'axios';
 // Remove axios as we are switching to HttpClient
 // import axios from 'axios';
 
@@ -93,7 +93,20 @@ export class CourseService {
    * @param course The Course object to insert.
    * @returns An Observable that emits the backend response (or void if no content).
    */
-  insertCourse(course: Courses): Observable<any> {
-    return this.http.post(`${this.baseUrl}/insertCourse`, course);
+  insertCourse(course: Courses):void {
+    let a:any={
+      title:course.title,
+      description:course.description,
+      level:course.level,
+      features:course.features.join(","),
+      courseOutLine:course.courseOutLine,
+      category: course.category,
+      creator: course.creator
+    };
+    axios.post(`${this.baseUrl}/insertCourse`,a,{headers:{Authorization:`Bearer ${localStorage.getItem('token')}`}})
+    .then(function(resp){
+      console.log("course created successfully");
+    });
   }
+ 
 }
