@@ -1,9 +1,10 @@
 import { CommonModule, NgFor } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { UserProfileData } from '../edit-profile-modal/edit-profile-modal.component';
 import { EditProfileModalComponent } from '../edit-profile-modal/edit-profile-modal.component';
+import { User } from '../types';
 
 @Component({
   selector: 'app-personal-information',
@@ -14,6 +15,9 @@ import { EditProfileModalComponent } from '../edit-profile-modal/edit-profile-mo
 })
 
 export class PersonalInformationComponent implements OnInit {
+
+  @Input() user: User | null = null;
+
   userName: string = 'Username';
   userEmail: string = 'profilename123@gmail.com';
 

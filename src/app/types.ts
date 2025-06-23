@@ -3,9 +3,9 @@
 
 export interface Category{
   id: number,
-  name: string,
-  imageUrl: string,
-  description: string,
+  name?: string,
+  imageUrl?: string,
+  description?: string,
   // xpCost: number,
 }
 
@@ -22,7 +22,7 @@ export interface Courses {
   enrolledUser: number,
   category: Category,
   creator: User,
-  createdAt: string,
+  createdAt?: string,
 
 
 }
@@ -49,12 +49,15 @@ export interface Transaction {
 export interface User{
   id: number,
   username: string,
-  email: string,
+  email?: string,
   password?: string,
-  phone: string,
-  fullname: string,
-  xp: number,
-  avatarUrl ?: string
+  phone?: string,
+  fullname?: string,
+  xp?: number,
+  avatarUrl ?: string,
+  bio?: string,
+  skills?: string[],
+  region?: string
 }
 
 export interface Enrollment{

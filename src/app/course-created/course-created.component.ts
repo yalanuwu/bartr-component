@@ -10,7 +10,7 @@ import { Courses } from '../types';
   styleUrl: './course-created.component.css'
 })
 export class CourseCreatedComponent {
-  @Input() courses: Courses[] = [];
+  @Input() courses: Courses[] | null = null;
 
 
   createCourse = () => {

@@ -2,12 +2,16 @@ import { Injectable } from '@angular/core';
 import axios from 'axios';
 import { api } from '../api';
 import { Courses, Enrollment } from '../types';
+import { environment } from '../../environments/environment';
+import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
 export class EnrollmentService {
   defUrl:string='/api/enrollments';
-  constructor() { }
+  private readonly enrollmentsApiUrl = `${environment.apiUrl}/api/enrollments`;
+  constructor(private http: HttpClient) { }
 
   enroll(course:Courses,userId:number):void{
     axios.post(api.url+this.defUrl+`/insert/${userId}/${course.id}`).then(function(response){"Enrolled successfully"});
@@ -39,4 +43,14 @@ export class EnrollmentService {
     });
     return enrollments;
   }
+
+  getEnrolledCoursesById(userId: number): Observable<Courses[]> { // <-- NEW SERVICE FUNCTION
+    const url = `${this.enrollmentsApiUrl}/${userId}/courses`; // Construct the specific URL
+
+    let headers = new HttpHeaders();
+    headers= headers.set('Authorization', `Bearer ${localStorage.getItem('token')}`);
+    console.log(`UserService: Fetching enrolled courses from: ${url}`); // Diagnostic log
+    return this.http.get<Courses[]>(url, {headers: headers});
+  }
+
 }

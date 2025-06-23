@@ -7,8 +7,13 @@
           <div class="profile-icon">
             <img src="assets/dummy-avatar/avataaars.png" alt="Profile Icon">
           </div>
-          <div class="text-xl font-bold text-gray-800">{{ userName }}</div>
-          <div class="text-sm text-gray-600">{{ userEmail }}</div>
+          <ng-container *ngIf="user">
+            <div class="text-xl font-bold text-gray-800">{{ user.username }}</div>
+            <div class="text-sm text-gray-600">{{ user.email }}</div> </ng-container>
+          <ng-container *ngIf="!user">
+              <div class="text-xl font-bold text-gray-800">Loading User...</div>
+              <div class="text-sm text-gray-600"></div>
+          </ng-container>
           <!-- <div class="size-2 text-red-800">hello</div> -->
         </div>
 
@@ -55,15 +60,15 @@
        <div class="flex-1 p-5 ml-64 bg-gray-100">
 
         @if(activeTab === 'Personal Information'){
-          <app-personal-information ></app-personal-information>
+          <app-personal-information [user] = "user"></app-personal-information>
         }
 
         @if (activeTab === 'Courses Enrolled') {
-          <app-course-enrolled [courses]="allCourses" ></app-course-enrolled>
+          <app-course-enrolled [courses]="enrolledCourses" ></app-course-enrolled>
         }
 
         @if (activeTab === 'Courses Created') {
-          <app-course-created [courses]="allCourses" ></app-course-created>
+          <app-course-created [courses]="coursesCreated" ></app-course-created>
         }
 
         @if (activeTab === 'Transaction') {

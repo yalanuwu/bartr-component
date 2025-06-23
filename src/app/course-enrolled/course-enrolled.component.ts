@@ -12,7 +12,7 @@ import { Courses } from '../types';
   styleUrl: './course-enrolled.component.css'
 })
 export class CourseEnrolledComponent {
-    @Input() courses: Courses[] = [];
+    @Input() courses: Courses[] | null = null;
 
     explore = () => {
       console.log("Explore Courses Component load");

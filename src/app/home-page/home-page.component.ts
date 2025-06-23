@@ -36,13 +36,22 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(
     private cdr: ChangeDetectorRef,
-    private service:CourseService,
-    @Inject(PLATFORM_ID) private platformId: Object
+    private courseService:CourseService,
+    @Inject(PLATFORM_ID) private platformId: Object,
   ) { }
 
   ngOnInit(): void {
     // Your existing ngOnInit logic
-    this.allCourses=this.service.getAllCourses();
+    this.courseService.getAllCourses().subscribe({
+      next: (coursesData: Courses[]) => {
+        this.allCourses = coursesData;
+        console.log('ProfilePersonalPageComponent: Created courses fetched:', this.allCourses);
+      },
+      error: (err) => {
+        console.error('ProfilePersonalPageComponent: Failed to fetch enrolled courses:', err);
+        this.allCourses = []; // Set to empty array on error or null
+      }
+    })
   }
 
   ngAfterViewInit(): void {
