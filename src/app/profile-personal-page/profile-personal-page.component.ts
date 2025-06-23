@@ -5,7 +5,9 @@ import { CourseEnrolledComponent } from "../course-enrolled/course-enrolled.comp
 import { CourseCreatedComponent } from "../course-created/course-created.component";
 import { ProfileSettingsSectionComponent } from '../profile-settings-section/profile-settings-section.component';
 import { TransactionHistoryComponent } from "../transaction-history/transaction-history.component";
-import { Courses } from '../types';
+import { Courses, User } from '../types';
+import axios from 'axios';
+import { UserService } from '../services/user.service';
 
 
 export interface Course {
@@ -31,6 +33,15 @@ export class ProfilePersonalPageComponent implements OnInit{
   countryRegion: string = 'Chennai, India';
 
   activeTab: 'Personal Information' | 'Courses Enrolled' | 'Courses Created'| 'Transaction' | 'Profile Settings' = 'Personal Information';
+
+  user:User={
+    id: 0,
+    username: '',
+    email: '',
+    phone: '',
+    fullname: '',
+    xp: 0
+  };
 
   enrolledCourses =  [
 
@@ -279,10 +290,10 @@ export class ProfilePersonalPageComponent implements OnInit{
         },
       ];
 
-  constructor() { }
+  constructor(private service:UserService) { }
 
   ngOnInit(): void {
-
+    this.user = this.service.getByUserName(localStorage.getItem("username")||'');
   }
 
   setActiveTab(tab: 'Personal Information' | 'Courses Enrolled' | 'Courses Created'| 'Transaction' | 'Profile Settings'): void {
