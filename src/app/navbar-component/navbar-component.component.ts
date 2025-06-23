@@ -4,6 +4,8 @@ import { Component, HostListener, Input, OnInit, Inject, PLATFORM_ID, OnDestroy,
 import { Router, RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../auth/auth.service'; // Correct import path for AuthService
+import { User } from '../types';
+import { generateAvatarUrl } from '../util';
 // Removed modal imports as they are now pages:
 // import { SignInComponent } from '../sign-in/sign-in.component';
 // import { SignUpModalComponent } from '../register/register.component';
@@ -18,6 +20,8 @@ import { AuthService } from '../auth/auth.service'; // Correct import path for A
 export class NavbarComponentComponent implements OnInit, OnDestroy {
   @Input() dynamicScroll: boolean = false;
   isScrolledDown: boolean = false;
+  currentUser: User | null = null;
+  userAvatarUrl: string = '';
 
   // No longer needed as we are using pages instead of modals
   // showSignInModal: boolean = false;
@@ -31,6 +35,7 @@ export class NavbarComponentComponent implements OnInit, OnDestroy {
   // The AuthService itself doesn't expose a Subject/Observable for its state directly
   // with the current implementation. We will modify AuthService slightly to emit changes.
   private authStateSubscription!: Subscription;
+  private userSubscription!: Subscription;
 
   // Removed @Output() signOut as logout is now handled internally by AuthService and Router
 
@@ -65,6 +70,17 @@ export class NavbarComponentComponent implements OnInit, OnDestroy {
       this.isLoggedIn = status;
       console.log('NavbarComponent: Login status updated to', this.isLoggedIn);
     });
+
+
+    const username = localStorage.getItem('username');
+    if (username) {
+      this.userAvatarUrl = generateAvatarUrl(username);
+
+    } else {
+      this.userAvatarUrl = generateAvatarUrl('');
+    }
+
+
   }
 
   ngOnDestroy(): void {

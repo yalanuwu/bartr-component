@@ -57,7 +57,8 @@ export interface User{
   avatarUrl ?: string,
   bio?: string,
   skills?: string[],
-  region?: string
+  region?: string,
+  avgResponseTime?: string,
 }
 
 export interface Enrollment{

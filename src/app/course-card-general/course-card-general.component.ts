@@ -1,6 +1,8 @@
 import { NgClass } from '@angular/common';
 import { Component, ElementRef, Input, OnInit } from '@angular/core';
 import { Courses } from '../types';
+import { Router } from '@angular/router';
+import { generateAvatarUrl } from '../util';
 
 @Component({
   selector: 'app-course-card-general',
@@ -15,12 +17,27 @@ export class CourseCardGeneralComponent implements OnInit{
 
   courseEnrolledNumber : number = 200;
 
+  creatorAvatarUrl: string = '';
+
   ngOnInit(): void {
+    if (this.course && this.course.creator && this.course.creator.fullname) {
+      this.creatorAvatarUrl = generateAvatarUrl(this.course.creator.fullname);
+    } else {
+      // Fallback if creator fullname is not available
+      this.creatorAvatarUrl = generateAvatarUrl('');
+    }
+  }
+
+  constructor (public elementRef: ElementRef, private router: Router) {
 
   }
 
-  constructor (public elementRef: ElementRef) {
-
+  goToCourseDetails(): void {
+    // Navigate to the course details page using the course's ID
+    // Assuming your route is defined like '/courses/:id' or '/course/:id'
+    this.router.navigate(['/course', this.course.id]);
+    // Or if you want to use query parameters:
+    // this.router.navigate(['/course-page'], { queryParams: { id: this.course.id } });
   }
 
 }

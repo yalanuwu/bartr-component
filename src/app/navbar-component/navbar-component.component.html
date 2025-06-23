@@ -44,7 +44,7 @@
         <div class="relative">
           <button (click)="toggleAvatarDropdown($event)"
                   class="relative w-9 h-9 rounded-full overflow-hidden hover:outline-none hover:ring-2 hover:ring-green-600 focus:outline-none focus:ring-2 focus:ring-green-600">
-            <img class="w-full h-full object-cover" src="https://placehold.co/100x100/34D399/FFFFFF?text=AJ" alt="User Avatar">
+            <img class="w-full h-full object-cover" [src]="userAvatarUrl" alt="User Avatar">
           </button>
 
           <div *ngIf="showAvatarDropdown"

@@ -13,8 +13,8 @@ export class EnrollmentService {
   private readonly enrollmentsApiUrl = `${environment.apiUrl}/api/enrollments`;
   constructor(private http: HttpClient) { }
 
-  enroll(course:Courses,userId:number):void{
-    axios.post(api.url+this.defUrl+`/insert/${userId}/${course.id}`).then(function(response){"Enrolled successfully"});
+  enroll(courseId:number,userId:number):void{
+    axios.post(api.url+this.defUrl+`/insert/${userId}/${courseId}`,{headers:{Authorization:`Bearer ${localStorage.getItem('token')}`}}).then(function(response){"Enrolled successfully"});
   }
 
   getAllEnrollments():Enrollment[]{

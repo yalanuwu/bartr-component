@@ -12,6 +12,7 @@ import { UserService } from '../services/user.service';
 import { NgIf } from '@angular/common';
 import { CourseService } from '../services/course.service';
 import { EnrollmentService } from '../services/enrollment.service';
+import { generateAvatarUrl } from '../util';
 
 
 export interface Course {
@@ -41,6 +42,7 @@ export class ProfilePersonalPageComponent implements OnInit{
   user: User | null = null;
   enrolledCourses: Courses[] | null = null;
   coursesCreated: Courses[] | null = null;
+  userAvatarUrl : string = '';
 
 
 
@@ -142,6 +144,7 @@ export class ProfilePersonalPageComponent implements OnInit{
   ngOnInit(): void {
     const username = localStorage.getItem("username");
     if (username) {
+      this.userAvatarUrl = generateAvatarUrl(username);
       this.service.getByUserName(username).subscribe({
         next: (userData: User) => {
           this.user = userData;
@@ -196,6 +199,7 @@ export class ProfilePersonalPageComponent implements OnInit{
       });
     } else {
       console.warn('ProfilePersonalPageComponent: Username not found in localStorage. Cannot fetch user data.');
+      this.userAvatarUrl = generateAvatarUrl('');
       this.user = null;
       this.enrolledCourses = [];
     }
