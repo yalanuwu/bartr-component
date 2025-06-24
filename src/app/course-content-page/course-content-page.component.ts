@@ -54,6 +54,7 @@ export class CourseContentPageComponent implements OnInit{
       next: (coursesData: Courses) => {
         courseN = coursesData;
         b=true;
+        this.username=generateAvatarUrl(courseN.creator.fullname||'');
         console.log('ProfilePersonalPageComponent: Created courses fetched:',courseN);
       },
       error: (err) => {
@@ -158,7 +159,6 @@ export class CourseContentPageComponent implements OnInit{
       else if(b)
       {
         this.course=courseN;
-        this.username=generateAvatarUrl(this.course.creator.fullname||'');
       }
       else {
         this.error = `Course with ID ${id} not found.`;

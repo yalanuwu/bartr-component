@@ -12,7 +12,7 @@
 export function generateAvatarUrl(fullname: string): string {
   if (!fullname) {
     // Return a default or empty avatar if fullname is not provided
-    return 'https://placehold.co/100x100/CCCCCC/000000?text=NA'; // Default "Not Available"
+    return `https://placehold.co/100x100/34D399/FFFFFF?text=${"NA"}`; // Default "Not Available"
   }
 
   const nameParts = fullname.trim().split(' ');
