@@ -3,7 +3,8 @@ import { Courses, Category, User } from '../types';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { NavbarComponentComponent } from '../navbar-component/navbar-component.component';
 import { ActivatedRoute, Router } from '@angular/router';
-
+import { CourseService } from '../services/course.service';
+import { generateAvatarUrl } from '../util';
 @Component({
   selector: 'app-course-content-page',
   imports: [
@@ -19,10 +20,11 @@ export class CourseContentPageComponent implements OnInit{
   course: Courses | undefined;
   isLoading: boolean = true;
   error: string | null = null;
-
+  username:string='';
   constructor(
     private route: ActivatedRoute, // To read route parameters
-    private router: Router         // To navigate if needed
+    private router: Router,         // To navigate if needed
+    private courseService:CourseService
   ) { }
 
   ngOnInit(): void {
@@ -46,7 +48,19 @@ export class CourseContentPageComponent implements OnInit{
   private fetchCourseDetails(id: number): void {
     this.isLoading = true;
     this.error = null;
-
+    let courseN:Courses;
+    let b:boolean=false;
+    this.courseService.getCourseById(id).subscribe({
+      next: (coursesData: Courses) => {
+        courseN = coursesData;
+        b=true;
+        console.log('ProfilePersonalPageComponent: Created courses fetched:',courseN);
+      },
+      error: (err) => {
+        console.error('ProfilePersonalPageComponent: Failed to fetch enrolled courses:', err);
+        b=false;
+      }
+    });
     // Simulate network delay
     setTimeout(() => {
       // Dummy data for demonstration
@@ -140,6 +154,11 @@ export class CourseContentPageComponent implements OnInit{
           },
           createdAt: '2024-01-20T14:30:00Z',
         };
+      }
+      else if(b)
+      {
+        this.course=courseN;
+        this.username=generateAvatarUrl(this.course.creator.fullname||'');
       }
       else {
         this.error = `Course with ID ${id} not found.`;

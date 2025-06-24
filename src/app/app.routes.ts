@@ -34,7 +34,7 @@ export const routes: Routes = [
   { path: 'purchase-xp', component: PurchaseXpComponent},
   { path: 'search-result', component: SearchResultPageComponent},
 
-  { path: 'course/:id', component: CourseContentPageComponent },
+  { path: 'course-content/:id', component: CourseContentPageComponent },
 
   {
     path: 'create-course',
