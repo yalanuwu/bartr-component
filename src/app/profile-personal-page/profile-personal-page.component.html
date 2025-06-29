@@ -72,7 +72,7 @@
         }
 
         @if (activeTab === 'Transaction') {
-          <app-transaction-history></app-transaction-history>
+          <app-transaction-history [userid]="user?.id||0"></app-transaction-history>
         }
 
         @if (activeTab === 'Profile Settings') {

@@ -1,16 +1,17 @@
 // src/app/transaction-history/transaction-history.component.ts
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule, NgFor, NgIf } from '@angular/common'; // For ngFor, ngIf, and date pipe
 import { Router } from '@angular/router';
-
+import { Transaction } from '../types';
+import { TransactionService } from '../services/transaction.service';
 // Define an interface for the transaction data
-interface Transaction {
-  slNo: number;
-  courseName: string;
-  type: 'received' | 'spent'; // Explicitly define types
-  xp: number;
-  date: string; // Using string for simplicity, could be Date type
-}
+// interface Transaction {
+//   slNo: number;
+//   courseName: string;
+//   type: 'received' | 'spent'; // Explicitly define types
+//   xp: number;
+//   date: string; // Using string for simplicity, could be Date type
+// }
 
 @Component({
   selector: 'app-transaction-history',
@@ -20,31 +21,42 @@ interface Transaction {
   styleUrl: './transaction-history.component.css'
 })
 export class TransactionHistoryComponent implements OnInit {
-
+  @Input() userid: number | null = null;
   // Mock transaction data
   transactions: Transaction[] = [];
-
-  constructor (private router: Router) {}
+  constructor (private router: Router,
+              private transactionService:TransactionService
+              ) {}
 
   ngOnInit(): void {
     // Initialize with some mock data
-    this.transactions = [
-      { slNo: 1, courseName: 'Angular Fundamentals', type: 'received', xp: 500, date: '2024-05-10' },
-      { slNo: 2, courseName: 'JavaScript Advanced', type: 'spent', xp: 200, date: '2024-05-12' },
-      { slNo: 3, courseName: 'React Basics', type: 'received', xp: 350, date: '2024-05-15' },
-      { slNo: 4, courseName: 'Node.js Express', type: 'spent', xp: 150, date: '2024-05-18' },
-      { slNo: 5, courseName: 'CSS for Designers', type: 'received', xp: 250, date: '2024-05-20' },
-      { slNo: 6, courseName: 'Python for Data Science', type: 'received', xp: 600, date: '2024-05-22' },
-      { slNo: 7, courseName: 'SQL Database Management', type: 'spent', xp: 100, date: '2024-05-25' },
-      { slNo: 8, courseName: 'Cloud Computing Basics', type: 'received', xp: 400, date: '2024-05-28' },
-      { slNo: 9, courseName: 'Cybersecurity Fundamentals', type: 'spent', xp: 300, date: '2024-06-01' },
-      { slNo: 10, courseName: 'AI & Machine Learning Intro', type: 'received', xp: 750, date: '2024-06-05' },
-    ];
+  //   this.transactions = [
+  //     { slNo: 1, courseName: 'Angular Fundamentals', type: 'received', xp: 500, date: '2024-05-10' },
+  //     { slNo: 2, courseName: 'JavaScript Advanced', type: 'spent', xp: 200, date: '2024-05-12' },
+  //     { slNo: 3, courseName: 'React Basics', type: 'received', xp: 350, date: '2024-05-15' },
+  //     { slNo: 4, courseName: 'Node.js Express', type: 'spent', xp: 150, date: '2024-05-18' },
+  //     { slNo: 5, courseName: 'CSS for Designers', type: 'received', xp: 250, date: '2024-05-20' },
+  //     { slNo: 6, courseName: 'Python for Data Science', type: 'received', xp: 600, date: '2024-05-22' },
+  //     { slNo: 7, courseName: 'SQL Database Management', type: 'spent', xp: 100, date: '2024-05-25' },
+  //     { slNo: 8, courseName: 'Cloud Computing Basics', type: 'received', xp: 400, date: '2024-05-28' },
+  //     { slNo: 9, courseName: 'Cybersecurity Fundamentals', type: 'spent', xp: 300, date: '2024-06-01' },
+  //     { slNo: 10, courseName: 'AI & Machine Learning Intro', type: 'received', xp: 750, date: '2024-06-05' },
+  //   ];
+
+      this.transactionService.getTransactionsByUserId(this.userid||0).subscribe({
+            next: (transactionData: Transaction[]) => {
+              this.transactions = transactionData;
+              console.log("Transactions fetched from backend");
+            },
+            error: (err) => {
+              console.error('ProfilePersonalPageComponent: Failed to fetch enrolled courses:', err);
+            }
+          });
   }
 
   // Helper to determine text color based on transaction type
-  getTypeColor(type: 'received' | 'spent'): string {
-    return type === 'received' ? 'text-green-700' : 'text-red-600';
+  getTypeColor(str:string): string {
+    return str === 'received' ? 'text-green-700' : 'text-red-600';
   }
 
   onPurchaseXP(): void {

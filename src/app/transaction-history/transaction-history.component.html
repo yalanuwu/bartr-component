@@ -32,13 +32,13 @@
         <ng-container *ngIf="transactions.length > 0; else noTransactions">
           <tr *ngFor="let transaction of transactions; let i = index"
               class="border-b border-gray-200 hover:bg-gray-50 transition-colors duration-150">
-            <td class="py-3 px-4 text-sm text-gray-700">{{ transaction.slNo }}</td>
-            <td class="py-3 px-4 text-sm text-gray-800 font-medium">{{ transaction.courseName }}</td>
+            <td class="py-3 px-4 text-sm text-gray-700">{{ i+1 }}</td>
+            <td class="py-3 px-4 text-sm text-gray-800 font-medium">{{ transaction.course.title }}</td>
             <td class="py-3 px-4 text-sm font-semibold" [ngClass]="getTypeColor(transaction.type)">
               {{ transaction.type | titlecase }}
             </td>
-            <td class="py-3 px-4 text-sm text-gray-700">{{ transaction.xp | number }}</td>
-            <td class="py-3 px-4 text-sm text-gray-700">{{ transaction.date | date:'mediumDate' }}</td>
+            <td class="py-3 px-4 text-sm text-gray-700">{{ transaction.amount | number }}</td>
+            <td class="py-3 px-4 text-sm text-gray-700">{{ transaction.transactedAt.substring(0,10)| date:'mediumDate' }}</td>
           </tr>
         </ng-container>
         <ng-template #noTransactions>
