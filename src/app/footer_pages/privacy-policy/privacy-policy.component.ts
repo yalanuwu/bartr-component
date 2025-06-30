@@ -1,0 +1,13 @@
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-privacy-policy',
+  imports: [CommonModule],
+  templateUrl: './privacy-policy.component.html',
+  styleUrl: './privacy-policy.component.css'
+})
+export class PrivacyPolicyComponent {
+  lastUpdated: string = 'June 30, 2025'
+
+}

@@ -16,6 +16,10 @@ import { SignUpPageComponent } from './auth/sign-up-page/sign-up-page.component'
 import { SignInPageComponent } from './auth/sign-in-page/sign-in-page.component';
 import { authGuard } from './auth/auth.guard';
 import { SearchResultPageComponent } from './search-result-page/search-result-page.component';
+import { AboutUsComponent } from './footer_pages/about-us/about-us.component';
+import { PrivacyPolicyComponent } from './footer_pages/privacy-policy/privacy-policy.component';
+import { SupportComponent } from './footer_pages/support/support.component';
+import { TermsAndCondiComponent } from './footer_pages/terms-and-condi/terms-and-condi.component';
 
 export const routes: Routes = [
   // Your existing home page route
@@ -40,6 +44,25 @@ export const routes: Routes = [
     path: 'create-course',
     component: CreateCoursePageComponent,
     canActivate: [authGuard] // <--- This line applies the guard!
+  },
+
+
+  //Footer routes
+  {
+    path: 'about-us',
+    component: AboutUsComponent
+  },
+  {
+    path: 'privacy-policy',
+    component: PrivacyPolicyComponent
+  },
+  {
+    path: 'support',
+    component: SupportComponent,
+  },
+  {
+    path: 'terms-and-conditions',
+    component: TermsAndCondiComponent
   },
 
   // Wildcard route to redirect to home for any undefined paths

@@ -1,0 +1,80 @@
+<section class="bg-gradient-to-r from-blue-50 to-indigo-50 py-16 sm:py-24">
+  <div class="container mx-auto px-4 text-center">
+    <h1 class="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-4 tracking-tight">
+      About <span class="text-indigo-600">Us</span>
+    </h1>
+    <p class="text-3xl text-gray-700 max-w-3xl mx-auto mb-10 leading-relaxed">
+      At Bartr, random message.
+    </p>
+  </div>
+</section>
+
+<section class="py-16 sm:py-24 bg-white">
+  <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+    <div class="md:text-left text-center">
+      <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
+        Our <span class="text-indigo-600">Mission</span> & <span class="text-purple-600">Vision</span>
+      </h2>
+      <p class="text-lg text-gray-700 mb-4 leading-relaxed">
+        Random paragraph 1
+      </p>
+      <p class="text-lg text-gray-700 leading-relaxed">
+        Random paragraph 2
+      </p>
+    </div>
+    <div class="flex justify-center">
+      <img src="https://via.placeholder.com/600x400/93C5FD/4338CA?text=Our+Mission" alt="Our Mission" class="rounded-lg shadow-xl max-w-full h-auto">
+    </div>
+  </div>
+</section>
+
+<section class="py-16 sm:py-24 bg-gray-50">
+  <div class="container mx-auto px-4 text-center">
+    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-10">
+      Our <span class="text-green-600">Story</span>
+    </h2>
+    <div class="max-w-4xl mx-auto text-lg text-gray-700 leading-relaxed space-y-6">
+      <p>
+        Paragraph 1
+      </p>
+      <p>
+        Paragraph 2
+      </p>
+      <p>
+        Paragraph 3
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="py-16 sm:py-24 bg-white">
+  <div class="container mx-auto px-4 text-center">
+    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-10">
+      Our Core <span class="text-red-600">Values</span>
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+      <div *ngFor="let value of values" class="bg-gray-50 p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+        <div class="text-5xl mb-4">{{ value.icon }}</div>
+        <h3 class="text-xl font-semibold text-gray-900 mb-3">{{ value.title }}</h3>
+        <p class="text-gray-600">{{ value.description }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-16 sm:py-24 bg-indigo-50">
+  <div class="container mx-auto px-4 text-center">
+    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-10">
+      Meet Our <span class="text-blue-600">Team</span>
+    </h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div *ngFor="let member of teamMembers" class="bg-white p-6 rounded-lg shadow-md flex flex-col items-center hover:shadow-lg transition-shadow duration-300">
+        <img [src]="member.imageUrl" [alt]="member.name" class="w-32 h-32 rounded-full object-cover mb-4 border-4 border-indigo-200">
+        <h3 class="text-xl font-semibold text-gray-900 mb-1">{{ member.name }}</h3>
+        <p class="text-indigo-600 text-sm font-medium mb-3">{{ member.role }}</p>
+        <p class="text-gray-600 text-center text-sm">{{ member.bio }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
