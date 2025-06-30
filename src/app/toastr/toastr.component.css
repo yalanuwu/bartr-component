@@ -1,0 +1,30 @@
+/* src/app/components/toastr/toastr.component.css */
+
+.toastr-container {
+  position: fixed;
+  top: 20px; /* Adjust top padding */
+  right: 20px; /* Adjust right padding */
+  z-index: 1000; /* Ensure it's on top of other content */
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out; /* Smooth transition for show/hide */
+  opacity: 0;
+  transform: translateY(-20px); /* Start slightly above and move down */
+  pointer-events: none; /* Allows clicks to pass through when hidden */
+}
+
+.toastr-show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all; /* React to clicks when visible */
+}
+
+/* Base styling from Tailwind classes applied in .html:
+   - bg-green-500 (for success)
+   - bg-red-500 (for error)
+   - text-white
+   - p-4
+   - rounded-lg
+   - shadow-xl
+   - min-w-[280px]
+   - max-w-sm
+   - flex items-center justify-between
+*/

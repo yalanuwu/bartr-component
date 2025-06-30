@@ -7,6 +7,7 @@ import { Router, RouterModule } from '@angular/router'; // For programmatic navi
 // Import AuthService and the necessary interfaces
 import { AuthService } from '../auth.service'; // Adjust path as needed
 import { RegisterCredentials } from '../auth.interface'; // Adjust path as needed
+import { ToastrService } from '../../toastr/toastr.service';
 
 @Component({
   selector: 'app-sign-up-page', // Changed selector as per your request
@@ -30,7 +31,8 @@ export class SignUpPageComponent { // Renamed class from SignUpModalComponent to
 
   constructor(
     private router: Router,
-    private authService: AuthService // <-- NEW: Inject AuthService
+    private authService: AuthService, // <-- NEW: Inject AuthService
+    private toastr: ToastrService,
   ) { }
 
   /**
@@ -80,6 +82,7 @@ export class SignUpPageComponent { // Renamed class from SignUpModalComponent to
       next: (response) => {
         console.log('SignUpPageComponent: Registration successful!', response);
         this.loading = false; // Stop loading
+        this.toastr.showSuccess('Registration successful! Please log in.')
         // If backend automatically logs in on registration, navigate to dashboard
         this.router.navigate(['/auth/signin']); // Navigate to the home page or dashboard
       },
@@ -87,6 +90,7 @@ export class SignUpPageComponent { // Renamed class from SignUpModalComponent to
         console.error('SignUpPageComponent: Registration failed:', error);
         this.loading = false; // Stop loading
         // Display the error message from the AuthService's handleError
+        this.toastr.showError('Registration Error');
         this.errorMessage = error.message || 'Registration failed. Please try again.';
       }
     });

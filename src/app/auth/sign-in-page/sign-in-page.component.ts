@@ -1,4 +1,3 @@
-import { resolve } from 'node:path';
 // src/app/sign-in-page/sign-in-page.component.ts
 import { Component } from '@angular/core';
 import { CommonModule, NgIf } from '@angular/common';
@@ -9,7 +8,7 @@ import { AuthService } from '../auth.service'; // <-- Ensure this path is correc
 import { LoginCredentials } from '../auth.interface'; // <-- NEW: Import LoginCredentials interface
 import axios from 'axios';
 import { environment } from '../../../environments/environment';
-import { ToastrService } from 'ngx-toastr';
+import { ToastrService } from '../../toastr/toastr.service';
 
 @Component({
   selector: 'app-sign-in-page',
@@ -61,7 +60,7 @@ export class SignInPageComponent {
           console.log(response.data);
         });
         this.loading = false; // Stop loading
-        this.toastr.success('Logged in Successfully!', 'Success!');
+        this.toastr.showSuccess('Logged in Successfully!');
         this.router.navigate(['/']); // Navigate to a protected route (e.g., home or dashboard)
       },
       error: (error) => { // 'error' handles failed responses (from AuthService.handleError)
@@ -69,7 +68,7 @@ export class SignInPageComponent {
         this.loading = false; // Stop loading
         // The error object thrown by AuthService.handleError has a 'message' property
         this.errorMessage = error.message || 'An unknown error occurred during login. Please try again.';
-        this.toastr.error('Error Occurred', 'Login Error');
+        this.toastr.showError('Error Occurred');
       }
     });
   }

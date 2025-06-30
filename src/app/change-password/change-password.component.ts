@@ -1,3 +1,4 @@
+import { Toast, ToastrService } from './../toastr/toastr.service';
 import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
@@ -15,7 +16,9 @@ export class ChangePasswordComponent {
   @Output() passwordChanged = new EventEmitter<{ current: string, new: string }>();
   @Output() cancelChange = new EventEmitter<void>();
 
-  constructor () {}
+  constructor (
+    private toastr: ToastrService,
+  ) {}
 
   onCancel(): void {
     this.cancelChange.emit();
@@ -23,17 +26,20 @@ export class ChangePasswordComponent {
 
   onChangePassword(): void {
     if (!this.currentPassword || !this.newPassword || !this.confirmNewPassword) {
-      alert('Please fill in all password fields.');
+      // alert('Please fill in all password fields.');
+      this.toastr.showError("Please fill in all password fields")
       return;
     }
 
     if (this.newPassword !== this.confirmNewPassword) {
-      alert('New password and confirm password do not match.');
+      // alert('New password and confirm password do not match.');
+      this.toastr.showError('New password and confirm password do not match.');
       return;
     }
 
     if (this.newPassword.length < 8) { // Basic validation
-      alert('New password must be at least 8 characters long.');
+      this.toastr.showError('New password must be at least 8 characters long.')
+      // alert('New password must be at least 8 characters long.');
       return;
     }
 

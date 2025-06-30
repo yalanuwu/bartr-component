@@ -12,6 +12,7 @@ import { CourseService } from '../services/course.service'; // Adjust path if ne
 import { Courses, User } from '../types'; // Adjust path if necessary, assuming Courses is the interface from your backend
 import { UserService } from '../services/user.service';
 import { generateAvatarUrl } from '../util';
+import { ToastrService } from '../toastr/toastr.service';
 
 // Define the structure of your Feature, CourseLevel, Package interfaces if not already global
 interface Feature {
@@ -79,7 +80,8 @@ export class CourseDetailPageComponent implements OnInit {
     private route: ActivatedRoute, // NEW: Inject ActivatedRoute
     private courseService: CourseService, // NEW: Inject CourseService
     private userService : UserService,
-    private enrollmentService:EnrollmentService
+    private enrollmentService:EnrollmentService,
+    private toastr: ToastrService,
   ) { }
 
   ngOnInit(): void {
@@ -139,7 +141,8 @@ export class CourseDetailPageComponent implements OnInit {
       error: (error) => {
         console.error('Error fetching course details:', error);
         // Handle error, e.g., display a message, redirect to 404 page, or courses list
-        alert('Could not load course details. Please try again or choose another course.');
+        // alert('Could not load course details. Please try again or choose another course.');
+        this.toastr.showError('Could not load course details. Please try again or choose another course.');
         this.router.navigate(['/courses']); // Redirect to course list
       }
     });
@@ -177,7 +180,9 @@ export class CourseDetailPageComponent implements OnInit {
   onEnroll(): void {
     if (!this.course) {
       console.error('Course data not loaded yet.');
-      alert('Course data not loaded. Please try again.');
+      this.toastr.showError('Course data not loaded. Please try again.');
+      // alert('Course data not loaded. Please try again.');
+
       return;
 
     }

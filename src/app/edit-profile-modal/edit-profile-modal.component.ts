@@ -1,17 +1,19 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { User } from '../types';
+import { ToastrService } from '../toastr/toastr.service';
 
 
 export interface UserProfileData {
   name: string;
-  tagline: string; // From previous iteration, keep for consistency
+  // tagline: string; // From previous iteration, keep for consistency
   description: string; // Renamed to 'bio' in modal label for clarity
   contact: string; // NEW FIELD
   country: string; // NEW FIELD
   avatarUrl: string;
   skills: string[];
-  responseTime: number;
+  responseTime: string;
 }
 
 @Component({
@@ -21,7 +23,7 @@ export interface UserProfileData {
   styleUrl: './edit-profile-modal.component.css'
 })
 export class EditProfileModalComponent implements OnInit {
-  @Input() user: UserProfileData | undefined;
+  @Input() user!: User | null;;
   @Output() save = new EventEmitter<UserProfileData>();
   @Output() cancel = new EventEmitter<void>();
 
@@ -37,23 +39,32 @@ export class EditProfileModalComponent implements OnInit {
   // Internal model for the form, initialized with a copy of input user data
   editedUser: UserProfileData = {
     name: '',
-    tagline: '',
     description: '',
     contact: '', // Initialize new fields
     country: '', // Initialize new fields
     avatarUrl: '',
     skills: [],
-    responseTime: 0 // Initialize new fields
+    responseTime: '' // Initialize new fields
   };
 
   newSkill = '';
+
+  constructor(
+    private toastr: ToastrService,
+  ) {}
 
   ngOnInit() {
     if (this.user) {
       // Create a deep copy to avoid modifying the original user object directly
       this.editedUser = {
+        name: this.user.fullname!,
+        description: this.user.bio!,
+        contact: this.user.phone!,
+        country: this.user.region!,
+        responseTime: this.user.avgResponseTime!,
+        avatarUrl: this.user.avatarUrl!,
         ...this.user,
-        skills: [...this.user.skills] // Deep copy the skills array too
+        skills: [...this.user.skills!] // Deep copy the skills array too
       };
     }
   }
@@ -75,8 +86,9 @@ export class EditProfileModalComponent implements OnInit {
   //Save function
   onSave(): void {
     // Basic validation (can be more robust with Angular Forms)
-    if (!this.editedUser.name || !this.editedUser.tagline || !this.editedUser.description || !this.editedUser.contact || !this.editedUser.country || !this.editedUser.responseTime) {
-      alert('Please fill in all required fields.');
+    if (!this.editedUser.name || !this.editedUser.description || !this.editedUser.contact || !this.editedUser.country || !this.editedUser.responseTime) {
+      // alert('Please fill in all required fields.');
+      this.toastr.showError('Please fill all the required fields')
       return;
     }
     this.save.emit(this.editedUser);
