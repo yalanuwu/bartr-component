@@ -58,6 +58,7 @@ export interface User{
   bio?: string,
   skills?: string[],
   region?: string,
+  createdAt?:string,
   avgResponseTime?: string,
 }
 

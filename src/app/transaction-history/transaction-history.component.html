@@ -38,7 +38,7 @@
               {{ transaction.type | titlecase }}
             </td>
             <td class="py-3 px-4 text-sm text-gray-700">{{ transaction.amount | number }}</td>
-            <td class="py-3 px-4 text-sm text-gray-700">{{ transaction.transactedAt.substring(0,10)| date:'mediumDate' }}</td>
+            <td class="py-3 px-4 text-sm text-gray-700">{{ transaction.transactedAt| date:'mediumDate' }}</td>
           </tr>
         </ng-container>
         <ng-template #noTransactions>

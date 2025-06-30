@@ -5,15 +5,15 @@
     [ngClass]="'bg-gradient-to-r ' + randomBannerGradient"
   >
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center md:items-start space-y-4 md:space-y-0 md:space-x-8">
-      <img [src]="user.avatarUrl" alt="{{ user.name }} Avatar" class="w-28 h-28 rounded-full border-4 border-white shadow-lg flex-shrink-0">
+      <img [src]="userAvatarUrl" alt="{{ user?.fullname }} Avatar" class="w-28 h-28 rounded-full border-4 border-white shadow-lg flex-shrink-0">
       <div class="text-center md:text-left">
-        <h1 class="text-4xl font-extrabold">{{ user.name }}</h1>
-        <p class="text-lg opacity-90 mb-2">{{ user.tagline }}</p>
+        <h1 class="text-4xl font-extrabold">{{ user?.fullname }}</h1>
+        <!-- <p class="text-lg opacity-90 mb-2">{{ user.tagline }}</p> -->
         <div class="flex items-center justify-center md:justify-start text-sm opacity-80">
           <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path></svg>
-          <span>{{ user.location }}</span>
+          <span>{{ user?.region }}</span>
           <span class="mx-3">|</span>
-          <span>Member since {{ user.memberSince }}</span>
+          <span>Member since {{ user?.createdAt }}</span>
         </div>
 
         <!-- Add social Links later -->
@@ -38,14 +38,14 @@
     <div class="lg:col-span-2 space-y-8">
       <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
         <h2 class="text-2xl font-bold mb-4 border-b pb-2">About Me</h2>
-        <p class="text-gray-700 leading-relaxed">{{ user.description }}</p>
+        <p class="text-gray-700 leading-relaxed">{{ user?.bio }}</p>
       </div>
 
       <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
         <h2 class="text-2xl font-bold mb-4 border-b pb-2">Skills</h2>
         <div class="flex flex-wrap gap-2">
-          @if(user.skills && user.skills.length > 0) {
-            <span *ngFor="let skill of user.skills" class="px-3 py-1 bg-green-100 text-green-700 text-sm font-medium rounded-full">
+          @if(user?.skills && user?.skills!.length > 0) {
+            <span *ngFor="let skill of user?.skills" class="px-3 py-1 bg-green-100 text-green-700 text-sm font-medium rounded-full">
               {{ skill }}
             </span>
           }
@@ -59,7 +59,7 @@
       <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
         <h2 class="text-2xl font-bold mb-4 border-b pb-2">Courses Created</h2>
         <div *ngIf="coursesCreated.length > 0; else noCourses" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-6">
-          <app-course-card-general *ngFor="let course of allCourses" [course]="course"></app-course-card-general>
+          <app-course-card-general *ngFor="let course of coursesCreated" [course]="course"></app-course-card-general>
         </div>
         <ng-template #noCourses>
           <p class="text-gray-600">This user has not created any courses yet.</p>
@@ -74,15 +74,15 @@
         <div class="space-y-4">
           <div>
             <p class="text-sm font-semibold text-gray-600">Average Response Time</p>
-            <p class="text-lg font-bold">{{ user.responseTime }}</p>
+            <p class="text-lg font-bold">{{ user?.avgResponseTime }}</p>
           </div>
           <div>
             <p class="text-sm font-semibold text-gray-600">Email</p>
-            <p class="text-lg font-bold">{{ user.email }}</p>
+            <p class="text-lg font-bold">{{ user?.email }}</p>
           </div>
-          <div>
+          <div *ngIf="user?.phone!==null">
             <p class="text-sm font-semibold text-gray-600">Phone</p>
-            <p class="text-lg font-bold">{{ user.phone }}</p>
+            <p class="text-lg font-bold">{{ user?.phone }}</p>
           </div>
           <!-- <button class="w-full px-6 py-3 bg-green-600 text-white font-bold rounded-md hover:bg-green-700 transition-colors shadow-md">
             Message {{ user.name }}

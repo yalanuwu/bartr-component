@@ -30,7 +30,7 @@ export const routes: Routes = [
   { path: 'all-categories', component: AllCategoriesComponent},
   // { path: 'course-page', component: CourseDetailPageComponent},
   { path: 'course/:id', component: CourseDetailPageComponent},
-  { path: 'public-profile', component: PublicProfilePageComponent},
+  { path: 'public-profile/:username', component: PublicProfilePageComponent},
   { path: 'purchase-xp', component: PurchaseXpComponent},
   { path: 'search-result', component: SearchResultPageComponent},
 
