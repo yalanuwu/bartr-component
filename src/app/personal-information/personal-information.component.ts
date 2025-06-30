@@ -23,13 +23,13 @@ export class PersonalInformationComponent implements OnInit {
 
   currentUserProfile: UserProfileData = {
     name: 'Profile Name',
-    tagline: 'Your tagline here',
+    // tagline: 'Your tagline here',
     description: 'This is a sample bio.', // Corresponds to `bio`
     contact: '123456789', // Corresponds to `contactNumber`
     country: 'Chennai, India', // Corresponds to `countryRegion`
     avatarUrl: 'assets/dummy-avatar/avataaars.png', // Default avatar
     skills: ['Angular', 'TypeScript', 'JavaScript'],
-    responseTime: 24 // Add a default, as modal expects this
+    responseTime: '24' // Add a default, as modal expects this
   }
    xp: number = 300;
 
