@@ -3,7 +3,8 @@ import { Component, ElementRef, Input, OnInit } from '@angular/core';
 import { Courses } from '../types';
 import { Router } from '@angular/router';
 import { generateAvatarUrl } from '../util';
-
+import { User } from '../types';
+import { UserService } from '../services/user.service';
 @Component({
   selector: 'app-course-card-general',
   imports: [NgClass],
@@ -28,14 +29,29 @@ export class CourseCardGeneralComponent implements OnInit{
     }
   }
 
-  constructor (public elementRef: ElementRef, private router: Router) {
+  constructor (public elementRef: ElementRef, private router: Router,private userService:UserService) {
 
   }
 
   goToCourseDetails(): void {
     // Navigate to the course details page using the course's ID
     // Assuming your route is defined like '/courses/:id' or '/course/:id'
-    
+    let userLoggedIn:User|null=null;
+    const username = localStorage.getItem("username");
+    if (username) {
+      this.userService.getByUserName(username).subscribe({
+        next: (userData: User) => {
+          userLoggedIn = userData;
+          console.log('CourseCardGeneralComponent: User data fetched:', userLoggedIn);
+        },
+        error(err) {
+          console.error('CourseCardGeneralComponent: Failed to fetch user data:', err);
+          userLoggedIn = null;
+        },
+      });
+    }
+
+
     this.router.navigate(['/course', this.course.id]);
     // Or if you want to use query parameters:
     // this.router.navigate(['/course-page'], { queryParams: { id: this.course.id } });
