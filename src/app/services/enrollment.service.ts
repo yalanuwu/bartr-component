@@ -46,7 +46,6 @@ export class EnrollmentService {
 
   getEnrolledCoursesById(userId: number): Observable<Courses[]> { // <-- NEW SERVICE FUNCTION
     const url = `${this.enrollmentsApiUrl}/${userId}/courses`; // Construct the specific URL
-
     let headers = new HttpHeaders();
     headers= headers.set('Authorization', `Bearer ${localStorage.getItem('token')}`);
     console.log(`UserService: Fetching enrolled courses from: ${url}`); // Diagnostic log
