@@ -52,4 +52,10 @@ export class EnrollmentService {
     return this.http.get<Courses[]>(url, {headers: headers});
   }
 
+  isUserEnrolled(coureId:number,learnerId:number):Observable<Boolean>{
+    const url=`${this.enrollmentsApiUrl}/isEnrolled?learnerId=${learnerId}&courseId=${coureId}`;
+    let headers = new HttpHeaders();
+    headers= headers.set('Authorization', `Bearer ${localStorage.getItem('token')}`);
+    return this.http.get<Boolean>(url);
+  }
 }

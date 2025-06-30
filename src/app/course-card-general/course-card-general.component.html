@@ -7,8 +7,8 @@
       <img [src]="course.imageUrl" [alt]="course.title" class="w-full h-48 object-cover rounded-md">
   </div>
 
-  <div class="p-4 flex flex-col flex-grow" (click)="publicProfile(course.creator.username)">
-      <div class="flex items-center mb-2" >
+  <div class="p-4 flex flex-col flex-grow" >
+      <div class="flex items-center mb-2" (click)="publicProfile(course.creator.username)">
           <img [src]="creatorAvatarUrl" [alt]="course.creator.fullname" class="w-8 h-8 rounded-full mr-2 border border-gray-200">
           <span class="text-sm font-semibold text-gray-700">{{ course.creator.fullname }}</span>
       </div>
