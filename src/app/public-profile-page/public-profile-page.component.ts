@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CourseCardGeneralComponent } from "../course-card-general/course-card-general.component";
 import { NavbarComponentComponent } from "../navbar-component/navbar-component.component";
-import { NgClass, NgFor, NgIf } from '@angular/common';
+import { CommonModule, NgClass, NgFor, NgIf } from '@angular/common';
 import { FooterComponent } from "../footer/footer.component";
 import { Courses } from '../types';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -13,7 +13,7 @@ import { generateAvatarUrl } from '../util';
 
 @Component({
   selector: 'app-public-profile-page',
-  imports: [CourseCardGeneralComponent, NavbarComponentComponent, NgIf, NgFor, FooterComponent, NgClass],
+  imports: [CourseCardGeneralComponent, NavbarComponentComponent, NgIf, NgFor, FooterComponent, NgClass, CommonModule],
   templateUrl: './public-profile-page.component.html',
   styleUrl: './public-profile-page.component.css'
 })

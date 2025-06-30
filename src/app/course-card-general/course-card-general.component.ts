@@ -35,7 +35,7 @@ export class CourseCardGeneralComponent implements OnInit{
   goToCourseDetails(): void {
     // Navigate to the course details page using the course's ID
     // Assuming your route is defined like '/courses/:id' or '/course/:id'
-
+    
     this.router.navigate(['/course', this.course.id]);
     // Or if you want to use query parameters:
     // this.router.navigate(['/course-page'], { queryParams: { id: this.course.id } });
