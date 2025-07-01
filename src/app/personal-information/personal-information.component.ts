@@ -8,7 +8,7 @@ import { User } from '../types';
 
 @Component({
   selector: 'app-personal-information',
-  imports: [NgFor, NgIf, CommonModule, FormsModule, EditProfileModalComponent],
+  imports: [NgFor, NgIf, CommonModule, FormsModule],
   templateUrl: './personal-information.component.html',
   styleUrl: './personal-information.component.css',
   standalone: true

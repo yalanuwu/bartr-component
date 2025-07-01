@@ -10,13 +10,14 @@
       <h1 class="md:text-3xl font-konkhmer text-4xl mb-4">{{ course.title }}</h1>
 
       <div class="flex items-center text-sm text-gray-600 mb-6">
-        <img [src]="course.creator.avatarUrl || 'assets/placeholder-avatar.jpg'" [alt]="course.creator.fullname + ' Avatar'" class="w-8 h-8 rounded-full mr-2 border border-gray-200">
-        <span class="font-semibold text-gray-700">by {{ course.creator.fullname }}</span>
+        <img [src]="course.creator.avatarUrl || 'assets/placeholder-avatar.jpg'" [alt]="course.creator.fullname + ' Avatar'" class="w-8 h-8 rounded-full mr-2 border border-gray-200 cursor-pointer" (click)="onCreatorClick()">
+        <span class="font-semibold text-gray-700 cursor-pointer" (click)="onCreatorClick()">by {{ course.creator.fullname }}</span>
 
         <span *ngIf="course.level == 'Beginner'" class="ml-2 px-2 py-0.5 bg-green-100 text-green-700 text-xs font-semibold rounded-full">{{ course.level }}</span>
         <span *ngIf="course.level == 'Intermediate'" class="ml-2 px-2 py-0.5 bg-yellow-100 text-yellow-700 text-xs font-semibold rounded-full">{{ course.level }}</span>
         <span *ngIf="course.level == 'Advanced'" class="ml-2 px-2 py-0.5 bg-red-100 text-red-700 text-xs font-semibold rounded-full">{{ course.level }}</span>
 
+        <span class="ml-2 px-2 py-0.5 bg-blue-100 text-blue-700 text-xs font-semibold rounded-full">{{categoryName}}</span>
         <!-- <span *ngIf="course.creator?.level" class="ml-2 px-2 py-0.5 bg-blue-100 text-blue-700 text-xs font-semibold rounded-full">{{ course.creator.level }}</span>
 
         <div *ngIf="course.creator?.rating && course.creator?.reviews" class="flex items-center ml-2">
@@ -52,7 +53,7 @@
                 <p class="text-sm text-gray-500">Avg. response time: {{ course.creator.responseTime || 'N/A' }}</p>
               </div>
             </div>
-            <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors text-sm">
+            <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors text-sm" (click)="onContactClick()">
               Contact me
             </button>
           </div>

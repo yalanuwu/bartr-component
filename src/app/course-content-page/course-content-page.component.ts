@@ -176,4 +176,13 @@ export class CourseContentPageComponent implements OnInit{
     this.router.navigate(['/all-categories']);
     // Or this.router.navigate(['/profile'], { queryParams: { tab: 'Enrolled Courses' } });
   }
+
+  onContactClick() {
+    // throw new Error('Method not implemented.');
+    window.location.href = 'mailto:' + this.course?.creator?.email;
+  }
+
+  onCreatorClick() {
+    this.router.navigate(['/public-profile/', this.course?.creator?.username])
+  }
 }

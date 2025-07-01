@@ -43,11 +43,13 @@ interface Package {
 })
 export class CourseDetailPageComponent implements OnInit {
 
+
   @Input() enrolled: boolean = false;
 
   course: Courses | null = null;
   private courseId: number | null = null;
   user: User | null = null;
+  categoryName: string = '';
 
   userCurrentXp: number = 0; // Initialize with 0, will be updated from user data
 
@@ -88,6 +90,8 @@ export class CourseDetailPageComponent implements OnInit {
             this.courseService.getCourseById(this.courseId).pipe(
               tap((courseData: Courses) => {
                 this.course = courseData;
+                this.categoryName = courseData.category.name!;
+                console.log('Course Category Name:', this.categoryName);
                 console.log('Fetched course details:', this.course);
                 if (this.course && this.course.creator && this.course.creator.fullname) {
                   this.course.creator.avatarUrl = generateAvatarUrl(this.course.creator.fullname);
@@ -245,5 +249,14 @@ export class CourseDetailPageComponent implements OnInit {
     console.log('Enrollment Success Modal closed. Navigating to home.');
     this.showEnrollmentSuccessModal = false;
     this.router.navigate(['/']);
+  }
+
+  onContactClick() {
+    // throw new Error('Method not implemented.');
+    window.location.href = 'mailto:' + this.course?.creator?.email;
+  }
+
+  onCreatorClick() {
+    this.router.navigate(['/public-profile/', this.course?.creator?.username])
   }
 }
