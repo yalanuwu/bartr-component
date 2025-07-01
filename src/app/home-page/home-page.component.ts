@@ -3,20 +3,20 @@ import { NavbarComponentComponent } from '../navbar-component/navbar-component.c
 import { CourseCardGeneralComponent } from "../course-card-general/course-card-general.component";
 import { isPlatformBrowser, NgClass, NgFor } from '@angular/common';
 import { FooterComponent } from "../footer/footer.component";
-
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { CategoryCardComponent } from "../category-card/category-card.component";
 import { Category, Courses } from '../types';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CourseService } from '../services/course.service';
+import { FormsModule } from '@angular/forms';
 
 gsap.registerPlugin(ScrollTrigger);
 
 @Component({
   selector: 'app-home-page',
   standalone: true,
-  imports: [NavbarComponentComponent, CourseCardGeneralComponent, NgFor, FooterComponent, NgClass, RouterLink],
+  imports: [NavbarComponentComponent, CourseCardGeneralComponent, NgFor, FooterComponent, NgClass, RouterLink,FormsModule],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css'
 })
@@ -24,7 +24,7 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   // New array to manage visibility for Course Cards
   courseCardsVisible: boolean[] = [];
-
+  searchQuery:string='';
   // @ViewChildren to get references to all CourseCardGeneralComponent instances
   @ViewChildren(CourseCardGeneralComponent) courseCardComponents!: QueryList<CourseCardGeneralComponent>;
 
@@ -37,6 +37,7 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private cdr: ChangeDetectorRef,
     private courseService:CourseService,
+    private router: Router,
     @Inject(PLATFORM_ID) private platformId: Object,
   ) { }
 
@@ -184,8 +185,26 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   onSearch(): void { console.log('Search clicked!'); }
   onCategoryClick(category: string): void { console.log('Category clicked:', category); }
   allCategories(): void { console.log("Explore Clicked"); }
-
-
+  search():void
+  {
+    this.router.navigate(['/search-result', this.searchQuery]);
+  }
+  searchForIT():void
+  {
+    this.router.navigate(['/search-result','Information Technology']);
+  }
+  searchForMusic():void
+  {
+    this.router.navigate(['/search-result','Music']);
+  }
+  searchForLanguage():void
+  {
+    this.router.navigate(['/search-result','Language']);
+  }
+  searchForArt():void
+  {
+    this.router.navigate(['/search-result','Art']);
+  }
 
   allCourses: Courses[] = [
       {

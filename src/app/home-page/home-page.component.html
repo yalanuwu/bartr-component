@@ -39,11 +39,13 @@
         >
           <input
             type="text"
+            [(ngModel)]="searchQuery"
             placeholder="Search for a course, or a creator, or a category"
             class="flex-grow py-3 px-6 text-lg text-gray-800 placeholder-gray-500 focus:outline-none rounded-l-full"
           />
           <button
             type="submit"
+            (click)="search()"
             class="bg-green-500 hover:bg-green-600 text-white p-4 rounded-r-full focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
           >
             <svg
@@ -63,24 +65,28 @@
 
         <div class="flex flex-wrap justify-center gap-4 mt-4 text-base">
           <button
+            (click)="searchForIT()"
             class="flex items-center border-slate-100 border-2 hover:border-green-600 text-white py-2 px-4 rounded-full transition-transform duration-300 hover:scale-110"
           >
             Information Technology
             <span class="ml-2">&rarr;</span>
           </button>
           <button
+          (click)="searchForMusic()"
             class="flex items-center border-slate-100 border-2 hover:border-green-600 text-white py-2 px-4 rounded-full transition-transform duration-300 hover:scale-110"
           >
             Music
             <span class="ml-2">&rarr;</span>
           </button>
           <button
+            (click)="searchForLanguage()"
             class="flex items-center border-slate-100 border-2 hover:border-green-600 text-white py-2 px-4 rounded-full transition-transform duration-300 hover:scale-110"
           >
             Language
             <span class="ml-2">&rarr;</span>
           </button>
           <button
+          (click)="searchForArt()"
             class="flex items-center border-slate-100 border-2 hover:border-green-600 text-white py-2 px-4 rounded-full transition-transform duration-300 hover:scale-110"
           >
             Art
@@ -127,6 +133,7 @@
         class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-4 md:px-0"
       >
         <div
+          (click)="searchForIT()"
           #categoryCardElement
           [ngClass]="{ 'animate-slide-in-right': cardsVisible[0] }"
           class="animated-card rounded-lg shadow-lg overflow-hidden transition-transform duration-300 ease-in-out hover:scale-105 relative z-0 hover:shadow-green-600 cursor-pointer "
@@ -148,6 +155,7 @@
         </div>
 
         <div
+          (click)="searchForMusic()"
           #categoryCardElement
           [ngClass]="{ 'animate-slide-in-right': cardsVisible[1] }"
           class="animated-card rounded-lg shadow-lg overflow-hidden transition-transform duration-300 ease-in-out hover:scale-105 relative will-change-transform z-0 hover:z-10 hover:shadow-green-600 cursor-pointer "
@@ -170,6 +178,7 @@
 
         <div
           #categoryCardElement
+          (click)="searchForLanguage()"
           [ngClass]="{ 'animate-slide-in-right': cardsVisible[2] }"
           class="animated-card rounded-lg shadow-lg overflow-hidden transition-transform duration-300 ease-in-out hover:scale-105 relative will-change-transform z-0 hover:z-10 hover:shadow-green-600 cursor-pointer "
         >
@@ -190,6 +199,7 @@
         </div>
 
         <div
+          (click)="searchForArt()"
           #categoryCardElement
           [ngClass]="{ 'animate-slide-in-right': cardsVisible[3] }"
           class="animated-card rounded-lg shadow-lg overflow-hidden relative z-0 hover:z-10 cursor-pointer "

@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, Output, ElementRef } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { Category } from '../types';
+import { Router } from '@angular/router';
 
 
 
@@ -22,12 +23,16 @@ export class CategoryCardComponent {
   @Output() cardClick = new EventEmitter<string>();
 
   // ElementRef is injected and made public so the parent component can access the native host element for IntersectionObserver
-  constructor(public ElementRef: ElementRef) { }
+  constructor(public ElementRef: ElementRef,private router:Router) { }
 
   // Method to handle card clicks and emit the category name
   onClick(): void {
     if (this.category?.name) {
       this.cardClick.emit(this.category.name);
     }
+  }
+
+  search():void{
+    this.router.navigate(['/search-result',this.category?.name]);
   }
 }

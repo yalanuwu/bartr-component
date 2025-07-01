@@ -36,7 +36,7 @@ export const routes: Routes = [
   { path: 'course/:id', component: CourseDetailPageComponent},
   { path: 'public-profile/:username', component: PublicProfilePageComponent},
   { path: 'purchase-xp', component: PurchaseXpComponent},
-  { path: 'search-result', component: SearchResultPageComponent},
+  { path: 'search-result/:searchQuery', component: SearchResultPageComponent},
 
   { path: 'course-content/:id', component: CourseContentPageComponent },
 
