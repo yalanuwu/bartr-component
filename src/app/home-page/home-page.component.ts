@@ -10,6 +10,7 @@ import { Category, Courses } from '../types';
 import { Router, RouterLink } from '@angular/router';
 import { CourseService } from '../services/course.service';
 import { FormsModule } from '@angular/forms';
+import { ToastrService } from '../toastr/toastr.service';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -38,6 +39,7 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
     private cdr: ChangeDetectorRef,
     private courseService:CourseService,
     private router: Router,
+    private toastr: ToastrService,
     @Inject(PLATFORM_ID) private platformId: Object,
   ) { }
 
@@ -187,6 +189,11 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   allCategories(): void { console.log("Explore Clicked"); }
   search():void
   {
+    if(this.searchQuery==='')
+    {
+      this.toastr.showError('Please fill something to search');
+      return;
+    }
     this.router.navigate(['/search-result', this.searchQuery]);
   }
   searchForIT():void
