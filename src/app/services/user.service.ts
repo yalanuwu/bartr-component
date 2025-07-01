@@ -1,7 +1,7 @@
 // src/app/services/user.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http'; // Import HttpClient
-import { catchError, map, Observable, throwError } from 'rxjs'; // Import Observable
+import { catchError, map, Observable, tap, throwError } from 'rxjs'; // Import Observable
 import { environment } from '../../environments/environment';
 import { User } from '../types'; // Assuming your User interface is correctly defined here
 
@@ -70,6 +70,40 @@ export class UserService {
       // The backend returns a String directly, so map it.
       map((response: string) => response),
       catchError(this.handleError)
+    );
+  }
+
+  /**
+   * Calls the backend API to delete a user.
+   * Manually adds Authorization header by fetching token from localStorage.
+   * @param userId The ID of the user to be deleted.
+   * @returns An Observable of type 'string' (the success message from the backend).
+   */
+  deleteUser(userId: number): Observable<string> {
+    const url = `${this.userApiUrl}/${userId}`; // Assuming your user base path is /api/users
+
+    // --- MANUAL AUTH HEADER ADDITION ---
+    const authToken = localStorage.getItem('token'); // Get token from localStorage
+
+    let headers = new HttpHeaders();
+    if (authToken) {
+      headers = headers.set('Authorization', `Bearer ${authToken}`);
+      console.log('UserService: Manually adding Authorization header with token:', authToken); // Debugging
+    } else {
+      console.warn('UserService: No authToken found in localStorage for delete user request.'); // Warning
+    }
+    // --- END MANUAL AUTH HEADER ADDITION ---
+
+    console.log('UserService: Preparing to send DELETE request to:', url);
+
+    // Make the DELETE request. The response type is text.
+    return this.http.delete(url, { headers: headers, responseType: 'text' }).pipe(
+      tap(response => console.log('UserService: DELETE request successful, response:', response)),
+      map((response: string) => response),
+      catchError(error => {
+        console.error('UserService: DELETE request failed, error:', error);
+        return this.handleError(error);
+      })
     );
   }
 

@@ -7,6 +7,7 @@ import { AuthService } from '../auth/auth.service';
 import { ToastrService } from '../toastr/toastr.service';
 import { take } from 'rxjs';
 import { User } from '../types';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile-settings-section',
@@ -29,7 +30,8 @@ export class ProfileSettingsSectionComponent implements OnInit {
   constructor(
     private userService: UserService,
     private authService: AuthService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router: Router,
   ) {
 
   }
@@ -117,42 +119,81 @@ export class ProfileSettingsSectionComponent implements OnInit {
   // --- Danger Zone: Account Deletion ---
   showDeleteConfirmation: boolean = false;
   deleteAccountConfirmationText: string = '';
-  deleteAccountMessage: string | null = null;
-  deleteAccountError: boolean = false;
   readonly REQUIRED_DELETE_TEXT = 'DELETE ACCOUNT'; // The phrase user must type
 
   initiateAccountDeletion(): void {
-    this.deleteAccountMessage = null; // Clear previous messages
     this.showDeleteConfirmation = true;
-    this.deleteAccountConfirmationText = ''; // Clear confirmation input
+    this.deleteAccountConfirmationText = ''; // Clear previous input
+    // this.deleteAccountMessage = null; // Clear previous messages
+    // this.toastr.showInfo('Please confirm account deletion by typing the required text.');
   }
 
   confirmAccountDeletion(): void {
-    this.deleteAccountMessage = null; // Clear previous messages
-
     if (this.deleteAccountConfirmationText.trim() !== this.REQUIRED_DELETE_TEXT) {
-      this.deleteAccountMessage = `Please type "${this.REQUIRED_DELETE_TEXT}" exactly to confirm.`;
-      this.deleteAccountError = true;
+      this.toastr.showError('Confirmation text does not match. Please type "DELETE ACCOUNT" exactly.');
+      // this.deleteAccountMessage = 'Confirmation text does not match.';
+      // this.deleteAccountError = true;
       return;
     }
 
-    // Simulate account deletion
-    console.log('Attempting to delete account...');
-    // In a real application, you'd send a request to your backend to delete the account
-    // This action would typically log the user out and redirect them to a landing page or login.
-    setTimeout(() => {
-      this.deleteAccountMessage = 'Account successfully deleted. Redirecting...';
-      this.deleteAccountError = false;
-      console.log('Account Deleted! (Simulated)');
-      // alert('Your account has been deleted.');
-      // Example: Redirect to home or login page after deletion
-      // window.location.href = '/'; // Or use Angular Router: this.router.navigate(['/']);
-    }, 2000);
+    // Get the current user's ID to delete
+    const username = localStorage.getItem('username'); // Get username from localStorage
+
+    if (!username) {
+      this.toastr.showError('Username not found in local storage. Please log in again.');
+      return;
+    }
+
+    // Fetch user ID using username
+    this.userService.getByUserName(username).pipe(
+      take(1) // Ensures we only take the current value and then complete
+    ).subscribe({
+      next: (user: User) => {
+        if (user && user.id !== undefined && user.id !== null) {
+          const userId = user.id;
+
+          // Call the UserService to delete the user
+          this.userService.deleteUser(userId).subscribe({
+            next: (message) => {
+              this.toastr.showSuccess(message); // Display success message from backend
+              // this.deleteAccountMessage = message;
+              // this.deleteAccountError = false;
+              this.showDeleteConfirmation = false; // Hide confirmation section
+              this.deleteAccountConfirmationText = ''; // Clear input
+
+              // Crucial: Log out the user after successful account deletion
+              this.authService.logout();
+              this.router.navigate(['/auth/signin']); // Redirect to login page
+            },
+            error: (err: Error) => {
+              this.toastr.showError(err.message || 'Failed to delete account.'); // Display error message
+              // this.deleteAccountMessage = err.message || 'Failed to delete account.';
+              // this.deleteAccountError = true;
+              console.error('Delete account error:', err);
+            }
+          });
+        } else {
+          this.toastr.showError('User ID not found from fetched data. Cannot delete account.');
+          // this.deleteAccountMessage = 'User ID not found. Cannot delete account.';
+          // this.deleteAccountError = true;
+        }
+      },
+      error: (err) => {
+        this.toastr.showError('Error fetching user data for deletion. Cannot delete account.');
+        // this.deleteAccountMessage = 'Error fetching user data for deletion.';
+        // this.deleteAccountError = true;
+        console.error('Error fetching user by username for deletion:', err);
+      }
+    });
   }
 
+  /**
+   * Cancels the account deletion process and hides the confirmation.
+   */
   cancelDeleteAccount(): void {
     this.showDeleteConfirmation = false;
     this.deleteAccountConfirmationText = '';
-    this.deleteAccountMessage = null;
+    // this.deleteAccountMessage = null;
+    // this.toastr.showInfo('Account deletion cancelled.');
   }
 }
