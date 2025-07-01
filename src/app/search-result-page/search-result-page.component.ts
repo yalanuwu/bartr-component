@@ -43,7 +43,7 @@ export class SearchResultPageComponent implements OnInit {
       videoUrl: 'https://www.example.com/modern_website_video.mp4',
       enrolledUser: 120,
       category: { id: 1, name: 'Web Development', imageUrl: 'path/to/web_icon.png', description: 'Courses on web development.' },
-      creator: { id: 101, username: 'alixdesign', email: 'alix@example.com', phone: '123-456-7890', fullname: 'Alix Design', xp: 50 },
+      creator: { id: 101, username: 'alixdesign', email: 'alix@example.com', phone: '123-456-7890', fullname: 'Alix Design', xp: 50, skills: '' },
       createdAt: '2023-01-15T10:00:00Z',
     },
     {
@@ -58,7 +58,7 @@ export class SearchResultPageComponent implements OnInit {
       videoUrl: 'https://www.example.com/responsive_ui_video.mp4',
       enrolledUser: 90,
       category: { id: 2, name: 'UI/UX Design', imageUrl: 'path/to/uiux_icon.png', description: 'Courses on user interface and experience design.' },
-      creator: { id: 102, username: 'kashiftaj', email: 'kashif@example.com', phone: '987-654-3210', fullname: 'Kashif Taj', xp: 75 },
+      creator: { id: 102, username: 'kashiftaj', email: 'kashif@example.com', phone: '987-654-3210', fullname: 'Kashif Taj', xp: 75, skills: '' },
       createdAt: '2023-02-20T11:30:00Z',
     },
     {
@@ -73,7 +73,7 @@ export class SearchResultPageComponent implements OnInit {
       videoUrl: 'https://www.example.com/app_promo_video.mp4',
       enrolledUser: 70,
       category: { id: 3, name: 'Video Production', imageUrl: 'path/to/video_icon.png', description: 'Courses on video creation.' },
-      creator: { id: 103, username: 'airb123', email: 'airb@example.com', phone: '555-123-4567', fullname: 'Air B', xp: 40 },
+      creator: { id: 103, username: 'airb123', email: 'airb@example.com', phone: '555-123-4567', fullname: 'Air B', xp: 40, skills: '' },
       createdAt: '2023-03-10T09:15:00Z',
     },
     {
@@ -88,7 +88,7 @@ export class SearchResultPageComponent implements OnInit {
       videoUrl: 'https://www.example.com/social_media_video.mp4',
       enrolledUser: 150,
       category: { id: 4, name: 'Marketing', imageUrl: 'path/to/marketing_icon.png', description: 'Courses on digital marketing.' },
-      creator: { id: 104, username: 'almomen980', email: 'almo@example.com', phone: '111-222-3333', fullname: 'Al Momen', xp: 100 },
+      creator: { id: 104, username: 'almomen980', email: 'almo@example.com', phone: '111-222-3333', fullname: 'Al Momen', xp: 100, skills: '' },
       createdAt: '2023-04-01T14:00:00Z',
     },
     {
@@ -103,7 +103,7 @@ export class SearchResultPageComponent implements OnInit {
       videoUrl: 'https://www.example.com/backend_node_video.mp4',
       enrolledUser: 80,
       category: { id: 1, name: 'Web Development', imageUrl: 'path/to/web_icon.png', description: 'Courses on web development.' },
-      creator: { id: 101, username: 'alixdesign', email: 'alix@example.com', phone: '123-456-7890', fullname: 'Alix Design', xp: 150 },
+      creator: { id: 101, username: 'alixdesign', email: 'alix@example.com', phone: '123-456-7890', fullname: 'Alix Design', xp: 150, skills: '' },
       createdAt: '2023-05-05T16:00:00Z',
     },
     {
@@ -118,7 +118,7 @@ export class SearchResultPageComponent implements OnInit {
       videoUrl: 'https://www.example.com/mobile_sketch_video.mp4',
       enrolledUser: 60,
       category: { id: 2, name: 'UI/UX Design', imageUrl: 'path/to/uiux_icon.png', description: 'Courses on user interface and experience design.' },
-      creator: { id: 102, username: 'kashiftaj', email: 'kashif@example.com', phone: '987-654-3210', fullname: 'Kashif Taj', xp: 120 },
+      creator: { id: 102, username: 'kashiftaj', email: 'kashif@example.com', phone: '987-654-3210', fullname: 'Kashif Taj', xp: 120, skills: '' },
       createdAt: '2023-06-10T10:00:00Z',
     },
   ];

@@ -1,5 +1,7 @@
+// src/app/profile/profile-personal-page/profile-personal-page.component.ts
+
 import { AuthService } from './../auth/auth.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core'; // Add OnDestroy
 import { NavbarComponentComponent } from '../navbar-component/navbar-component.component';
 import { PersonalInformationComponent } from '../personal-information/personal-information.component';
 import { CourseEnrolledComponent } from "../course-enrolled/course-enrolled.component";
@@ -7,12 +9,14 @@ import { CourseCreatedComponent } from "../course-created/course-created.compone
 import { ProfileSettingsSectionComponent } from '../profile-settings-section/profile-settings-section.component';
 import { TransactionHistoryComponent } from "../transaction-history/transaction-history.component";
 import { Courses, User } from '../types';
-import axios from 'axios';
+// import axios from 'axios'; // Not used, can be removed
 import { UserService } from '../services/user.service';
-import { NgIf } from '@angular/common';
+import { NgIf } from '@angular/common'; // NgIf is already implicitly imported via standalone components if used
 import { CourseService } from '../services/course.service';
 import { EnrollmentService } from '../services/enrollment.service';
 import { generateAvatarUrl } from '../util';
+import { Subscription } from 'rxjs';
+import { UserProfileData, EditProfileModalComponent } from '../edit-profile-modal/edit-profile-modal.component';
 
 
 export interface Course {
@@ -25,175 +29,80 @@ export interface Course {
 
 @Component({
   selector: 'app-profile-personal-page',
-  imports: [NavbarComponentComponent, PersonalInformationComponent, CourseEnrolledComponent, CourseCreatedComponent, ProfileSettingsSectionComponent, TransactionHistoryComponent, NgIf],
+  standalone: true, // Assuming standalone
+  imports: [NavbarComponentComponent, PersonalInformationComponent, CourseEnrolledComponent, CourseCreatedComponent, ProfileSettingsSectionComponent, TransactionHistoryComponent, NgIf, EditProfileModalComponent],
   templateUrl: './profile-personal-page.component.html',
   styleUrl: './profile-personal-page.component.css'
 })
-export class ProfilePersonalPageComponent implements OnInit{
-  userName: string = 'Username';
-  userEmail: string = 'profilename123@gmail.com';
-  profileName: string = 'Profile Name';
-  contactNumber: string = '123456789';
-  xp: number = 300;
-  countryRegion: string = 'Chennai, India';
+export class ProfilePersonalPageComponent implements OnInit, OnDestroy { // Implement OnDestroy
+  userName: string = 'Username'; // Unused, can be removed if not displayed elsewhere
+  userEmail: string = 'profilename123@gmail.com'; // Unused, can be removed
+  profileName: string = 'Profile Name'; // Unused, can be removed
+  contactNumber: string = '123456789'; // Unused, can be removed
+  xp: number = 300; // Unused, can be removed
+  countryRegion: string = 'Chennai, India'; // Unused, can be removed
 
   activeTab: 'Personal Information' | 'Courses Enrolled' | 'Courses Created'| 'Transaction' | 'Profile Settings' = 'Personal Information';
 
-  user: User | null = null;
+  user: User | null = null; // This is the user object that needs to be populated
   enrolledCourses: Courses[] | null = null;
   coursesCreated: Courses[] | null = null;
   userAvatarUrl : string = '';
 
+  showEditProfileModal: boolean = false;
+  private userSubscription! : Subscription; // For the getByUserName subscription
 
-
-  // allCourses: Courses[] = [
-  //       {
-  //         id: 1,
-  //         title: 'Modern Website Creation',
-  //         description: 'Learn to create modern web pages using popular frameworks',
-  //         level: 'Beginner',
-  //         features: ['Responsive Design', 'HTML5', 'CSS3', 'JavaScript Basics'],
-  //         courseOutLine: 'Detailed course outline for modern web development.',
-  //         price: 19.99, // Example price
-  //         imageUrl: 'assets/course_images/modern_website.png',
-  //         videoUrl: 'https://www.example.com/modern_website_video.mp4',
-  //         enrolledUser: 120,
-  //         category: { id: 1, name: 'Web Development', imageUrl: 'path/to/web_icon.png', description: 'Courses on web development.' },
-  //         creator: { id: 101, username: 'alixdesign', email: 'alix@example.com', phone: '123-456-7890', fullname: 'Alix Design', xp: 50 },
-  //         createdAt: '2023-01-15T10:00:00Z',
-  //       },
-  //       {
-  //         id: 2,
-  //         title: 'Create Responsive UI / UX mobile designs',
-  //         description: 'Create responsive UI / UX mobile designs',
-  //         level: 'Intermediate',
-  //         features: ['Figma', 'Sketch', 'User Research', 'Prototyping'],
-  //         courseOutLine: 'Comprehensive guide to responsive UI/UX.',
-  //         price: 29.99, // Example price
-  //         imageUrl: 'assets/course_images/responsive_ui.png',
-  //         videoUrl: 'https://www.example.com/responsive_ui_video.mp4',
-  //         enrolledUser: 90,
-  //         category: { id: 2, name: 'UI/UX Design', imageUrl: 'path/to/uiux_icon.png', description: 'Courses on user interface and experience design.' },
-  //         creator: { id: 102, username: 'kashiftaj', email: 'kashif@example.com', phone: '987-654-3210', fullname: 'Kashif Taj', xp: 75 },
-  //         createdAt: '2023-02-20T11:30:00Z',
-  //       },
-  //       {
-  //         id: 3,
-  //         title: 'Learn to create an amazing website or app promo video',
-  //         description: 'Learn to create an amazing website or app promo video',
-  //         level: 'Beginner',
-  //         features: ['Adobe Premiere', 'Video Editing', 'Motion Graphics'],
-  //         courseOutLine: 'Learn video production for app promotion.',
-  //         price: 24.99, // Example price
-  //         imageUrl: 'assets/course_images/app_promo.png',
-  //         videoUrl: 'https://www.example.com/app_promo_video.mp4',
-  //         enrolledUser: 70,
-  //         category: { id: 3, name: 'Video Production', imageUrl: 'path/to/video_icon.png', description: 'Courses on video creation.' },
-  //         creator: { id: 103, username: 'airb123', email: 'airb@example.com', phone: '555-123-4567', fullname: 'Air B', xp: 40 },
-  //         createdAt: '2023-03-10T09:15:00Z',
-  //       },
-  //       {
-  //         id: 4,
-  //         title: 'Learn to design social media post, Instagram post, Facebook post ads',
-  //         description: 'Learn to design social media post, Instagram post, Facebook post ads',
-  //         level: 'Advanced',
-  //         features: ['Photoshop', 'Illustrator', 'Social Media Marketing'],
-  //         courseOutLine: 'Master social media graphic design.',
-  //         price: 34.99, // Example price
-  //         imageUrl: 'assets/course_images/social_media.png',
-  //         videoUrl: 'https://www.example.com/social_media_video.mp4',
-  //         enrolledUser: 150,
-  //         category: { id: 4, name: 'Marketing', imageUrl: 'path/to/marketing_icon.png', description: 'Courses on digital marketing.' },
-  //         creator: { id: 104, username: 'almomen980', email: 'almo@example.com', phone: '111-222-3333', fullname: 'Al Momen', xp: 100 },
-  //         createdAt: '2023-04-01T14:00:00Z',
-  //       },
-  //       {
-  //         id: 5,
-  //         title: 'Backend Development with Node.js',
-  //         description: 'Build robust backend systems using Node.js and Express',
-  //         level: 'Advanced',
-  //         features: ['Node.js', 'Express', 'MongoDB', 'REST APIs'],
-  //         courseOutLine: 'Advanced backend development concepts.',
-  //         price: 49.99, // Example price
-  //         imageUrl: 'assets/course_images/backend_node.png',
-  //         videoUrl: 'https://www.example.com/backend_node_video.mp4',
-  //         enrolledUser: 80,
-  //         category: { id: 1, name: 'Web Development', imageUrl: 'path/to/web_icon.png', description: 'Courses on web development.' },
-  //         creator: { id: 101, username: 'alixdesign', email: 'alix@example.com', phone: '123-456-7890', fullname: 'Alix Design', xp: 150 },
-  //         createdAt: '2023-05-05T16:00:00Z',
-  //       },
-  //       {
-  //         id: 6,
-  //         title: 'Mobile App Design with Sketch',
-  //         description: 'Design intuitive and beautiful mobile applications',
-  //         level: 'Intermediate',
-  //         features: ['Sketch', 'UI Grids', 'Design Systems', 'User Flows'],
-  //         courseOutLine: 'Master mobile app design with Sketch.',
-  //         price: 39.99, // Example price
-  //         imageUrl: 'assets/course_images/mobile_sketch.png',
-  //         videoUrl: 'https://www.example.com/mobile_sketch_video.mp4',
-  //         enrolledUser: 60,
-  //         category: { id: 2, name: 'UI/UX Design', imageUrl: 'path/to/uiux_icon.png', description: 'Courses on user interface and experience design.' },
-  //         creator: { id: 102, username: 'kashiftaj', email: 'kashif@example.com', phone: '987-654-3210', fullname: 'Kashif Taj', xp: 120 },
-  //         createdAt: '2023-06-10T10:00:00Z',
-  //       },
-  //     ];
-
-  constructor(private service:UserService, private courseService: CourseService, private enrollmentService: EnrollmentService, private authService: AuthService) { }
+  constructor(
+    private userService:UserService,
+    private courseService: CourseService,
+    private enrollmentService: EnrollmentService,
+    private authService: AuthService
+  ) { }
 
   ngOnInit(): void {
+    console.log('ProfilePersonalPageComponent: ngOnInit started.');
     const username = localStorage.getItem("username");
+    console.log('ProfilePersonalPageComponent: Username from localStorage:', username);
+
     if (username) {
       this.userAvatarUrl = generateAvatarUrl(username);
-      this.service.getByUserName(username).subscribe({
+      // Subscribe to getByUserName and store the subscription
+      this.userSubscription = this.userService.getByUserName(username).subscribe({
         next: (userData: User) => {
-          this.user = userData;
-          console.log('ProfilePersonalPageComponent: User data fetched:', this.user);
+          this.user = userData; // This is where the user object is assigned
+          console.log('ProfilePersonalPageComponent: User data fetched and assigned:', this.user);
 
-          // Now that we have the user ID, fetch enrolled courses
-          if (this.user.id) { // Ensure user.id exists
+          // Now that we have the user ID, fetch enrolled/created courses
+          if (this.user.id) {
             this.courseService.getCoursesByCreator(this.user.id).subscribe({
               next: (coursesData: Courses[]) => {
                 this.coursesCreated = coursesData;
                 console.log('ProfilePersonalPageComponent: Created courses fetched:', this.coursesCreated);
               },
               error: (err) => {
-                console.error('ProfilePersonalPageComponent: Failed to fetch enrolled courses:', err);
-                this.coursesCreated = []; // Set to empty array on error or null
+                console.error('ProfilePersonalPageComponent: Failed to fetch created courses:', err);
+                this.coursesCreated = [];
               }
             });
 
-            this.enrollmentService.getEnrolledCoursesById(this.user.id).subscribe({ // <-- USING THE NEW FUNCTION HERE
+            this.enrollmentService.getEnrolledCoursesById(this.user.id).subscribe({
               next: (coursesData: Courses[]) => {
                 this.enrolledCourses = coursesData;
                 console.log('ProfilePersonalPageComponent: Enrolled courses fetched:', this.enrolledCourses);
               },
               error: (err) => {
                 console.error('ProfilePersonalPageComponent: Failed to fetch enrolled courses:', err);
-                this.enrolledCourses = []; // Set to empty array on error
+                this.enrolledCourses = [];
               }
             });
-
-            // If you also want to fetch courses created by this user
-            // this.userService.getCoursesCreatedByCreator(this.user.id).subscribe({
-            //   next: (createdCoursesData: Courses[]) => {
-            //     this.coursesCreated = createdCoursesData;
-            //     console.log('ProfilePersonalPageComponent: Created courses fetched:', this.coursesCreated);
-            //   },
-            //   error: (err) => {
-            //     console.error('ProfilePersonalPageComponent: Failed to fetch created courses:', err);
-            //     this.coursesCreated = [];
-            //   }
-            // });
-
           } else {
-            console.warn('ProfilePersonalPageComponent: User ID not available to fetch enrolled courses.');
+            console.warn('ProfilePersonalPageComponent: User ID not available to fetch courses (user object exists but id is null/undefined).');
           }
         },
         error: (err) => {
           console.error('ProfilePersonalPageComponent: Failed to fetch user data:', err);
-          this.user = null;
-          this.enrolledCourses = []; // Clear enrolled courses if user data fails
+          this.user = null; // Set user to null on error
+          this.enrolledCourses = [];
           this.coursesCreated = [];
         }
       });
@@ -202,17 +111,54 @@ export class ProfilePersonalPageComponent implements OnInit{
       this.userAvatarUrl = generateAvatarUrl('');
       this.user = null;
       this.enrolledCourses = [];
+      this.coursesCreated = [];
+    }
+    console.log('ProfilePersonalPageComponent: ngOnInit finished. Current user state:', this.user);
+  }
+
+  // Implement ngOnDestroy to unsubscribe
+  ngOnDestroy(): void {
+    if (this.userSubscription) {
+      this.userSubscription.unsubscribe();
+      console.log('ProfilePersonalPageComponent: userSubscription unsubscribed.');
     }
   }
 
   setActiveTab(tab: 'Personal Information' | 'Courses Enrolled' | 'Courses Created'| 'Transaction' | 'Profile Settings'): void {
     this.activeTab = tab;
-    console.log(`Navigating to: ${this.activeTab}`);
+    console.log(`ProfilePersonalPageComponent: Navigating to tab: ${this.activeTab}`);
   }
 
   signOut(): void {
     console.log('User signed out!');
-    // Implement your sign-out logic here (e.g., clear session, redirect to login)
-    // Example: this.router.navigate(['/login']);
+    // Implement your sign-out logic here
+  }
+
+  /**
+   * Called when the "Edit Profile" button in PersonalInformationComponent is clicked.
+   * Opens the EditProfileModal.
+   */
+  openEditProfileModal(): void {
+    this.showEditProfileModal = true;
+    console.log('ProfilePersonalPageComponent: openEditProfileModal called. showEditProfileModal set to TRUE.');
+    console.log('ProfilePersonalPageComponent: Current user state when opening modal:', this.user); // Crucial log
+  }
+
+  /**
+   * Called when the EditProfileModal emits its 'save' event.
+   */
+  onProfileSaved(updatedProfileData: UserProfileData): void {
+    console.log('ProfilePersonalPageComponent: onProfileSaved called. Modal data:', updatedProfileData);
+    this.showEditProfileModal = false; // Hide the modal
+    // The user object in this component will be updated automatically because it's subscribed
+    // to authService.getCurrentUser(), and the modal updates authService.updateCurrentUser().
+  }
+
+  /**
+   * Called when the EditProfileModal emits its 'cancel' event.
+   */
+  onCancelEditProfile(): void {
+    this.showEditProfileModal = false;
+    console.log('ProfilePersonalPageComponent: Edit profile modal cancelled.');
   }
 }

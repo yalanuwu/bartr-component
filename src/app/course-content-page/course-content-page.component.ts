@@ -115,7 +115,8 @@ export class CourseContentPageComponent implements OnInit{
             password: '',
             phone: '',
             fullname: '',
-            xp: 0
+            xp: 0,
+            skills: ''
           },
           createdAt: '2023-04-15T10:00:00Z',
         };
@@ -151,7 +152,8 @@ export class CourseContentPageComponent implements OnInit{
             password: '',
             phone: '',
             fullname: '',
-            xp: 0
+            xp: 0,
+            skills: ''
           },
           createdAt: '2024-01-20T14:30:00Z',
         };

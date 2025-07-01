@@ -120,6 +120,21 @@ export class AuthService {
     this.router.navigate(['/auth/signin']);
   }
 
+  /**
+   * Updates the current user's data in the AuthService and localStorage.
+   * This is called when user profile details are updated from the modal.
+   * @param updatedUser The full User object with updated details.
+   */
+  updateCurrentUser(updatedUser: User): void {
+    if (updatedUser && updatedUser.id) { // Ensure it's a valid user object with an ID
+      localStorage.setItem('user', JSON.stringify(updatedUser)); // Persist to localStorage
+      this._currentUserSubject.next(updatedUser); // Emit the updated user to subscribers
+      console.log('AuthService: Current user data updated and emitted:', updatedUser);
+    } else {
+      console.warn('AuthService: Attempted to update current user with invalid data:', updatedUser);
+    }
+  }
+
   private setToken(token: string): void {
     if (this.isBrowser) {
       localStorage.setItem('token', token);

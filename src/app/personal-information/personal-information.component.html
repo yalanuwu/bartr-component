@@ -56,29 +56,26 @@
       <div class="bg-gray-50 col-span-2 border border-gray-200 rounded-lg p-5 relative shadow-md fade-in-left-normal">
         <div class="text-gray-800 text-xl font-bold mb-2">Skills</div>
         <div class="flex flex-wrap gap-2">
-          <ng-container *ngIf="user?.skills as skillsArray">
-            <ng-container *ngIf="skillsArray.length > 0; else noSkills">
-              <span *ngFor="let skill of skillsArray" class="px-3 py-1 bg-green-100 text-green-700 text-sm font-medium rounded-full">
-                {{ skill }}
-              </span>
-            </ng-container>
-            <ng-template #noSkills>
-              <div class="text-base font-bold text-gray-600">This user has not added any skills yet</div>
-            </ng-template>
+          <ng-container *ngIf="user && displaySkills.length > 0; else noSkills">
+            <span *ngFor="let skill of displaySkills"
+                  class="px-3 py-1 bg-green-100 text-green-700 text-sm font-medium rounded-full">
+              {{ skill }}
+            </span>
           </ng-container>
-          <ng-container *ngIf="!user?.skills">
-              <div class="text-base font-bold text-gray-600">This user has not added any skills yet</div>
-          </ng-container>
+          <ng-template #noSkills>
+            <div *ngIf="user" class="text-base font-bold text-gray-600">This user has not added any skills yet</div>
+            <div *ngIf="!user" class="text-base font-bold text-gray-600">Loading skills...</div>
+          </ng-template>
         </div>
       </div>
 
     </div>
   </div>
 
-  <app-edit-profile-modal
+  <!-- <app-edit-profile-modal
       *ngIf="showEditProfileModal"
       [user]="user" (save)="onProfileSaved($event)"
       (cancel)="onCancelEditProfile()"
-  ></app-edit-profile-modal>
+  ></app-edit-profile-modal> -->
 
 </div>

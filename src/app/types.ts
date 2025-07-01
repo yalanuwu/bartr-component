@@ -56,10 +56,10 @@ export interface User{
   xp?: number,
   avatarUrl ?: string,
   bio?: string,
-  skills?: string[],
+  skills: string | null,
   region?: string,
   createdAt?:string,
-  avgResponseTime?: string,
+  responseTime?: number,
 }
 
 export interface Enrollment{

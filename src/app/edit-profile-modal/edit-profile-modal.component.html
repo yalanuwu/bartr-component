@@ -1,3 +1,5 @@
+<!-- src/app/profile/edit-profile-modal/edit-profile-modal.component.html -->
+
 <div class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center p-4 z-50 backdrop-blur-sm"
      (click)="onBackdropClick($event)">
   <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto transform scale-95 animate-fade-in"
@@ -8,41 +10,43 @@
       <form (ngSubmit)="onSave()" class="space-y-6">
 
         <div>
-          <label for="name" class="block text-gray-700 text-sm font-semibold mb-2">Name <span class="text-red-500">*</span></label>
+          <label for="name" class="block text-gray-700 text-sm font-semibold mb-2">Name</label> <!-- Removed * -->
           <input type="text" id="name" name="name"
-                 [(ngModel)]="editedUser.name" required
+                 [(ngModel)]="editedUser.name"
                  placeholder="Your Full Name"
                  class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
         </div>
 
+        <!-- Tagline was commented out, keeping it that way for now -->
         <!-- <div>
-          <label for="tagline" class="block text-gray-700 text-sm font-semibold mb-2">Tagline <span class="text-red-500">*</span></label>
+          <label for="tagline" class="block text-gray-700 text-sm font-semibold mb-2">Tagline</label>
           <input type="text" id="tagline" name="tagline"
-                 [(ngModel)]="editedUser.tagline" required
+                 [(ngModel)]="editedUser.tagline"
                  placeholder="e.g., Full Stack Developer"
                  class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
         </div> -->
 
         <div>
-          <label for="contact" class="block text-gray-700 text-sm font-semibold mb-2">Contact <span class="text-red-500">*</span></label>
+          <label for="contact" class="block text-gray-700 text-sm font-semibold mb-2">Contact (Add space after country code if present)</label> <!-- Removed * -->
           <input type="text" id="contact" name="contact"
-                 [(ngModel)]="editedUser.contact" required
-                 placeholder="e.g., your.email@example.com or +91 1234567890"
+                 [(ngModel)]="editedUser.phone"
+                 placeholder="e.g., 1234567890"
                  class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
         </div>
 
         <div>
           <label for="region" class="block text-gray-700 text-sm font-bold mb-2">Region</label>
-          <select id="region" [(ngModel)]="editedUser.country" name="region"
+          <select id="region" [(ngModel)]="editedUser.region" name="region"
                   class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
-            <option value="" disabled>Select your Region</option> <option *ngFor="let region of regions" [value]="region">{{ region }}</option>
+            <option [ngValue]="null">Select your Region</option> <!-- Changed disabled to allow selection of null -->
+            <option *ngFor="let region of regions" [value]="region">{{ region }}</option>
           </select>
         </div>
 
         <div>
-          <label for="description" class="block text-gray-700 text-sm font-semibold mb-2">Bio <span class="text-red-500">*</span></label>
-          <textarea id="description" name="description"
-                    [(ngModel)]="editedUser.description" required rows="4"
+          <label for="bio" class="block text-gray-700 text-sm font-semibold mb-2">Bio</label> <!-- Removed * -->
+          <textarea id="bio" name="bio"
+                    [(ngModel)]="editedUser.bio" rows="4"
                     placeholder="Tell us about yourself and your expertise."
                     class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"></textarea>
         </div>
@@ -50,7 +54,7 @@
         <div>
           <label class="block text-gray-700 text-sm font-semibold mb-2">Skills</label>
           <div class="flex flex-wrap gap-2 mb-3">
-            <span *ngFor="let skill of editedUser.skills; let i = index"
+            <span *ngFor="let skill of editedUser.skills!; let i = index"
                   class="bg-green-100 text-green-800 text-sm px-3 py-1 rounded-full flex items-center">
               {{ skill }}
               <button (click)="removeSkill(i)" type="button" class="ml-2 text-green-600 hover:text-green-900 focus:outline-none">
@@ -71,9 +75,9 @@
         </div>
 
         <div>
-          <label for="responseTime" class="block text-gray-700 text-sm font-semibold mb-2">Average Response Time (in hours) <span class="text-red-500">*</span></label>
+          <label for="responseTime" class="block text-gray-700 text-sm font-semibold mb-2">Average Response Time (in hours)</label> <!-- Removed * -->
           <input type="number" id="responseTime" name="responseTime"
-                 [(ngModel)]="editedUser.responseTime" required
+                 [(ngModel)]="editedUser.responseTime"
                  placeholder="e.g., 2, 12, 24" min="0"
                  class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
         </div>

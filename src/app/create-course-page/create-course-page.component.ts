@@ -64,7 +64,8 @@ export class CreateCoursePageComponent implements OnInit{
     },
     creator: {
       id: 0,
-      username: ''
+      username: '',
+      skills: ''
     }
   }
   categories: string[] = [

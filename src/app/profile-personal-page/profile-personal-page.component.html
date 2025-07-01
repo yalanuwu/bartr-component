@@ -1,3 +1,5 @@
+<!-- src/app/profile/profile-personal-page/profile-personal-page.component.html -->
+
 <div class="min-h-screen flex flex-col bg-gray-100 font-variable">
   <app-navbar-component class="fixed top-0 left-0 right-0 z-30"></app-navbar-component>
 
@@ -14,7 +16,6 @@
               <div class="text-xl font-bold text-gray-800">Loading User...</div>
               <div class="text-sm text-gray-600"></div>
           </ng-container>
-          <!-- <div class="size-2 text-red-800">hello</div> -->
         </div>
 
         <ul class="list-none p-0">
@@ -57,10 +58,10 @@
       </div>
 
 
-       <div class="flex-1 p-5 ml-64 bg-gray-100">
+        <div class="flex-1 p-5 ml-64 bg-gray-100">
 
         @if(activeTab === 'Personal Information'){
-          <app-personal-information [user] = "user"></app-personal-information>
+          <app-personal-information [user] = "user" (editProfileClicked)="openEditProfileModal()"></app-personal-information>
         }
 
         @if (activeTab === 'Courses Enrolled') {
@@ -83,3 +84,16 @@
     </div>
 
 </div>
+
+<!-- Debugging line for modal condition -->
+<!-- Check these values in your browser's inspect element -->
+<!-- Modal Condition: showEditProfileModal={{ showEditProfileModal }} && user={{ !!user }} -->
+
+<!-- Edit Profile Modal (Conditionally rendered) -->
+@if(showEditProfileModal && user) {
+  <app-edit-profile-modal
+    [user]="user"
+    (save)="onProfileSaved($event)"
+    (cancel)="onCancelEditProfile()"
+  ></app-edit-profile-modal>
+}

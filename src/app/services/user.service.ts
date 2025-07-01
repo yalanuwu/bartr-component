@@ -4,6 +4,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { catchError, map, Observable, tap, throwError } from 'rxjs'; // Import Observable
 import { environment } from '../../environments/environment';
 import { User } from '../types'; // Assuming your User interface is correctly defined here
+import { UserUpdatePayload } from '../edit-profile-modal/edit-profile-modal.component';
 
 // Remove this import: 'node:path' is for Node.js environments, not Angular frontend
 // import { resolve } from 'node:path';
@@ -102,6 +103,42 @@ export class UserService {
       map((response: string) => response),
       catchError(error => {
         console.error('UserService: DELETE request failed, error:', error);
+        return this.handleError(error);
+      })
+    );
+  }
+
+  /**
+   * Calls the backend API to update a user's profile.
+   * Sends a PATCH request with partial user details in the request body.
+   * Manually adds Authorization header by fetching token from localStorage.
+   * @param userId The ID of the user to be updated.
+   * @param userDetails The UserUpdatePayload object containing the fields to update.
+   * @returns An Observable of the updated 'User' object (as returned by the backend).
+   */
+  updateUser(userId: number, userDetails: UserUpdatePayload): Observable<User> {
+    const url = `${this.userApiUrl}/update/${userId}`; // Backend endpoint URL
+
+    // --- MANUAL AUTH HEADER ADDITION ---
+    const authToken = localStorage.getItem('token'); // Get token from localStorage
+
+    let headers = new HttpHeaders();
+    if (authToken) {
+      headers = headers.set('Authorization', `Bearer ${authToken}`);
+      console.log('UserService: Manually adding Authorization header with token for update:', authToken); // Debugging
+    } else {
+      console.warn('UserService: No authToken found in localStorage for user update request.'); // Warning
+    }
+    // --- END MANUAL AUTH HEADER ADDITION ---
+
+    console.log('UserService: Preparing to send PATCH request to:', url);
+    console.log('UserService: Request body for update:', userDetails);
+
+    // Make the PATCH request. The response type is the updated User object.
+    return this.http.patch<User>(url, userDetails, { headers: headers }).pipe(
+      tap(response => console.log('UserService: PATCH update successful, response:', response)),
+      catchError(error => {
+        console.error('UserService: PATCH update failed, error:', error);
         return this.handleError(error);
       })
     );
