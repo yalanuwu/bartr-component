@@ -11,7 +11,7 @@
       <div>
         <label for="currentPassword" class="block text-gray-700 text-sm font-semibold mb-2">Current Password</label>
         <input type="password" id="currentPassword" name="currentPassword"
-               [(ngModel)]="currentPassword" required
+               [(ngModel)]="passwordData.currentPassword" required
                class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
       </div>
       <div>
@@ -32,11 +32,11 @@
         Change Password
       </button>
 
-      <div *ngIf="passwordChangeMessage"
+      <!-- <div *ngIf="passwordChangeMessage"
            [ngClass]="{'bg-green-100 border-green-500 text-green-700': !passwordChangeError, 'bg-red-100 border-red-500 text-red-700': passwordChangeError}"
            class="p-3 border rounded-md">
         {{ passwordChangeMessage }}
-      </div>
+      </div> -->
     </form>
   </div>
 
@@ -72,11 +72,11 @@
         </button>
       </div>
 
-      <div *ngIf="deleteAccountMessage"
+      <!-- <div *ngIf="deleteAccountMessage"
            [ngClass]="{'bg-green-100 border-green-500 text-green-700': !deleteAccountError, 'bg-red-100 border-red-500 text-red-700': deleteAccountError}"
            class="mt-4 p-3 border rounded-md">
         {{ deleteAccountMessage }}
-      </div>
+      </div> -->
     </div>
   </div>
 </div>
