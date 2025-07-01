@@ -57,13 +57,47 @@ export class SignUpPageComponent { // Renamed class from SignUpModalComponent to
       return;
     }
 
-    if (this.password.length < 6) {
-      this.errorMessage = 'Password must be at least 6 characters long.';
+    // 2. Full Name: Only alphabets and spaces, must start with an alphabet, MAX 25 characters
+    const fullNameRegex = /^[a-zA-Z][a-zA-Z\s]*$/;
+    if (!fullNameRegex.test(this.fullName)) {
+      this.toastr.showError('Full Name must contain only alphabets and spaces, and start with an alphabet.');
       this.loading = false;
       return;
     }
-    if (!this.email.includes('@') || !this.email.includes('.')) {
-      this.errorMessage = 'Please enter a valid email address.';
+    if (this.fullName.length > 25) { // NEW: Max length for Full Name
+      this.toastr.showError('Full Name must be a maximum of 25 characters long.');
+      this.loading = false;
+      return;
+    }
+
+    // 3. Username: No spaces allowed, MAX 10 characters
+    if (this.username.includes(' ')) {
+      this.toastr.showError('Username cannot contain spaces.');
+      this.loading = false;
+      return;
+    }
+    if (this.username.length > 10) { // NEW: Max length for Username
+      this.toastr.showError('Username must be a maximum of 10 characters long.');
+      this.loading = false;
+      return;
+    }
+
+    // 4. Email: More robust validation using regex
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(this.email)) {
+      this.toastr.showError('Please enter a valid email address.');
+      this.loading = false;
+      return;
+    }
+
+    // 5. Password: At least 8 characters long, no spaces
+    if (this.password.length < 8) {
+      this.toastr.showError('Password must be at least 8 characters long.');
+      this.loading = false;
+      return;
+    }
+    if (this.password.includes(' ')) {
+      this.toastr.showError('Password cannot contain spaces.');
       this.loading = false;
       return;
     }
