@@ -6,7 +6,7 @@
   >
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center md:items-start space-y-4 md:space-y-0 md:space-x-8">
       <img [src]="userAvatarUrl" alt="{{ user?.fullname }} Avatar" class="w-28 h-28 rounded-full border-4 border-white shadow-lg flex-shrink-0">
-      <div class="text-center md:text-left">
+      <div class="text-center md:text-left pt-6">
         <h1 class="text-4xl font-extrabold">{{ user?.fullname }}</h1>
         <!-- <p class="text-lg opacity-90 mb-2">{{ user.tagline }}</p> -->
         <div class="flex items-center justify-center md:justify-start text-sm opacity-80">
@@ -44,14 +44,16 @@
       <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
         <h2 class="text-2xl font-bold mb-4 border-b pb-2">Skills</h2>
         <div class="flex flex-wrap gap-2">
-          @if(user?.skills && user?.skills!.length > 0) {
-            <span *ngFor="let skill of user?.skills" class="px-3 py-1 bg-green-100 text-green-700 text-sm font-medium rounded-full">
+          <ng-container *ngIf="user && displaySkills.length > 0; else noSkills">
+            <span *ngFor="let skill of displaySkills"
+                  class="px-3 py-1 bg-green-100 text-green-700 text-sm font-medium rounded-full">
               {{ skill }}
             </span>
-          }
-          @else {
-            <p class="text-gray-600">This user has not added any skills yet</p>
-          }
+          </ng-container>
+          <ng-template #noSkills>
+            <div *ngIf="user" class="text-base font-bold text-gray-600">This user has not added any skills yet</div>
+            <div *ngIf="!user" class="text-base font-bold text-gray-600">Loading skills...</div>
+          </ng-template>
 
         </div>
       </div>
@@ -74,7 +76,7 @@
         <div class="space-y-4">
           <div>
             <p class="text-sm font-semibold text-gray-600">Average Response Time</p>
-            <p class="text-lg font-bold">{{ user?.responseTime }}</p>
+            <p class="text-lg font-bold">{{ user?.responseTime }} hours</p>
           </div>
           <div>
             <p class="text-sm font-semibold text-gray-600">Email</p>

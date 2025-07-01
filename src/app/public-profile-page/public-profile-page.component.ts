@@ -64,15 +64,27 @@ export class PublicProfilePageComponent implements OnInit {
           this.router.navigate(['/']); // Redirect if no ID is found
         }
       });
-      
 
 
-      
+
+
     }
-  
+
     private getRandomGradient(): string {
       const randomIndex = Math.floor(Math.random() * this.gradientOptions.length);
       return this.gradientOptions[randomIndex];
+    }
+
+    get displaySkills(): string[] {
+      // If user is null or user.skills is null, return an empty array.
+      // Otherwise, split the string, trim each skill, and filter out empty strings.
+      if (!this.user || !this.user.skills) {
+        return [];
+      }
+      return this.user.skills
+        .split(',')
+        .map(s => s.trim())
+        .filter(s => s !== '');
     }
 
 
@@ -242,6 +254,6 @@ export class PublicProfilePageComponent implements OnInit {
   //     },
   //   ];
 
- 
+
 
 }
