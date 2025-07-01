@@ -1,20 +1,21 @@
 import { EnrollmentService } from './../services/enrollment.service';
 // src/app/course-detail-page/course-page.component.ts
-import { Component, Input, OnInit } from '@angular/core'; // Removed @Input as data will be fetched
+import { Component, Input, OnInit } from '@angular/core';
 import { NavbarComponentComponent } from "../navbar-component/navbar-component.component";
 import { NgClass, NgFor, NgIf } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router'; // NEW: Import ActivatedRoute
+import { ActivatedRoute, Router } from '@angular/router';
 import { NotEnoughXpModalComponent } from "../not-enough-xp-modal/not-enough-xp-modal.component";
 import { EnrollmentSuccessModalComponent } from "../enrollment-success-modal/enrollment-success-modal.component";
 
-// NEW: Import your CourseService and Courses interface
-import { CourseService } from '../services/course.service'; // Adjust path if necessary
-import { Courses, User } from '../types'; // Adjust path if necessary, assuming Courses is the interface from your backend
+import { CourseService } from '../services/course.service';
+import { Courses, User } from '../types';
 import { UserService } from '../services/user.service';
 import { generateAvatarUrl } from '../util';
 import { ToastrService } from '../toastr/toastr.service';
+import { forkJoin, of } from 'rxjs'; // Import forkJoin and of
+import { switchMap, tap, catchError } from 'rxjs/operators'; // Import operators
 
-// Define the structure of your Feature, CourseLevel, Package interfaces if not already global
+
 interface Feature {
   text: string;
   included: boolean;
@@ -35,172 +36,187 @@ interface Package {
 
 @Component({
   selector: 'app-course-detail-page',
-  standalone: true, // Assuming this is a standalone component
+  standalone: true,
   templateUrl: './course-page.component.html',
   styleUrls: ['./course-page.component.css'],
   imports: [NavbarComponentComponent, NgIf, NgFor, NotEnoughXpModalComponent, EnrollmentSuccessModalComponent, NgClass]
 })
 export class CourseDetailPageComponent implements OnInit {
 
-  // Removed @Input() enrolled: boolean = false; -> this state should be derived after fetching course data and user's enrolled courses
   @Input() enrolled: boolean = false;
 
-  // Property to hold the fetched course data
   course: Courses | null = null;
-  private courseId: number | null = null; // To store the ID from the route
+  private courseId: number | null = null;
   user: User | null = null;
 
-  // Mock user XP data (will be replaced by actual system later)
-  userCurrentXp: number = 500; // Simulate the user having 500 XP
+  userCurrentXp: number = 0; // Initialize with 0, will be updated from user data
 
   showNotEnoughXpModal: boolean = false;
   showEnrollmentSuccessModal: boolean = false;
 
   currentImageIndex: number = 0;
 
-  // Assume a default/loading package until the course is loaded
   selectedPackage: Package = {
     name: 'Basic',
-    price: 0, // Default price
+    price: 0,
     description: '',
     durationHours: 0,
     features: []
   };
 
-  // Keep these for initial display/loading state if needed, or remove if directly from course object
-  // courseTitle: string = 'Loading Course...';
-  // levelName: CourseLevel = { level: 'Beginner' };
-  // seller: any = { /* default values or null */ };
-  // courseImages: string[] = [];
-  // aboutGigContent: string = '';
-
+  isEnrolledOrCreated: Boolean = false;
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute, // NEW: Inject ActivatedRoute
-    private courseService: CourseService, // NEW: Inject CourseService
-    private userService : UserService,
-    private enrollmentService:EnrollmentService,
+    private route: ActivatedRoute,
+    private courseService: CourseService,
+    private userService: UserService,
+    private enrollmentService: EnrollmentService,
     private toastr: ToastrService,
   ) { }
 
   ngOnInit(): void {
-    // Subscribe to route parameters to get the course ID
-    this.route.paramMap.subscribe(params => {
-      const idString = params.get('id');
-      if (idString) {
-        this.courseId = +idString; // Convert string ID to number
-        this.fetchCourseDetails(this.courseId);
-      } else {
-        console.error('Course ID not found in URL. Redirecting to home or course list.');
-        this.router.navigate(['/']); // Redirect if no ID is found
-      }
-    });
-
-    const username = localStorage.getItem('username');
-    if (username) {
-      this.userService.getByUserName(username).subscribe({
-        next: (userData : User) => {
-          this.user = userData;
-          console.log('CoursePageComponent: User data fetched:', this.user.xp);
+    // Use switchMap to chain the observables
+    this.route.paramMap.pipe(
+      switchMap(params => {
+        const idString = params.get('id');
+        if (idString) {
+          this.courseId = +idString;
+          // Use forkJoin to fetch course and user data in parallel
+          const username = localStorage.getItem('username');
+          return forkJoin([
+            this.courseService.getCourseById(this.courseId).pipe(
+              tap((courseData: Courses) => {
+                this.course = courseData;
+                console.log('Fetched course details:', this.course);
+                if (this.course && this.course.creator && this.course.creator.fullname) {
+                  this.course.creator.avatarUrl = generateAvatarUrl(this.course.creator.fullname);
+                }
+                if (this.course.price !== undefined) {
+                  this.selectedPackage = {
+                    name: 'Basic',
+                    price: this.course.price,
+                    description: this.course.description,
+                    durationHours: 0,
+                    features: this.course.features.map(f => ({ text: f, included: true }))
+                  };
+                }
+              }),
+              catchError(err => {
+                console.error('Error fetching course details:', err);
+                this.toastr.showError('Could not load course details. Please try again or choose another course.');
+                this.router.navigate(['/courses']);
+                return of(null); // Return an observable of null to continue forkJoin but handle error
+              })
+            ),
+            username ? this.userService.getByUserName(username).pipe(
+              tap((userData: User) => {
+                this.user = userData;
+                this.userCurrentXp = userData.xp!;
+                console.log('CoursePageComponent: User data fetched:', this.user.xp);
+              }),
+              catchError(err => {
+                console.error('CoursePageComponent: Failed to fetch user:', err);
+                return of(null); // Return an observable of null to continue forkJoin but handle error
+              })
+            ) : of(null) // If no username, provide an observable of null for the user
+          ]);
+        } else {
+          console.error('Course ID not found in URL. Redirecting to home or course list.');
+          this.router.navigate(['/']);
+          return of([null, null]); // Return an observable with nulls
         }
+      }),
+      switchMap(([courseData, userData]) => {
+        if (!courseData) {
+          return of(false); // If course data failed to load, no need to check enrollment
+        }
+
+        // Check if the current user is the creator
+        const username = localStorage.getItem('username');
+        if (username && courseData.creator && username === courseData.creator.username) {
+          this.isEnrolledOrCreated = true;
+          return of(true); // User is creator, no need to check enrollment
+        }
+
+        // Only proceed to check enrollment if a user is logged in and not the creator
+        if (this.user && this.courseId && !this.isEnrolledOrCreated) {
+          return this.enrollmentService.isUserEnrolled(this.courseId, this.user.id!).pipe(
+            tap((isEnrolled: Boolean) => {
+              this.isEnrolledOrCreated = isEnrolled;
+              console.log('Enrollment status:', this.isEnrolledOrCreated);
+            }),
+            catchError(err => {
+              console.error('CoursePageComponent: Failed to fetch enrollment:', err);
+              this.isEnrolledOrCreated = false;
+              return of(false); // Return observable of false on error
+            })
+          );
+        }
+        return of(false); // Default to not enrolled if conditions aren't met
       })
-    } else {
-      console.warn('CoursePageComponent: Username not found in localStorage. Cannot fetch user data.');
-      this.user = null;
-    }
-
-  }
-
-  fetchCourseDetails(id: number): void {
-    this.courseService.getCourseById(id).subscribe({
-      next: (data: Courses) => {
-        this.course = data;
-        console.log('Fetched course details:', this.course);
-
-        if (this.course && this.course.creator && this.course.creator.fullname) {
-          // NEW: Override creator's avatarUrl with the generated one
-          // This modifies the fetched 'course' object directly, which is fine for display
-          this.course.creator.avatarUrl = generateAvatarUrl(this.course.creator.fullname);
-        }
-
-        // After fetching the course, initialize derived properties
-        // For simplicity, let's assume the first package is always "Basic" and required
-        if (this.course.price !== undefined) { // Check if price exists from backend
-          this.selectedPackage = {
-            name: 'Basic', // Assuming 'Basic' as fixed package from your HTML
-            price: this.course.price,
-            description: this.course.description, // Use course description for package
-            durationHours: 0, // You might need to add this to your Courses interface or derive
-            features: this.course.features.map(f => ({ text: f, included: true }))
-          };
-        }
-        // You might need to check if the user is already enrolled here after loading the course
-        // For example: this.checkEnrollmentStatus(this.course.id);
+    ).subscribe({
+      next: () => {
+        // All data fetched and enrollment status checked
+        console.log('All initial data loaded and enrollment status set.');
       },
-      error: (error) => {
-        console.error('Error fetching course details:', error);
-        // Handle error, e.g., display a message, redirect to 404 page, or courses list
-        // alert('Could not load course details. Please try again or choose another course.');
-        this.toastr.showError('Could not load course details. Please try again or choose another course.');
-        this.router.navigate(['/courses']); // Redirect to course list
+      error: (err) => {
+        // This catch-all error might be too broad; individual catches are better.
+        console.error('An unexpected error occurred during initialization:', err);
       }
     });
   }
 
+  // No longer needed as fetchCourseDetails is integrated into ngOnInit's observable chain
+  // fetchCourseDetails(id: number): void { ... }
 
-  // This method is no longer strictly needed if only one package is displayed,
-  // as there's no UI to trigger it.
-  // Kept for consistency if you plan to add multiple packages later.
+  // ... rest of your component methods ...
+
   selectPackage(pkg: Package): void {
     this.selectedPackage = pkg;
   }
 
-  // Method to show the next image
   nextImage(): void {
-    if (this.course && this.course.imageUrl) { // Ensure course and imageUrl exists
-      // If you have a single imageUrl string and want to simulate multiple, you'll need an array
-      // For now, assuming you might fetch multiple images or just have one.
-      // If courseImages is an array on your Courses interface:
-      // this.currentImageIndex = (this.currentImageIndex + 1) % this.course.courseImages.length;
-      // If you only have course.imageUrl: you might want to remove prev/next buttons
-    }
-     // If you have a single imageUrl and not an array, this functionality needs rethinking
-     // For now, let's keep it simple and assume courseImages is part of the fetched course or remove this
+    // Implement if you have an array of images in your Courses interface
   }
 
-  // Method to show the previous image
   prevImage(): void {
-    if (this.course && this.course.imageUrl) {
-      // Similar to nextImage, depends on how you handle multiple images from backend
-      // this.currentImageIndex = (this.currentImageIndex - 1 + this.course.courseImages.length) % this.course.courseImages.length;
-    }
+    // Implement if you have an array of images in your Courses interface
   }
 
   onEnroll(): void {
     if (!this.course) {
       console.error('Course data not loaded yet.');
       this.toastr.showError('Course data not loaded. Please try again.');
-      // alert('Course data not loaded. Please try again.');
-
       return;
-
     }
 
-    // Now uses the actual course price from the fetched data
+    if (!this.user) {
+      this.toastr.showError('Please sign in to enroll in courses.');
+      this.router.navigate(['auth/signin']);
+      return;
+    }
+
+    if (this.isEnrolledOrCreated) {
+      this.router.navigate(['/course-content', this.course.id]);
+      return;
+    }
+
     if (this.userCurrentXp >= this.course.price) {
-      // Simulate enrollment
-      this.enrollmentService.enroll((this.courseId||0),(this.user?.id||0));
-      this.showEnrollmentSuccessModal = true;
-      // In a real application, you would:
-      // 1. Deduct XP from the user via an API call.
-      // 2. Call a service to enroll the user in the course via an API call.
-      // 3. Update UI to reflect enrollment status.
-      this.userCurrentXp -= this.course.price; // Simulate XP deduction
-      console.log(`Enrolled in "${this.course.title}". Remaining XP: ${this.userCurrentXp}`);
-      // this.enrolled = true; // This state should likely come from backend after successful enrollment
+      this.enrollmentService.enroll(this.courseId!, this.user.id!).subscribe({
+        next: () => {
+          this.showEnrollmentSuccessModal = true;
+          this.userCurrentXp -= this.course!.price; // Deduct XP after successful enrollment
+          console.log(`Enrolled in "${this.course!.title}". Remaining XP: ${this.userCurrentXp}`);
+          this.isEnrolledOrCreated = true; // Update status
+          this.toastr.showSuccess('Enrollment successful!');
+        },
+        error: (err) => {
+          console.error('Error during enrollment:', err);
+          this.toastr.showError('Enrollment failed. Please try again.');
+        }
+      });
     } else {
-      // User does NOT have enough XP: Show the popup
       this.showNotEnoughXpModal = true;
       console.log(`Insufficient XP to enroll. Required: ${this.course.price}, Available: ${this.userCurrentXp}`);
     }
@@ -218,18 +234,16 @@ export class CourseDetailPageComponent implements OnInit {
   }
 
   viewEnrolledCourse(): void {
-    if (!this.course) return; // Guard against null course
+    if (!this.course) return;
 
     console.log('User wants to view the enrolled course. Navigating to course content.');
     this.showEnrollmentSuccessModal = false;
-
-    // Simulate navigation to the course content page
-    this.router.navigate(['/course-content', this.course.id]); // Example: navigate to a course content route
+    this.router.navigate(['/course-content', this.course.id]);
   }
 
   closeEnrollmentModal(): void {
     console.log('Enrollment Success Modal closed. Navigating to home.');
     this.showEnrollmentSuccessModal = false;
-    this.router.navigate(['/']); // Navigate to home or course list
+    this.router.navigate(['/']);
   }
 }

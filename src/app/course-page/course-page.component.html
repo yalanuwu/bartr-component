@@ -90,15 +90,12 @@
               <button
                 (click)="onEnroll()"
                 [disabled]="enrolled"
-                class="w-full py-3 px-4 rounded-full text-lg font-semibold transition-colors duration-300"
-                [ngClass]="{
-                  'bg-green-600 text-white hover:bg-green-700 focus:ring-green-500': !enrolled,
-                  'bg-gray-400 text-gray-700 cursor-not-allowed': enrolled
-                }"
+                class="w-full py-3 px-4 rounded-full text-lg font-semibold transition-colors duration-300 bg-green-600 text-white hover:bg-green-700 focus:ring-green-500"
+                
               >
-                {{ enrolled ? 'Enrolled' : 'Enroll Now' }}
+                {{ isEnrolledOrCreated ? 'Open Course Content' : 'Enroll Now' }}
               </button>
-               <p class="text-center text-sm text-gray-600 mt-2">Your current XP: {{ user?.xp }}</p>
+               <p *ngIf="user" class="text-center text-sm text-gray-600 mt-2">Your current XP: {{ user.xp }}</p>
 
               </div>
           </div>
