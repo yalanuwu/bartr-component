@@ -46,6 +46,7 @@ export class AuthService {
   }
 
   getCurrentUser(): Observable<User | null> {
+    console.log('AuthService: getCurrentUser called. Current user:', this._currentUserSubject);
     return this._currentUserSubject.asObservable();
   }
 
