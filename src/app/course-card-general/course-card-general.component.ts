@@ -1,4 +1,4 @@
-import { NgClass } from '@angular/common';
+import { NgClass, NgIf } from '@angular/common';
 import { Component, ElementRef, Input, OnInit } from '@angular/core';
 import { Courses } from '../types';
 import { Router } from '@angular/router';
@@ -7,7 +7,7 @@ import { User } from '../types';
 import { UserService } from '../services/user.service';
 @Component({
   selector: 'app-course-card-general',
-  imports: [NgClass],
+  imports: [NgClass, NgIf],
   templateUrl: './course-card-general.component.html',
   styleUrl: './course-card-general.component.css'
 })

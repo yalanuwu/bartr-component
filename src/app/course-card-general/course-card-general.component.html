@@ -8,14 +8,29 @@
   </div>
 
   <div class="p-4 flex flex-col flex-grow" >
-      <div class="flex items-center mb-2" (click)="publicProfile(course.creator.username)">
-          <img [src]="creatorAvatarUrl" [alt]="course.creator.fullname" class="w-8 h-8 rounded-full mr-2 border border-gray-200">
-          <span class="text-sm font-semibold text-gray-700">{{ course.creator.fullname }}</span>
+      <div class="flex items-center mb-2" >
+          <img [src]="creatorAvatarUrl" [alt]="course.creator.fullname" class="w-8 h-8 rounded-full mr-2 border border-gray-200" (click)="publicProfile(course.creator.username)">
+          <span class="text-sm font-semibold text-gray-700" (click)="publicProfile(course.creator.username)">{{ course.creator.fullname }}</span>
       </div>
 
       <h3 class="text-lg font-semibold text-gray-800 mb-1 line-clamp-2">{{ course.title }}</h3>
 
+
+
       <p class="text-sm text-gray-700 line-clamp-2 flex-grow mb-4">{{ course.description }}</p>
+
+      <!-- NEW: Course Level and Category Tags -->
+      <div class="flex flex-wrap gap-2 mb-4">
+        <span *ngIf="course.level == 'Beginner'" class="bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full">{{ course.level }}</span>
+        <span *ngIf="course.level == 'Intermediate'" class="bg-yellow-100 text-yellow-700 text-xs font-semibold px-3 py-1 rounded-full">{{ course.level }}</span>
+        <span *ngIf="course.level == 'Advanced'" class="bg-red-100 text-red-700 text-xs font-semibold px-3 py-1 rounded-full">{{ course.level }}</span>
+        @if (course.category.name) {
+            <span class="px-2 py-1 bg-blue-100 text-blue-700 text-xs font-medium rounded-full">
+                {{ course.category.name }}
+            </span>
+        }
+    </div>
+    <!-- END NEW TAGS -->
 
       <p class="text-sm mb-2 text-end">{{course.enrolledUser}} users Enrolled</p>
 

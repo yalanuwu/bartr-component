@@ -39,7 +39,7 @@ interface Package {
   standalone: true,
   templateUrl: './course-page.component.html',
   styleUrls: ['./course-page.component.css'],
-  imports: [NavbarComponentComponent, NgIf, NgFor, NotEnoughXpModalComponent, EnrollmentSuccessModalComponent, NgClass]
+  imports: [NavbarComponentComponent, NgIf, NgFor, NotEnoughXpModalComponent, EnrollmentSuccessModalComponent]
 })
 export class CourseDetailPageComponent implements OnInit {
 
