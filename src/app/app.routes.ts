@@ -38,7 +38,10 @@ export const routes: Routes = [
   { path: 'purchase-xp', component: PurchaseXpComponent},
   { path: 'search-result/:searchQuery', component: SearchResultPageComponent},
 
-  { path: 'course-content/:id', component: CourseContentPageComponent },
+  { path: 'course-content/:id',
+    component: CourseContentPageComponent,
+    canActivate: [authGuard]
+  },
 
   {
     path: 'create-course',
