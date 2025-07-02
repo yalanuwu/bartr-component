@@ -146,10 +146,12 @@ export class UserService {
 
   // You might also want a method to get the currently authenticated user's data
   // if your backend has an endpoint for it (e.g., /api/users/me)
-  // getCurrentUserProfile(): Observable<User> {
-  //   const url = `${this.userApiUrl}/me`; // Example endpoint for current user
-  //   return this.http.get<User>(url);
-  // }
+  getCurrentUserProfile(): Observable<string> {
+    let headers = new HttpHeaders();
+    headers= headers.set('Authorization', `Bearer ${localStorage.getItem('token')}`);
+    const url = `${environment.apiUrl}/me`; // Example endpoint for current user
+    return this.http.get<string>(url, {headers: headers});
+  }
 
   //Handle Error
   private handleError(error: HttpErrorResponse): Observable<never> {

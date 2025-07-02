@@ -55,36 +55,48 @@ export class NavbarComponentComponent implements OnInit, OnDestroy {
       } else {
         this.isScrolledDown = true;
       }
+
+      this.isLoggedIn = this.authService.isLoggedIn();
+      console.log('NavbarComponent: Initial isLoggedIn status:', this.isLoggedIn);
+
+      this.authStateSubscription = this.authService.getLoginStatus().subscribe(status => {
+        this.isLoggedIn = status;
+        console.log('NavbarComponent: Login status updated to', this.isLoggedIn);
+        // When login status changes, update the avatar URL
+        this.updateUserAvatar();
+      });
+
+      // Initial update of user avatar based on localStorage
+      this.updateUserAvatar();
+
     } else {
       this.isScrolledDown = false;
-    }
-
-    // Initialize isLoggedIn status from AuthService on component load
-    this.isLoggedIn = this.authService.isLoggedIn();
-
-    // To make `isLoggedIn` reactive in the navbar without requiring a full page refresh
-    // after login/logout, we need the AuthService to emit changes.
-    // I'll suggest a small update to AuthService below.
-    // Assuming AuthService now has `_isLoggedInSubject: BehaviorSubject<boolean>`:
-    this.authStateSubscription = this.authService.getLoginStatus().subscribe(status => {
-      this.isLoggedIn = status;
-      console.log('NavbarComponent: Login status updated to', this.isLoggedIn);
-    });
-
-
-    const username = localStorage.getItem('username');
-    if (username) {
-      this.userAvatarUrl = generateAvatarUrl(username);
-
-    } else {
-      this.userAvatarUrl = generateAvatarUrl('');
+      this.isLoggedIn = false;
+      this.userAvatarUrl = generateAvatarUrl(''); // No user avatar on server render
     }
 
 
   }
 
+  // Helper method to update only the userAvatarUrl from localStorage
+  private updateUserAvatar(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      const username = localStorage.getItem('username'); // Get username from localStorage
+      if (username) {
+        this.userAvatarUrl = generateAvatarUrl(username);
+        console.log('NavbarComponent: User avatar URL updated for username:', username);
+      } else {
+        this.userAvatarUrl = generateAvatarUrl(''); // Default empty avatar if no username
+        console.log('NavbarComponent: No username found, setting default avatar.');
+      }
+    } else {
+      this.userAvatarUrl = generateAvatarUrl(''); // For SSR
+    }
+  }
+
   ngOnDestroy(): void {
     if (this.authStateSubscription) {
+      this.authStateSubscription.unsubscribe();
       this.authStateSubscription.unsubscribe();
     }
   }
