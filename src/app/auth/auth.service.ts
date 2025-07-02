@@ -110,7 +110,7 @@ export class AuthService {
   logout(): void {
     if (this.isBrowser) {
       localStorage.removeItem('token');
-      localStorage.removeItem('user_data');
+      localStorage.removeItem('user');
       localStorage.removeItem('isLoggedIn');
       localStorage.removeItem('username');
     }
