@@ -1,3 +1,4 @@
+import { UserService } from './../services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { Courses, Category, User } from '../types';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
@@ -5,6 +6,11 @@ import { NavbarComponentComponent } from '../navbar-component/navbar-component.c
 import { ActivatedRoute, Router } from '@angular/router';
 import { CourseService } from '../services/course.service';
 import { generateAvatarUrl } from '../util';
+import { catchError, forkJoin, of, Subscription, switchMap, tap } from 'rxjs';
+import { AuthService } from '../auth/auth.service';
+import { EnrollmentService } from '../services/enrollment.service';
+import { ToastrService } from '../toastr/toastr.service';
+
 @Component({
   selector: 'app-course-content-page',
   imports: [
@@ -16,29 +22,135 @@ import { generateAvatarUrl } from '../util';
   templateUrl: './course-content-page.component.html',
   styleUrl: './course-content-page.component.css'
 })
+
 export class CourseContentPageComponent implements OnInit{
+
   course: Courses | undefined;
   isLoading: boolean = true;
   error: string | null = null;
   username:string='';
+  creatorAvatarUrl: string = '';
+  currentUser: User | null = null; // To store the current logged-in user
+  isEnrolled: boolean = false;
+  isCreator: boolean = false;
+  accessGranted: boolean = false; // Flag to control content display
+  private subscriptions: Subscription = new Subscription(); // To manage subscriptions
+
   constructor(
     private route: ActivatedRoute, // To read route parameters
     private router: Router,         // To navigate if needed
-    private courseService:CourseService
+    private courseService:CourseService,
+    private authService: AuthService, // Inject AuthService
+    private userService : UserService,
+    private enrollmentService: EnrollmentService, // Inject EnrollmentService
+    private toastr: ToastrService // Inject ToastrService
   ) { }
 
   ngOnInit(): void {
-    // Get course ID from route parameters
-    this.route.paramMap.subscribe(params => {
-      const courseIdParam = params.get('id');
-      if (courseIdParam) {
-        const courseId = +courseIdParam; // Convert string to number
-        this.fetchCourseDetails(courseId);
-      } else {
-        this.error = 'Course ID not provided in the URL.';
-        this.isLoading = false;
-      }
-    });
+    this.isLoading = true;
+    this.error = null;
+
+    this.subscriptions.add(
+      this.route.paramMap.pipe(
+        switchMap(params => {
+          const courseIdParam = params.get('id');
+          if (!courseIdParam) {
+            this.error = 'Course ID not provided in the URL.';
+            this.isLoading = false;
+            this.toastr.showError(this.error);
+            this.router.navigate(['/courses']); // Redirect if ID is missing
+            return of(null); // Return observable that emits null and completes
+          }
+          const courseId = +courseIdParam;
+
+          // Use forkJoin to get both current user and course details concurrently
+          // Then, based on these, determine access
+          return forkJoin({
+            user: this.userService.getByUserName(localStorage.getItem('username')!),
+            course: this.courseService.getCourseById(courseId)
+          }).pipe(
+            tap(({ user, course }) => {
+              this.currentUser = user;
+              this.course = course;
+
+              if (!this.currentUser) {
+                // User not logged in, or session expired. Redirect to login.
+                this.toastr.showError('Please log in to view course content.');
+                this.router.navigate(['/auth/signin']);
+                this.isLoading = false;
+                this.accessGranted = false;
+                throw new Error('User not authenticated'); // Stop further processing in this pipe
+              }
+
+              if (!this.course) {
+                this.error = `Course with ID ${courseId} not found.`;
+                this.toastr.showError(this.error);
+                this.router.navigate(['/courses']); // Redirect if course not found
+                this.isLoading = false;
+                this.accessGranted = false;
+                throw new Error('Course not found'); // Stop further processing
+              }
+
+              this.creatorAvatarUrl = generateAvatarUrl(this.course.creator.fullname || '');
+              this.username = this.course.creator.username || ''; // Assuming username is what you want
+              console.log('Course fetched:', this.course);
+              console.log('Current User:', this.currentUser);
+
+              // Check if current user is the creator
+              this.isCreator = (this.currentUser.id === this.course.creator.id);
+
+            }),
+            switchMap(({ user, course }) => {
+              if (this.isCreator) {
+                // If current user is the creator, grant access directly
+                this.isEnrolled = false; // Not relevant if creator
+                return of(true); // Emit true for access granted
+              } else {
+                // If not creator, check enrollment status
+                return this.enrollmentService.isUserEnrolled(course.id, user!.id);
+              }
+            }),
+            catchError(err => {
+              // Catch errors from any of the preceding observables or thrown errors
+              console.error('Error in course content access flow:', err);
+              if (err.message !== 'User not authenticated' && err.message !== 'Course not found') {
+                  this.toastr.showError('An error occurred while checking access. Please try again.');
+                  this.router.navigate(['/courses']);
+              }
+              this.isLoading = false;
+              this.accessGranted = false;
+              return of(false); // Emit false to indicate no access
+            })
+          );
+        })
+      ).subscribe({
+        next: (accessResult) => {
+          if (accessResult === null) { // This handles the case where courseIdParam was missing
+            return;
+          }
+          this.isEnrolled = accessResult as boolean; // Cast as boolean, as `of(true)` or `isUserEnrolled` returns boolean
+          this.accessGranted = this.isCreator || this.isEnrolled;
+          this.isLoading = false;
+
+          if (!this.accessGranted && this.course) { // Only show error and redirect if access is genuinely denied
+            this.toastr.showError('You do not have access to this course content. Please enroll.');
+            this.router.navigate(['/course-details', this.course.id]); // Redirect to course details
+          } else if (!this.accessGranted && !this.course) {
+             // This case should be handled by earlier checks, but as a fallback
+             this.toastr.showError('Access denied or course not found.');
+             this.router.navigate(['/courses']);
+          }
+        },
+        error: (err) => {
+          // This error block catches errors from the subscription itself if any
+          console.error('Subscription error:', err);
+          this.isLoading = false;
+          this.accessGranted = false;
+          this.toastr.showError('Failed to load course content. Please try again.');
+          this.router.navigate(['/courses']);
+        }
+      })
+    );
   }
 
   // Simulate fetching course details from a backend API
@@ -184,5 +296,9 @@ export class CourseContentPageComponent implements OnInit{
 
   onCreatorClick() {
     this.router.navigate(['/public-profile/', this.course?.creator?.username])
+  }
+
+  onCourseDetailClick() {
+    this.router.navigate(['/course-details', this.course?.id])
   }
 }

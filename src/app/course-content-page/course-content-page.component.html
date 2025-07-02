@@ -19,7 +19,15 @@ to-slate-100 text-gray-800 font-sans">
         </button>
       </div>
 
-      <div *ngIf="course && !isLoading && !error">
+      <div *ngIf="!isLoading && !error && !accessGranted" class="text-center py-10 text-red-600">
+        <p class="text-lg">Access Denied: You are not authorized to view this content.</p>
+        <p class="text-md text-gray-600 mt-2">Redirecting to course details...</p>
+        <button (click)="onCourseDetailClick()" class="mt-4 px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+          Go to Course Details
+        </button>
+      </div>
+
+      <div *ngIf="course && !isLoading && !error && accessGranted">
         <div class="mb-6 pb-4">
           <h1 class="text-3xl lg:text-4xl font-extrabold text-gray-900 mb-4 leading-tight">
             {{ course.title }}
@@ -29,17 +37,18 @@ to-slate-100 text-gray-800 font-sans">
               <svg class="w-5 h-5 mr-1 text-gray-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
               by {{ course.creator.username }}
             </span>
-            <!-- <span class="bg-blue-100 text-blue-800 text-sm font-semibold px-3 py-1 rounded-full">
-              {{ course.level }}
-            </span> -->
             <span *ngIf="course.level == 'Beginner'" class="bg-green-100 text-green-700 text-sm font-semibold px-3 py-1 rounded-full">{{ course.level }}</span>
             <span *ngIf="course.level == 'Intermediate'" class="bg-yellow-100 text-yellow-700 text-sm font-semibold px-3 py-1 rounded-full">{{ course.level }}</span>
             <span *ngIf="course.level == 'Advanced'" class="bg-red-100 text-red-700 text-sm font-semibold px-3 py-1 rounded-full">{{ course.level }}</span>
             <span class="bg-blue-100 text-blue-700 text-sm font-semibold px-3 py-1 rounded-full">{{ course.category.name }}</span>
-            <!-- <span *ngIf="course.level === 'Advanced'" class="bg-purple-100 text-purple-800 text-sm font-semibold px-3 py-1 rounded-full">
-              Level 2++
-            </span> -->
-          </div>
+
+            <span *ngIf="isCreator" class="ml-4 px-3 py-1 bg-green-200 text-green-800 text-sm font-medium rounded-full">
+              Creator
+            </span>
+            <span *ngIf="isEnrolled && !isCreator" class="ml-4 px-3 py-1 bg-blue-200 text-blue-800 text-sm font-medium rounded-full">
+              Enrolled
+            </span>
+            </div>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -50,11 +59,6 @@ to-slate-100 text-gray-800 font-sans">
               </video>
             </div>
 
-            <!-- <div>
-              <h2 class="text-2xl font-bold text-gray-800 mb-3">Course Description</h2>
-              <p class="text-gray-700 leading-relaxed">{{ course.description }}</p>
-            </div> -->
-
             <div>
               <h2 class="text-2xl font-bold text-gray-800 mb-3">Course Outline</h2>
               <div class="bg-gray-50 p-6 rounded-lg border border-gray-200 shadow-sm prose max-w-none text-gray-700 whitespace-pre-wrap">
@@ -62,26 +66,13 @@ to-slate-100 text-gray-800 font-sans">
               </div>
             </div>
 
-            <!-- <div *ngIf="course.features && course.features.length > 0">
-              <h2 class="text-2xl font-bold text-gray-800 mb-3">What you'll learn</h2>
-              <ul class="space-y-3 text-gray-700">
-                <li *ngFor="let feature of course.features" class="flex items-start">
-                  <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                  </svg>
-                  <span>{{ feature }}</span>
-                </li>
-              </ul>
-            </div> -->
-
             <div class="bg-white p-6 shadow-md border border-gray-200 flex items-center space-x-4 rounded-lg">
               <div class="w-16 h-16 bg-blue-500 text-white flex items-center justify-center rounded-full text-2xl font-bold flex-shrink-0">
-                <!-- {{ course.creator.username.charAt(0).toUpperCase() }}{{ course.creator.username.split(' ')[1].charAt(0).toUpperCase() || '' }} -->
-                  <img [src]="username" class="rounded-full">
+                <img [src]="creatorAvatarUrl" class="rounded-full">
               </div>
               <div>
                 <p class="text-lg font-semibold text-gray-800">Message {{ course.creator.username }}</p>
-                <p class="text-sm text-gray-500">Avg. response time: 2 Hrs</p>
+                <p class="text-sm text-gray-500">Avg. response time: {{ course.creator.responseTime ? course.creator.responseTime + ' Hrs' : 'Not specified' }}</p>
                 <button class="mt-2 px-4 py-2 text-sm bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors cursor-pointer" (click)="onContactClick()">
                   Contact me
                 </button>
@@ -92,20 +83,10 @@ to-slate-100 text-gray-800 font-sans">
 
           <div class="lg:col-span-1 space-y-6">
             <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-md sticky top-28">
-              <!-- <div class="flex justify-between items-baseline mb-4">
-                <h3 class="text-2xl font-bold text-gray-800">Enroll At</h3>
-                <span class="text-3xl font-extrabold text-green-600">{{ course.price }} XP</span>
-              </div> -->
               <p class="text-lg font-bold mb-2">Description</p>
               <p class="text-gray-600 mb-8">
                 {{ course.description.length > 150 ? course.description.substring(0, 100) + '...' : course.description }}
                 </p>
-
-              <!-- <div class="flex items-center text-gray-700 mb-6">
-                <svg class="w-5 h-5 mr-2 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                <span *ngIf="course.duration">{{ course.duration }}</span>
-                <span *ngIf="!course.duration">Duration not specified</span>
-              </div> -->
 
               <ul class="space-y-3 text-gray-700 mb-6">
                 <p class="text-lg font-bold">Features</p>
@@ -116,11 +97,6 @@ to-slate-100 text-gray-800 font-sans">
                   <span>{{ feature }}</span>
                 </li>
               </ul>
-
-              <!-- <button class="w-full p-4 bg-green-600 text-white font-bold rounded-lg shadow-lg hover:bg-green-700 transition-colors duration-300 text-lg flex items-center justify-center">
-                View other courses
-                <svg class="w-6 h-6 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
-              </button> -->
             </div>
           </div>
         </div>
