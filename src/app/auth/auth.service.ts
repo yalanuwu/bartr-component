@@ -1,3 +1,4 @@
+import { UserService } from './../services/user.service';
 // src/app/auth/auth.service.ts
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
@@ -25,7 +26,8 @@ export class AuthService {
   constructor(
     private router: Router,
     private http: HttpClient,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private userService: UserService
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
 
@@ -75,6 +77,17 @@ export class AuthService {
           //   console.warn('AuthService: Login response did not contain user data.');
           // }
         }
+
+        this.userService.getCurrentUserProfile().subscribe({
+          next: (userName : string) => {
+            localStorage.setItem('username', userName);
+            console.log('AuthService: Username from UserService:', userName);
+          }, error: (err) => {
+            console.error('AuthService: Error fetching username from UserService:', err);
+          }
+        })
+
+
         this._isLoggedInSubject.next(true);
         // Assuming response.user is available and you want to update BehaviorSubject:
         // if (response.user) {
