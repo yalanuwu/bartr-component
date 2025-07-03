@@ -1,29 +1,29 @@
 <section class="bg-gradient-to-r from-blue-50 to-indigo-50 py-16 sm:py-24">
-  <div class="container mx-auto px-4 text-center">
+  <div class="container mx-auto px-4 text-center sticky">
     <h1 class="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-4 tracking-tight">
       About <span class="text-indigo-600">Us</span>
     </h1>
     <p class="text-3xl text-gray-700 max-w-3xl mx-auto mb-10 leading-relaxed">
-      At Bartr, random message.
+      Barter Skills, Grow Together. 
     </p>
   </div>
 </section>
 
 <section class="py-16 sm:py-24 bg-white">
   <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-    <div class="md:text-left text-center">
+    <div class="md:text-left text-center pl-20">
       <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
         Our <span class="text-indigo-600">Mission</span> & <span class="text-purple-600">Vision</span>
       </h2>
       <p class="text-lg text-gray-700 mb-4 leading-relaxed">
-        Random paragraph 1
+        Our mission is to democratize education and make skill development accessible to everyone. We aim to foster a vibrant community where individuals can effortlessly share their knowledge, learn new skills, and enhance their personal and professional growth.
       </p>
       <p class="text-lg text-gray-700 leading-relaxed">
-        Random paragraph 2
+        Our vision is to be the leading global platform for skill exchange, empowering a new generation of learners and educators to unlock their full potential and contribute to a more skilled and interconnected world.
       </p>
     </div>
     <div class="flex justify-center">
-      <img src="https://via.placeholder.com/600x400/93C5FD/4338CA?text=Our+Mission" alt="Our Mission" class="rounded-lg shadow-xl max-w-full h-auto">
+      <img src="assets/bartr/Bartr-black-logo.png" alt="Our Mission" class="rounded-lg max-w-full h-auto">
     </div>
   </div>
 </section>
@@ -35,13 +35,13 @@
     </h2>
     <div class="max-w-4xl mx-auto text-lg text-gray-700 leading-relaxed space-y-6">
       <p>
-        Paragraph 1
+        The idea for Bartr was born from a simple observation: valuable skills often go unrecognized and unrewarded, while many eager learners lack affordable access to quality education. We saw an opportunity to bridge this gap by creating a system where the exchange of knowledge is the currency.
       </p>
       <p>
-        Paragraph 2
+        We envisioned a platform where every user starts with a foundational "experience point" (XP) balance, fostering immediate engagement. This unique XP system allows users to "pay" for courses by deducting their XP and earn XP by teaching. We designed a clear structure for course creation, allowing users to define the complexity of their offerings (beginner, intermediate, advanced) which directly influences the XP cost, ensuring fair value for both learners and instructors
       </p>
       <p>
-        Paragraph 3
+        We also recognized the need for a curated learning environment, which is why we've established various categories managed by our administrators, ensuring quality and relevance. Bartr is our answer to making skill acquisition equitable, rewarding, and deeply collaborative.
       </p>
     </div>
   </div>
@@ -67,12 +67,18 @@
     <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-10">
       Meet Our <span class="text-blue-600">Team</span>
     </h2>
+    <div class="max-w-4xl mx-auto text-lg text-gray-700 leading-relaxed space-y-6">
+      <p>
+        We are <strong>Ctrl Alt Defeat</strong>, the dedicated team behind Bartr, passionate about building a platform that empowers skill exchange and fosters growth.
+      </p>
+    </div>
+    <br>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
       <div *ngFor="let member of teamMembers" class="bg-white p-6 rounded-lg shadow-md flex flex-col items-center hover:shadow-lg transition-shadow duration-300">
         <img [src]="member.imageUrl" [alt]="member.name" class="w-32 h-32 rounded-full object-cover mb-4 border-4 border-indigo-200">
         <h3 class="text-xl font-semibold text-gray-900 mb-1">{{ member.name }}</h3>
         <p class="text-indigo-600 text-sm font-medium mb-3">{{ member.role }}</p>
-        <p class="text-gray-600 text-center text-sm">{{ member.bio }}</p>
+        <!-- <p class="text-gray-600 text-center text-sm">{{ member.bio }}</p> -->
       </div>
     </div>
   </div>

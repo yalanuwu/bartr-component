@@ -10,18 +10,18 @@ import { Component } from '@angular/core';
 export class SupportComponent {
   faqs = [
     {
-      question: 'How do I reset my password?',
-      answer: 'Go to the login page and click on "Forgot Password". Enter your registered email address, and we\'ll send you a link to reset your password.',
+      question: 'How do I change my password?',
+      answer: 'Go to profile page and click on "Profile Settings". You can change your current password and change your password. For now, we don\'t provide any option to reset the password.',
       isOpen: false
     },
     {
       question: 'What payment methods do you accept?',
-      answer: 'We accept major credit cards (Visa, MasterCard, American Express) and PayPal.',
+      answer: 'We accept payment only via QR code for now. You can scan the QR Code and pay the amount using any of the UPI Apps.',
       isOpen: false
     },
     {
       question: 'How can I update my profile information?',
-      answer: 'You can update your profile by logging into your account and navigating to the "Profile Settings" section. Make your changes and click "Save".',
+      answer: 'You can edit your profile by logging into your account and navigating to the Profile section. Click on the edit button. Make your changes and click "Save" button.',
       isOpen: false
     },
     {
@@ -31,7 +31,7 @@ export class SupportComponent {
     },
     {
       question: 'How do I contact customer support?',
-      answer: 'You can contact us via email at support@[yourcompany.com], through our contact form, or by phone during business hours.',
+      answer: 'You can contact us via email at support@CtrlAltDefeat.com, through our email support form only during business hours.',
       isOpen: false
     }
   ];
