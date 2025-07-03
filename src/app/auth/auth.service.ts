@@ -63,7 +63,7 @@ export class AuthService {
       tap(response => {
         console.log('Login Response received (AuthService):', response);
         console.log('Login Response token (AuthService):', response.token);
-
+        localStorage.setItem('username', credentials.username);
         if (this.isBrowser) {
           if (response.token) {
               this.setToken(response.token);
@@ -78,14 +78,14 @@ export class AuthService {
           // }
         }
 
-        this.userService.getCurrentUserProfile().subscribe({
-          next: (userName : string) => {
-            localStorage.setItem('username', userName);
-            console.log('AuthService: Username from UserService:', userName);
-          }, error: (err) => {
-            console.error('AuthService: Error fetching username from UserService:', err);
-          }
-        })
+        // this.userService.getCurrentUserProfile().subscribe({
+        //   next: (userName : string) => {
+        //     localStorage.setItem('username', userName);
+        //     console.log('AuthService: Username from UserService:', userName);
+        //   }, error: (err) => {
+        //     console.error('AuthService: Error fetching username from UserService:', err);
+        //   }
+        // })
 
 
         this._isLoggedInSubject.next(true);
